@@ -1,3 +1,9 @@
+if [ $# -lt 2 ]
+  then
+    echo "Not enough arguments given, exiting"
+    exit
+fi
+
 url="https://api.travis-ci.org/repo/CopenhagenCityArchives/linklives-wordpress-infrastructure/requests"
 body='{
 "request": {
