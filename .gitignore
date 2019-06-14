@@ -12,7 +12,7 @@ wordpress/wp-content/*
 
 # ignore all mu-plugins, plugins, and themes
 # unless explicitly whitelisted at the end of this file
-wordpress/wp-content/themes/*
+#wordpress/wp-content/themes/*
 
 # ignore index.php in plugins folder
 wordpress/wp-content/plugins/index.php
