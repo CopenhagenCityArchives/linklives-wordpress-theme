@@ -1,3 +1,9 @@
-/*
-/*/
-!wordpress/wp-content/themes/linklives/
+
+# Ignore everything but /wordpress/wp-content/themes/linklives
+!/wordpress
+/wordpress/*
+!/wordpress/wp-content
+/wordpress/wp-content/*
+!/wordpress/wp-content/themes
+/wordpress/wp-content/themes/*
+!/wordpress/wp-content/themes/linklives/
