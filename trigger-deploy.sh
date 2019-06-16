@@ -19,3 +19,5 @@ curl -s -X POST \
    -H "Authorization: token "$2"" \
    -d "$body" \
    $url
+
+return $?
