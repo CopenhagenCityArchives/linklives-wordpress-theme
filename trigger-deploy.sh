@@ -12,7 +12,7 @@ body='{
 
 echo "sending body" $body "to url" $url
 
-ret = curl -s -X POST \
+exit curl -s -X POST \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
    -H "Travis-API-Version: 3" \
@@ -20,4 +20,3 @@ ret = curl -s -X POST \
    -d "$body" \
    $url
 
-exit ret
