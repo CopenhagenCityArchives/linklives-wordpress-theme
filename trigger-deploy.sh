@@ -11,7 +11,7 @@ body='{
 }}'
 
 echo "sending body" $body "to url" $url
-
+ 
 curl -s -X POST \
    -H "Content-Type: application/json" \
    -H "Accept: application/json" \
