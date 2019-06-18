@@ -11,7 +11,6 @@ notifications:
 before_install:
   - sudo service mysql stop
 
-# run tests inside Phalcon container
 script:
   - php --version
 
