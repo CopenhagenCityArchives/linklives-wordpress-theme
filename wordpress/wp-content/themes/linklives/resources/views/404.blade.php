@@ -3,10 +3,14 @@
 @section('content')
   @include('partials.page-header')
 
-  @if (!have_posts())
-    <div class="alert alert-warning">
-      {{ __('Sorry, but the page you were trying to view does not exist.', 'sage') }}
+  <section class="module">
+    <div class="container-fluid">
+      @if (!have_posts())
+        <div class="alert alert-warning">
+          {{ pll__( 'Siden eksisterer ikke' ) }}
+        </div>
+        {!! get_search_form(false) !!}
+      @endif
     </div>
-    {!! get_search_form(false) !!}
-  @endif
+  </section>
 @endsection

@@ -1,0 +1,9 @@
+.module-news {
+  img {
+    display: none;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include article(3);
+  }
+}

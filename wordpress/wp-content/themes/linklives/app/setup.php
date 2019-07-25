@@ -17,6 +17,21 @@ add_action('wp_enqueue_scripts', function () {
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
+
+    // Ajax for load more posts
+    // global $wp_query;
+    //
+    // wp_register_script('sage/loadmore.js', asset_path('images/loadmore.js'), ['jquery']);
+    //
+    // wp_localize_script('sage/loadmore.js', 'loadmore', array(
+    //   'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php', // WordPress AJAX
+    //   'posts' => json_encode( $wp_query->query_vars ), // everything about your loop is here
+    //   'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
+    //   'max_page' => $wp_query->max_num_pages
+    // ) );
+    //
+    // wp_enqueue_script('sage/loadmore.js');
+
 }, 100);
 
 /**
@@ -44,7 +59,8 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'secondary_navigation' => __('Secondary Navigation', 'sage')
     ]);
 
     /**
@@ -52,6 +68,12 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
      */
     add_theme_support('post-thumbnails');
+    add_image_size('profile-image-x1', 48, 48, true );
+    add_image_size('profile-image-x2', 96, 96, true );
+    add_image_size('thumbnail-image-x1', 600, 450, true );
+    add_image_size('thumbnail-image-x2', 1200, 900, true );
+    add_image_size('post-image-x1', 1020 );
+    add_image_size('post-image-x2', 2040 );
 
     /**
      * Enable HTML5 markup support

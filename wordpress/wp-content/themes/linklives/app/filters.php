@@ -27,10 +27,17 @@ add_filter('body_class', function (array $classes) {
 });
 
 /**
+ * Limit length of the excerpt
+ */
+add_filter( 'excerpt_length', function($length) {
+    return 20;
+} );
+
+/**
  * Add "… Continued" to the excerpt
  */
 add_filter('excerpt_more', function () {
-    return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
+    return '…';
 });
 
 /**

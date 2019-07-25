@@ -1,0 +1,14 @@
+.post-partner {
+  img {
+    margin: 4.5rem;
+    opacity: 0.6;
+  }
+
+  &:hover {
+    background-color: $white;
+
+    img {
+      opacity: 1;
+    }
+  }
+}
