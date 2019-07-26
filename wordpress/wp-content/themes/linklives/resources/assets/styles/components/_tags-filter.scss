@@ -8,7 +8,7 @@
   z-index: 1050;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  transition: height 600ms ease;
+  transition: height 400ms ease;
 
   &.active {
     height: 100vh;
@@ -18,19 +18,43 @@
 
   .container-fluid {
     max-width: 1808px; // 1680px + 8rem
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 4rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 10rem;
     padding-bottom: 4rem;
 
     @include media-breakpoint-up(md) {
+      padding-top: 10rem;
       padding-left: 8rem;
       padding-right: 8rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+      padding-top: 11rem;
     }
   }
 
   h1 {
-    line-height: 5rem;
     margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    &::after {
+      content: "";
+      display: block;
+      position: relative;
+      background-color: $dark;
+      height: 2px;
+      width: 0;
+      transform: translateY(-5px);
+      transition: width 400ms $ease;
+    }
+  }
+
+  a:hover {
+    text-decoration: none;
+
+    h1::after {
+      width: 101%;
+    }
   }
 }

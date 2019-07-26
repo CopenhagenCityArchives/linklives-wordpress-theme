@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
   @include('partials.page-header')
+
   <section class="module archive-wrapper">
     <div class="container-fluid">
       @if (!have_posts())
@@ -64,5 +66,7 @@
     </div>
 
   </section>
+
+  @includeWhen(( !is_front_page() && is_home() ) || is_tag(), 'partials.tags-filter')
 
 @endsection

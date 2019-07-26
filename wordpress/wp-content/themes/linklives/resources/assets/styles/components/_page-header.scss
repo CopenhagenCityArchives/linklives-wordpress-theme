@@ -2,7 +2,6 @@
   h1 {
     margin: 0;
     margin-right: 1rem;
-    float: left;
   }
 
   .lead {
@@ -14,24 +13,7 @@
     }
   }
 
-  .breadcrumbs {
-    float: left;
-    line-height: 52.8px;
-
-    &::after {
-      content: "";
-      position: relative;
-      height: 1px;
-      width: 1.5rem;
-      background-color: rgba(0, 0, 0, 0.2);
-      display: inline-block;
-      margin: 0 1.5rem;
-      top: -4px;
-    }
-  }
-
   .btn-icon {
-    float: left;
-    margin-top: 15px;
+    display: inline-block;
   }
 }
