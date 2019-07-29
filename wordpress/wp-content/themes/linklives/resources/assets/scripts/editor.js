@@ -1,5 +1,3 @@
-console.log('before load')
-
 wp.domReady( () => {
 	wp.blocks.unregisterBlockStyle( 'core/button', 'default' );
 	wp.blocks.unregisterBlockStyle( 'core/button', 'outline' );
@@ -10,7 +8,4 @@ wp.domReady( () => {
 		label: 'Knap',
 		isDefault: true,
 	});
-
-  console.log('loaded')
-
 } );
