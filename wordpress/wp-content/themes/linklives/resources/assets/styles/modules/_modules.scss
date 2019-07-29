@@ -60,6 +60,16 @@
     }
   }
 
+  &.theme-muted {
+    background-color: transparent;
+    color: #8f8983;
+
+    .container-fluid {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
   &.theme-blue {
     background-color: $blue;
     color: $white;

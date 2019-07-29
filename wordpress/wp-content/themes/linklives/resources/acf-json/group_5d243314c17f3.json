@@ -324,6 +324,7 @@
                                 "blue": "Blue",
                                 "green": "Grøn",
                                 "yellow": "Gul",
+                                "muted": "Afdæmpet",
                                 "none": "Intet"
                             },
                             "default_value": [
@@ -679,6 +680,7 @@
                                 "blue": "Blue",
                                 "green": "Grøn",
                                 "yellow": "Gul",
+                                "muted": "Afdæmpet",
                                 "none": "Intet"
                             },
                             "default_value": [
@@ -781,6 +783,7 @@
                                 "blue": "Blue",
                                 "green": "Grøn",
                                 "yellow": "Gul",
+                                "muted": "Afdæmpet",
                                 "none": "Intet"
                             },
                             "default_value": [
@@ -848,5 +851,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1564094438
+    "modified": 1564393173
 }

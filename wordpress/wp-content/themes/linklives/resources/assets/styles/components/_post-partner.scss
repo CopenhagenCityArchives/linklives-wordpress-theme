@@ -1,13 +1,25 @@
-.post-partner {
+.post-partner,
+.post-foundations {
+  padding: 4.5rem;
+
   img {
-    margin: 4.5rem;
     opacity: 0.6;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  p {
+    opacity: 0;
   }
 
   &:hover {
-    background-color: $white;
+    //background-color: $white;
 
     img {
+      opacity: 1;
+    }
+
+    p {
       opacity: 1;
     }
   }

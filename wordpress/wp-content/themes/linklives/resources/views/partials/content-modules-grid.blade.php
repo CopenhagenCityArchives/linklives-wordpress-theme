@@ -6,8 +6,12 @@
     @if( $content )
       <div class="row row-eq-height">
         <div class="col-md-3">
-          <h1>{{ get_sub_field('modules_grid_headline') ? get_sub_field('modules_grid_headline') : pll__( 'Indhold' )}}</h1>
+          <header class="d-flex align-content-center">
+            <h2 class="handwritten mr-3">{{ get_sub_field('modules_grid_handwriting') ? get_sub_field('modules_grid_handwriting') : pll__( 'Vores' )}}</h2>
+            <h1>{{ get_sub_field('modules_grid_headline') ? get_sub_field('modules_grid_headline') : pll__( 'Indhold' )}}</h1>
+          </header>
         </div>
+
     	   @foreach( $content as $c )
            <div class="col-md-3">
              <a class="d-flex align-items-center justify-content-center flex-column post-partner" href="{{the_permalink($c->ID)}}">
