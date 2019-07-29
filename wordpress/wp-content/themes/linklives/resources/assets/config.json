@@ -6,6 +6,9 @@
     ],
     "customizer": [
       "./scripts/customizer.js"
+    ],
+    "editor": [
+      "./scripts/editor.js"
     ]
   },
   "publicPath": "/wp-content/themes/linklives",
