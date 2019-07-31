@@ -5,8 +5,8 @@
         @php $images = get_sub_field('modules_hero_images') @endphp
         @php $image = $images[rand(0, count($images)-1)] @endphp
 
-        <img class="date from-date" src="@asset('images/keyvisual-from-date.svg')">
         <figure class="keyvisual" style="background-image: url({{$image[sizes][large]}})">
+          <img class="date from-date" src="@asset('images/keyvisual-from-date.svg')">
           <img class="date to-date" src="@asset('images/keyvisual-to-date.svg')">
         </figure>
       </div>

@@ -83,22 +83,18 @@
 
   .from-date {
     z-index: 30;
-    transform: translate3d(0, 0, 0);
-
-    @include media-breakpoint-up(md) {
-      transform: translate3d(-2rem, 0, 0);
-    }
+    left: 1.5rem;
+    top: 4rem;
 
     @include media-breakpoint-up(lg) {
-      z-index: 10;
-      transform: translate3d(-92%, 64px, 0);
+      left: -4.75vw;
     }
   }
 
   .to-date {
     z-index: 30;
     left: calc(84vw - 1.5rem);
-    bottom: 64px;
+    bottom: 4rem;
 
     @include media-breakpoint-up(md) {
       left: calc(88vw - 10rem);
