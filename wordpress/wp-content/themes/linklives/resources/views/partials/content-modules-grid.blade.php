@@ -6,10 +6,7 @@
     @if( $content )
       <div class="row row-eq-height">
         <div class="col-md-3">
-          <header class="d-flex align-content-center">
-            <h2 class="handwritten mr-3">{{ get_sub_field('modules_grid_handwriting') ? get_sub_field('modules_grid_handwriting') : pll__( 'Vores' )}}</h2>
-            <h1>{{ get_sub_field('modules_grid_headline') ? get_sub_field('modules_grid_headline') : pll__( 'Indhold' )}}</h1>
-          </header>
+          @include('partials.modules-header', ['before' => true])
         </div>
 
     	   @foreach( $content as $c )

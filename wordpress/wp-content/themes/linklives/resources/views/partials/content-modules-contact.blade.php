@@ -3,10 +3,7 @@
 <section class="module module-contact">
   <div class="container-fluid">
 
-    <header class="d-flex align-content-center">
-      <h1>{{ get_sub_field('modules_contact_headline') ? get_sub_field('modules_contact_headline') : pll__( 'Nyheder' )}}</h1>
-      <h2 class="handwritten">{{ get_sub_field('modules_contact_handwriting') ? get_sub_field('modules_contact_handwriting') : pll__( 'The latest' )}}</h2>
-    </header>
+    @include('partials.modules-header')
 
     @if( have_rows('modules_contact_options') )
 

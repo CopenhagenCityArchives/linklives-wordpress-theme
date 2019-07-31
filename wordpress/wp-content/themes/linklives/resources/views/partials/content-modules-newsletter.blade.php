@@ -1,9 +1,7 @@
 <section class="module module-grid theme-{{ get_sub_field('modules_newsletter_theme') }}">
   <div class="container-fluid">
-    <header class="d-flex align-content-center">
-      <h1>{{ get_sub_field('modules_newsletter_headline') ? get_sub_field('modules_newsletter_headline') : pll__( 'Nyhedsbrev' )}}</h1>
-      <h2 class="handwritten">{{ get_sub_field('modules_newsletter_handwriting') ? get_sub_field('modules_newsletter_handwriting') : pll__( 'følg med' )}}</h2>
-    </header>
+
+    @include('partials.modules-header', ['before' => true])
 
     @if(get_sub_field('modules_newsletter_type') == 'true')
 

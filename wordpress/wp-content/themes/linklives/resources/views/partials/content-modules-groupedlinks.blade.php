@@ -9,7 +9,9 @@
             @php the_row() @endphp
             <li>
               <a class="group-link {{ get_row_index() == 1 ? 'active' : '' }}" data-group="{{ get_row_index() }}">
-                <span class="handwritten mr-3">{{ get_sub_field('modules_groupedlinks_groups_handwriting') ? get_sub_field('modules_groupedlinks_groups_handwriting') : pll__( 'for' )}}</span>
+                @if (get_sub_field('modules_groupedlinks_groups_handwriting'))
+                  <span class="handwritten mr-3">{{ get_sub_field('modules_groupedlinks_groups_handwriting') }}</span>
+                @endif
                 {{ the_sub_field('modules_groupedlinks_groups_grouptitle') }}
               </a>
             </li>

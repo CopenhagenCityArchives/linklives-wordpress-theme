@@ -6,10 +6,7 @@
   <div class="container-fluid">
     <a class="float-right link" href="{{ get_post_type_archive_link( 'post' ) }}">{{ pll__( 'Alle nyheder' ) }}</a>
 
-    <header class="d-flex align-content-center">
-      <h1>{{ get_sub_field('modules_news_headline') ? get_sub_field('modules_news_headline') : pll__( 'Nyheder' )}}</h1>
-      <h2 class="handwritten">{{ get_sub_field('modules_news_handwriting') ? get_sub_field('modules_news_handwriting') : pll__( 'The latest' )}}</h2>
-    </header>
+    @include('partials.modules-header')
 
     @if( $posts )
       @php global $post @endphp

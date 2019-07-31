@@ -28,14 +28,14 @@
                             "name": "modules_news_headline",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "Nyheder",
+                            "default_value": "",
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
@@ -105,7 +105,7 @@
                             "name": "modules_contact_headline",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -152,7 +152,7 @@
                             },
                             "collapsed": "",
                             "min": 0,
-                            "max": 0,
+                            "max": 3,
                             "layout": "table",
                             "button_label": "Tilføj kontaktmulighed",
                             "sub_fields": [
@@ -247,7 +247,7 @@
                             "name": "modules_grid_headline",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -851,5 +851,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1564393173
+    "modified": 1564580968
 }

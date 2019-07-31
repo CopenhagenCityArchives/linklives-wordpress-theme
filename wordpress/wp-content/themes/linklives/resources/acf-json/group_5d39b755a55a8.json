@@ -25,9 +25,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "post_template",
                 "operator": "==",
-                "value": "page"
+                "value": "views\/archive-partner.blade.php"
             }
         ],
         [
@@ -50,13 +50,6 @@
                 "operator": "==",
                 "value": "views\/archive-medlem.blade.php"
             }
-        ],
-        [
-            {
-                "param": "post_template",
-                "operator": "==",
-                "value": "views\/archive-partner.blade.php"
-            }
         ]
     ],
     "menu_order": 0,
@@ -67,5 +60,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1564094439
+    "modified": 1564580749
 }
