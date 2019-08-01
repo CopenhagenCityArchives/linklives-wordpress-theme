@@ -167,3 +167,20 @@ add_action('after_setup_theme', function () {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
     });
 });
+
+// Define path and URL to the ACF plugin.
+define( 'acf_path', get_stylesheet_directory() . '/acf/' );
+define( 'acf_url', get_stylesheet_directory_uri() . '/acf/' );
+
+// Include the ACF plugin.
+include_once( acf_path . 'acf.php' );
+
+// Customize the url setting to fix incorrect asset URLs.
+add_filter('acf/settings/url', function ( $url ) {
+  return acf_url;
+});
+
+// (Optional) Hide the ACF admin menu item.
+// add_filter('acf/settings/show_admin', function ( $show_admin ) {
+//   return false;
+// });

@@ -78,40 +78,13 @@
             ]
         },
         {
-            "key": "field_5d26fd7ceaf8b",
-            "label": "Kontakt",
-            "name": "members_contact",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "Kontaktperson",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_5d26fdc5eaf8c",
             "label": "Telefonnummer",
             "name": "members_phone",
             "type": "text",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5d26fd7ceaf8b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -130,15 +103,7 @@
             "type": "email",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5d26fd7ceaf8b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -156,15 +121,7 @@
             "type": "true_false",
             "instructions": "Skal denne kontakt vises i top menuen?",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5d26fd7ceaf8b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -175,6 +132,39 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
+        },
+        {
+            "key": "field_5d41a21026af5",
+            "label": "Submenu",
+            "name": "members_menu_submenu",
+            "type": "relationship",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5d2845c5a5ca8",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "elements": "",
+            "min": "",
+            "max": "",
+            "return_format": "id"
         }
     ],
     "location": [
@@ -194,5 +184,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1563796277
+    "modified": 1564603767
 }
