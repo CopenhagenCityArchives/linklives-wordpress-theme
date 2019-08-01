@@ -9,7 +9,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
   function end_lvl(&$output, $depth = 0, $args = array())
   {
     $markup = '';
-    $contact = get_posts(array(
+    $contact = query_posts(array(
       'post_type'		=> 'medlem',
       'numberposts' => 1,
       'meta_key' => 'members_menu',
@@ -25,9 +25,10 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
           $markup .= '<img width="64px" height="64px" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
         endif;
         $markup .= '<div><h5>' . get_the_title($c->ID) . '</h5>';
-        $markup .= '<a class="d-block" href="tel:' . get_field('members_phone', $c->ID) . '" target="_blank">' . get_field('members_phone', $c->ID) . '</a>';
-        $markup .= '<a class="d-block" href="mailto:' . get_field('members_email', $c->ID) . '" target="_blank">' . get_field('members_email', $c->ID) . '</a></div>';
-
+        if(function_exists('get_field')):
+          $markup .= '<a class="d-block" href="tel:' . get_field('members_phone', $c->ID) . '" target="_blank">' . get_field('members_phone', $c->ID) . '</a>';
+          $markup .= '<a class="d-block" href="mailto:' . get_field('members_email', $c->ID) . '" target="_blank">' . get_field('members_email', $c->ID) . '</a></div>';
+        endif;
       endforeach;
 
       $markup .= '</div></div></div>';
@@ -66,11 +67,15 @@ add_action('acf/init', function() {
 });
 
 function block_lead( $block ) {
-  echo '<p class="lead">' . get_field('block_lead') . '</p>';
+  if(function_exists('get_field')) :
+    echo '<p class="lead">' . get_field('block_lead') . '</p>';
+  endif;
 }
 
 function block_infobox( $block ) {
-  echo '<aside class="infobox">' . get_field('block_infobox') . '</aside>';
+  if(function_exists('get_field')) :
+    echo '<aside class="infobox">' . get_field('block_infobox') . '</aside>';
+  endif;
 }
 
 add_filter('next_posts_link_attributes', 'posts_link_attributes');
