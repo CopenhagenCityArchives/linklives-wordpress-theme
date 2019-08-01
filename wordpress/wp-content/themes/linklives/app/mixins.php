@@ -80,6 +80,11 @@ function posts_link_attributes() {
     return 'class="btn btn-secondary"';
 }
 
+// Move Yoast to bottom
+add_filter( 'wpseo_metabox_prio', function () {
+	return 'low';
+});
+
 // function loadmore_ajax_handler(){
 //
 // 	$args = json_decode( stripslashes( $_POST['query'] ), true );
