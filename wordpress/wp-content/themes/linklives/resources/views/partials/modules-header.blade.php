@@ -1,4 +1,7 @@
-@php $module = get_row_layout() @endphp
+@php
+  $module = get_row_layout();
+  $before = isset($before) ? true : false;
+@endphp
 
 <header class="d-flex align-content-center">
   @if($before && get_sub_field($module . '_handwriting'))

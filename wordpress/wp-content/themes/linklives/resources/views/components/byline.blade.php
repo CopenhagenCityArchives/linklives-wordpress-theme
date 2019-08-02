@@ -1,4 +1,7 @@
-@php $h = $headline ? $headline : 'h6' @endphp
+@php
+  $headline = isset($headline) ? $headline : 'h6';
+  $id = isset($id) ? $id : get_the_ID();
+@endphp
 
 <div class="byline align-items-center {{$flex ? $flex : 'd-flex'}}">
 
@@ -9,7 +12,7 @@
       {{ get_field('members_title', $id) ? get_field('members_title', $id) : pll__('Medlem') }}
     </div>
 
-    <{{$h}}>{{ get_the_title( $id ) }}</{{$h}}>
+    <{{$headline}}>{{ get_the_title( $id ) }}</{{$headline}}>
   </div>
 
 </div>

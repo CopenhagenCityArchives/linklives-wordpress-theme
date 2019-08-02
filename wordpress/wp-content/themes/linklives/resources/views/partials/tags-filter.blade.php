@@ -1,6 +1,6 @@
 @php
   $tags = get_tags(array(
-    'orderby' => count,
+    'orderby' => 'count',
     'order' => 'DESC'
   ))
 @endphp

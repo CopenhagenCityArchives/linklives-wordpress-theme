@@ -11,7 +11,7 @@
       </header>
       <p>{{ get_the_excerpt() }}</p>
 
-      @php $tags = get_the_tags($id) @endphp
+      @php $tags = get_the_tags() @endphp
 
       @if ($tags)
         <div class="light">
@@ -20,7 +20,7 @@
           @endforeach
         </div>
       @endif
-      @include('components.icon', ['icon' => 'arrow-right', 'class' => 'right'])      
+      @include('components.icon', ['icon' => 'arrow-right', 'class' => 'right'])
     </div>
   </article>
 </a>
