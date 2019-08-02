@@ -17,7 +17,7 @@ class App extends Controller
             if ($home = get_option('page_for_posts', true)) {
                 return get_the_title($home);
             }
-            return pll__('Nyheder');
+            return function_exists('pll__') ? pll__('Nyheder') : __('Nyheder');
         }
         if ( is_category() || is_tag() ) {
             return single_cat_title( '', false );
@@ -26,10 +26,10 @@ class App extends Controller
             return post_type_archive_title();
         }
         if (is_search()) {
-            return pll__('Søg');
+            return function_exists('pll__') ? pll__('Søg') : __('Søg');
         }
         if (is_404()) {
-            return pll__('Ikke fundet');
+            return function_exists('pll__') ? pll__('Ikke fundet') : __('Ikke fundet');
 
         }
         return get_the_title();
@@ -44,8 +44,9 @@ class App extends Controller
             $parent['url'] = get_the_permalink($post->post_parent);
             return $parent;
         }
+
         if ( is_tag() ) {
-            $parent['title'] = pll__('Nyheder');
+            $parent['title'] = function_exists('pll__') ? pll__('Nyheder') : __('Nyheder');
             $parent['url'] = get_post_type_archive_link( 'post' );
             return $parent;
         }

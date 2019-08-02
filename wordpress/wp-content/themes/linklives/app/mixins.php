@@ -46,8 +46,8 @@ add_action('acf/init', function() {
 
 		acf_register_block(array(
 			'name'				=> 'infobox',
-			'title'				=> pll__('Infoboks'),
-			'description'		=> pll__('En infoboks i højreside af indholdssider.'),
+			'title'				=> 'Infoboks',
+			'description'		=> 'En infoboks i højreside af indholdssider.',
 			'render_callback'	=> 'block_infobox',
 			'category'			=> 'formatting',
 			'icon'				=> 'info',
@@ -56,8 +56,8 @@ add_action('acf/init', function() {
 
     acf_register_block(array(
       'name'				=> 'lead',
-      'title'				=> pll__('Underrubrik'),
-      'description'		=> pll__('En underrubrik bruges under overskriften som indledning'),
+      'title'				=> 'Underrubrik',
+      'description'		=> 'En underrubrik bruges under overskriften som indledning',
       'render_callback'	=> 'block_lead',
       'category'			=> 'formatting',
       'icon'				=> 'editor-alignleft',
