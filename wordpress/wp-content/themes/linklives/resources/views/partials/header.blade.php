@@ -1,6 +1,6 @@
 <header class="menu-top">
   <div class="container-fluid">
-    <a class="brand" href="{{ home_url('/') }}"><img alt="{{ get_bloginfo('name', 'display') }}" src="@asset('images/link-lives.svg')"></a>
+    <a class="brand" href="{{ pll_home_url() }}"><img alt="{{ get_bloginfo('name', 'display') }}" src="@asset('images/link-lives.svg')"></a>
     <button type="button" class="btn btn-link nav-toggle float-right d-lg-none">
       <span class="hamburger"></span>
     </button>
