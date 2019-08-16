@@ -1,4 +1,4 @@
-.nav-article {
+.module.nav-article {
   background-color: #e1dedb;
 
   .link-wrap {
@@ -22,9 +22,9 @@
         border-right: 1px solid $border-dark;
       }
     }
+  }
 
-    &:hover {
-      background-color: #bfaf9e;
-    }
+  a.link-wrap:hover {
+    background-color: #bfaf9e;
   }
 }
