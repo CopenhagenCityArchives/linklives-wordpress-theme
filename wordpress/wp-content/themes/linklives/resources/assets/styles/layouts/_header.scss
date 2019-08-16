@@ -190,6 +190,10 @@ header.menu-top {
       overflow: hidden;
       z-index: 20;
       margin-left: 0;
+
+      .admin-bar & {
+        top: 112px;
+      }
     }
 
     .container-fluid {
