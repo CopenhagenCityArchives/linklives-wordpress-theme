@@ -1,0 +1,7 @@
+.module-grid {
+  @include media-breakpoint-up(md) {
+    header * {
+      margin-bottom: 0;
+    }
+  }
+}
