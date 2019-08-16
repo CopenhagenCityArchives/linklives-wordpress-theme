@@ -1,8 +1,4 @@
-.post-type-archive-medlem {
-  .archive-wrapper {
-    background-color: $green;
-  }
-
+.medlemmer {
   @include media-breakpoint-only(md) {
     @include article(2);
   }

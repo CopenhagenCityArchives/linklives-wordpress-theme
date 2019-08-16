@@ -8,6 +8,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
   }
   function end_lvl(&$output, $depth = 0, $args = array())
   {
+    $translate = function_exists('pll__') ? 'pll__' : '__';
     $markup = '';
     $contact = query_posts(array(
       'post_type'		=> 'medlem',
@@ -18,7 +19,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
     ));
 
     if( $contact ):
-      $markup .= '<div class="col-lg-5"><div class="contact"><h4 class="mb-3">' . pll__( 'Kontakt' ) . '</h4>';
+      $markup .= '<div class="col-lg-5"><div class="contact"><h4 class="mb-3">' . $translate( 'Kontakt' ) . '</h4>';
 	    foreach( $contact as $c ):
         $markup .= '<div class="d-flex">';
         if ( has_post_thumbnail($c->ID)) :

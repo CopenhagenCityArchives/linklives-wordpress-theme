@@ -12,4 +12,13 @@
       <a class="link text-white mr-3" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
     @endwhile
   @endif
+
+  @if (get_field('members_email'))
+    <a class="link text-white mr-3" href="mailto:{{ get_field('members_email') }}" target="_blank">{{ pll__( 'Mail' ) }}</a>
+  @endif
+
+  @if (get_field('members_phone'))
+    <a class="link text-white mr-3" href="tel:{{ get_field('members_phone') }}" target="_blank">{{ get_field('members_phone') }}</a>
+  @endif
+
 </article>
