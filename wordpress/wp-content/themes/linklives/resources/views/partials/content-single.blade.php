@@ -39,16 +39,14 @@
 <nav class="module nav-article">
   <div class="d-flex flex-column flex-lg-row">
     @php
-      $prev = get_adjacent_post(false,'',true)->ID;
-      $next = get_adjacent_post(false,'',false)->ID;
+      $prev = empty(get_adjacent_post(false,'',true)) ? false : get_adjacent_post(false,'',true)->ID;
+      $next = empty(get_adjacent_post(false,'',false)) ? false : get_adjacent_post(false,'',false)->ID;
     @endphp
 
     @if ($prev)
       <a class="link-wrap" href="{{ get_permalink( $prev ) }}">
         <div class="link">{{ pll__('Forrige') }}</div>
         <h5>{{ get_the_title( $prev ) }}</h5>
-        {{-- @include('components.icon', ['icon' => 'arrow-left']) --}}
-
       </a>
     @else
       <div class="link-wrap"></div>
@@ -63,8 +61,6 @@
       <a class="link-wrap" href="{{ get_permalink( $next ) }}">
         <div class="link">{{ pll__('Næste') }}</div>
         <h5>{{ get_the_title( $next ) }}</h5>
-        {{-- @include('components.icon', ['icon' => 'arrow-right']) --}}
-
       </a>
     @else
       <div class="link-wrap"></div>
