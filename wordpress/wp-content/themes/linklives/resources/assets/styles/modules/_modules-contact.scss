@@ -6,11 +6,11 @@
     margin-bottom: 2rem;
 
     @include media-breakpoint-up(md) {
-      margin-bottom: 6rem;
       padding-right: 12rem;
     }
 
     @include media-breakpoint-up(lg) {
+      margin-bottom: 6rem;
       padding-right: 2rem;
     }
 
@@ -22,7 +22,7 @@
   .btn {
     margin-bottom: 3rem;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       margin-bottom: 0;
       position: absolute;
       bottom: 1.5rem;
