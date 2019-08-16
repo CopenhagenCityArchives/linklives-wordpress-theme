@@ -1,11 +1,19 @@
 <?php
 
 class Sub_Menu_Wrap extends Walker_Nav_Menu {
+  private $currentItem;
+
+  function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
+  {
+    $this->currentItem = $item->menu_item_parent;
+  }
+
   function start_lvl(&$output, $depth = 0, $args = array())
   {
     $indent = str_repeat("\t", $depth);
     $output .= "\n$indent<div class=\"sub-menu-wrapper\"><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-lg-7\"><ul class=\"sub-menu\">\n";
   }
+
   function end_lvl(&$output, $depth = 0, $args = array())
   {
     $translate = function_exists('pll__') ? 'pll__' : '__';
@@ -13,9 +21,14 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
     $contact = query_posts(array(
       'post_type'		=> 'medlem',
       'numberposts' => 1,
-      'meta_key' => 'members_menu',
-      'meta_value' => '1',
-      'lang' => pll_current_language()
+      'lang' => pll_current_language(),
+      'meta_query' => array(
+        array(
+          'key' => 'members_menu_submenu',
+          'value' => '"' . get_post_meta($this->currentItem, '_menu_item_object_id', true) . '"',
+          'compare' => 'LIKE'
+        )
+      )
     ));
 
     if( $contact ):

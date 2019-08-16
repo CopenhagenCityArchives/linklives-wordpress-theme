@@ -106,7 +106,7 @@ header.menu-top {
       }
     }
 
-    &:last-child a {
+    &:last-child > a {
       padding: 20px 0;
 
       @include media-breakpoint-up(lg) {
