@@ -8,7 +8,7 @@
         @endif
       </div>
       <div class="col-md-6">
-        hej
+        Footer test tekst
       </div>
     </div>
   </div>

@@ -9,6 +9,24 @@ h2,
   font-weight: 400;
 }
 
+.entry-content {
+  p {
+    margin-bottom: 2rem;
+  }
+
+  a {
+    text-decoration: underline;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  h2 {
+    font-family: $font-family-sans-serif;
+  }
+}
+
 time {
   margin-bottom: 0.5rem;
   letter-spacing: 0.5px;

@@ -42,7 +42,7 @@ add_action( 'enqueue_block_editor_assets', function () {
     'sage/editor.js',
     asset_path('scripts/editor.js'),
     array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ),
-    filemtime( asset_path('scripts/editor.js') ),
+    get_stylesheet_directory( asset_path('scripts/editor.js') ),
     true
   );
 }, 100);
