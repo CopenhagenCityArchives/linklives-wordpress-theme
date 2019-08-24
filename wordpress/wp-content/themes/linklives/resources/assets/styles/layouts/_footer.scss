@@ -1,4 +1,15 @@
 footer.module {
   margin-top: 4rem;
   margin-bottom: 0;
+
+  .brand img {
+    height: $spacer*2.5;
+    text-align: center;
+  }
+
+  [class*="col-"]:not(:last-child) {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 2.5rem;
+    }
+  }
 }
