@@ -51,6 +51,8 @@
     margin-bottom: 0;
   }
 
+  // THEMES
+
   &.theme-none {
     background-color: transparent;
 
@@ -58,29 +60,124 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+
+    .thumbnail svg {
+      fill: $dark;
+
+      * {
+        fill: $dark;
+      }
+    }
+
+    .btn {
+      @extend .btn-primary;
+    }
   }
 
   &.theme-muted {
     background-color: transparent;
-    color: #8f8983;
+    color: $muted !important;
+
+    header {
+      color: $muted !important;
+    }
+
+    p a {
+      color: $muted;
+      text-decoration: underline;
+    }
 
     .container-fluid {
       padding-top: 0;
       padding-bottom: 0;
+    }
+
+    .thumbnail svg {
+      fill: $muted;
+
+      * {
+        fill: $muted;
+      }
+    }
+
+    .btn {
+      @extend .btn-primary;
+    }
+  }
+
+  &.theme-white {
+    background-color: $white;
+
+    .thumbnail svg {
+      fill: $dark;
+
+      * {
+        fill: $dark;
+      }
+    }
+
+    .btn {
+      @extend .btn-primary;
     }
   }
 
   &.theme-blue {
     background-color: $blue;
     color: $white;
+
+    .thumbnail svg {
+      fill: $white;
+
+      * {
+        fill: $white;
+      }
+    }
+
+    p a {
+      color: $white;
+      text-decoration: underline;
+    }
+
+    .btn {
+      @extend .btn-primary;
+    }
   }
 
   &.theme-green {
     background-color: $green;
     color: $white;
+
+    .thumbnail svg {
+      fill: $white;
+
+      * {
+        fill: $white;
+      }
+    }
+
+    p a {
+      color: $white;
+      text-decoration: underline;
+    }
+
+    .btn {
+      @extend .btn-success;
+    }
   }
 
   &.theme-yellow {
-    background-color: $yellow;
+    background-color: $yellow-light;
+
+    .btn {
+      @extend .btn-warning;
+    }
+
+    .thumbnail svg {
+      fill: $dark;
+
+      * {
+        fill: $dark;
+      }
+    }
   }
 }

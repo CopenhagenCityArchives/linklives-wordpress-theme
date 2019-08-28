@@ -1,10 +1,9 @@
 @php $lead = get_field('lead') @endphp
 
-
 <div class="module page-header">
   <div class="container-fluid">
     <div class="row">
-      <div class="{{$lead ? 'col-lg-6 col-xl-4' : 'col-12'}}">
+      <div class="{{$lead ? 'col-lg-6 col-xl-3' : 'col-12'}}">
         @if(( !is_front_page() && is_home() ) || is_tag())
           <button class="btn btn-outline-secondary float-right tags-filter-open">{{ pll__('Vælg emne') }} @include('components.icon', ['icon' => 'chevron-down'])</button>
         @endif
@@ -28,9 +27,9 @@
 
       @if( $lead )
         <div class="col-lg-6">
-            <p class="lead">
-              {{ $lead }}
-            </p>
+          <p class="lead">
+            {{ $lead }}
+          </p>
         </div>
       @endif
     </div>

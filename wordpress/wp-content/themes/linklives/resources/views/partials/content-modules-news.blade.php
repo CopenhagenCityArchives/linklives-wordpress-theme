@@ -1,5 +1,6 @@
 @php
   $posts = get_sub_field('modules_news_specificnews') ? get_sub_field('modules_news_specificnews') : get_posts(array('posts_per_page' => 3));
+  global $post;
 @endphp
 
 <section class="module module-news">
@@ -9,7 +10,6 @@
     @include('partials.modules-header')
 
     @if( $posts )
-      @php global $post @endphp
 
     	<div class="row row-eq-height">
       	@foreach( $posts as $key => $post )

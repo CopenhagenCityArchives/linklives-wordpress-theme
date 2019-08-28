@@ -1,14 +1,14 @@
 {
-    "key": "group_5d39b755a55a8",
-    "title": "Underrubrik",
+    "key": "group_5d612950372e2",
+    "title": "Website",
     "fields": [
         {
-            "key": "field_5d39b75f33296",
-            "label": "Underrubrik",
-            "name": "lead",
-            "type": "textarea",
-            "instructions": "",
-            "required": 1,
+            "key": "field_5d61295a5299b",
+            "label": "Website",
+            "name": "website",
+            "type": "url",
+            "instructions": "Husk http:\/\/ eller https:\/\/ foran",
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -16,10 +16,7 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
-            "maxlength": "",
-            "rows": "",
-            "new_lines": ""
+            "placeholder": ""
         }
     ],
     "location": [
@@ -27,24 +24,31 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "page"
+                "value": "partner"
             }
         ],
         [
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "all"
+                "value": "associeret_partner"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fond"
             }
         ]
     ],
     "menu_order": 0,
-    "position": "acf_after_title",
+    "position": "normal",
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1566911760
+    "modified": 1566649160
 }

@@ -13,7 +13,7 @@
         <input type="hidden" name="lists" value="57246" />
 
         <p>
-          <label for="email_address_id">E-mail-adresse</label>
+          <label>E-mail-adresse</label>
           <input type="text" name="email_address" id="email_address_id" />
         </p>
 
@@ -34,8 +34,8 @@
         <input type="hidden" name="lists" value="57246" />
 
         <p>
-          <label for="email_address_id">E-mail-adresse</label>
-          <input type="text" name="email_address" id="email_address_id" />
+          <label>E-mail-adresse</label>
+          <input type="text" name="email_address" id="email_address_id2" />
         </p>
 
         <p>

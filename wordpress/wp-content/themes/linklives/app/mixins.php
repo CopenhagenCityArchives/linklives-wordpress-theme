@@ -36,7 +36,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
 	    foreach( $contact as $c ):
         $markup .= '<div class="d-flex">';
         if ( has_post_thumbnail($c->ID)) :
-          $markup .= '<img width="64px" height="64px" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
+          $markup .= '<img width="64px" height="64px" alt="' . $translate( 'Kontaktperson' ) . '" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
         endif;
         $markup .= '<div><h5>' . get_the_title($c->ID) . '</h5>';
         if(function_exists('get_field')):
@@ -67,24 +67,8 @@ add_action('acf/init', function() {
 			'icon'				=> 'info',
 			'keywords'			=> array( 'infobox', 'indhold' ),
 		));
-
-    acf_register_block(array(
-      'name'				=> 'lead',
-      'title'				=> 'Underrubrik',
-      'description'		=> 'En underrubrik bruges under overskriften som indledning',
-      'render_callback'	=> 'block_lead',
-      'category'			=> 'formatting',
-      'icon'				=> 'editor-alignleft',
-      'keywords'			=> array( 'lead', 'underrubrik' ),
-    ));
 	}
 });
-
-function block_lead( $block ) {
-  if(function_exists('get_field')) :
-    echo '<p class="lead">' . get_field('block_lead') . '</p>';
-  endif;
-}
 
 function block_infobox( $block ) {
   if(function_exists('get_field')) :

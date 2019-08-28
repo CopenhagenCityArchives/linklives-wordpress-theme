@@ -103,32 +103,13 @@ add_action('after_setup_theme', function () {
 
     add_theme_support( 'disable-custom-colors' );
 
+    add_theme_support( 'editor-styles' );
     /**
      * Use main stylesheet for visual editor
      * @see resources/assets/styles/layouts/_tinymce.scss
      */
-    add_editor_style(asset_path('styles/main.css'));
+    //add_editor_style(asset_path('styles/gutenberg.css'));
 }, 20);
-
-/**
- * Register sidebars
- */
-add_action('widgets_init', function () {
-    $config = [
-        'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3>',
-        'after_title'   => '</h3>'
-    ];
-    register_sidebar([
-        'name'          => __('Primary', 'sage'),
-        'id'            => 'sidebar-primary'
-    ] + $config);
-    register_sidebar([
-        'name'          => __('Footer', 'sage'),
-        'id'            => 'sidebar-footer'
-    ] + $config);
-});
 
 /**
  * Updates the `$post` variable on each iteration of the loop.
@@ -181,7 +162,18 @@ add_filter('acf/settings/url', function ( $url ) {
   return acf_url;
 });
 
-// (Optional) Hide the ACF admin menu item.
-// add_filter('acf/settings/show_admin', function ( $show_admin ) {
-//   return false;
-// });
+add_action('acf/init', function () {
+
+  // Check function exists.
+  if( !function_exists('acf_add_options_page') )
+    return;
+
+  // register options page.
+  $option_page = acf_add_options_page(array(
+    'page_title'    => __('Cookies'),
+    'menu_title'    => __('Cookie'),
+    'menu_slug'     => 'cookie',
+    'capability'    => 'edit_posts',
+    'redirect'      => false
+  ));
+});

@@ -242,12 +242,12 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_5d2436a0ae526",
-                            "label": "Overskrift",
-                            "name": "modules_grid_headline",
+                            "key": "field_5d380d4816934",
+                            "label": "Håndskrift",
+                            "name": "modules_grid_handwriting",
                             "type": "text",
                             "instructions": "",
-                            "required": 1,
+                            "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -261,12 +261,12 @@
                             "maxlength": ""
                         },
                         {
-                            "key": "field_5d380d4816934",
-                            "label": "Håndskrift",
-                            "name": "modules_grid_handwriting",
+                            "key": "field_5d2436a0ae526",
+                            "label": "Overskrift",
+                            "name": "modules_grid_headline",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -851,5 +851,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1564580968
+    "modified": 1566760854
 }

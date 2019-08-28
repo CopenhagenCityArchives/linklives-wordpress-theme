@@ -1,20 +1,9 @@
 .module-hero {
   margin-bottom: -3rem;
-  background-color: #e4c394;
   overflow: hidden;
 
   .container-fluid {
     padding-bottom: 7rem; //default 4rem + minus margin from .module-hero
-  }
-
-  .btn-primary {
-    background-color: #a18052;
-    border-color: #a18052;
-
-    &:hover {
-      background-color: darken(#a18052, 8%);
-      border-color: darken(#a18052, 8%);
-    }
   }
 
   .keyvisual {
