@@ -12,13 +12,15 @@ h2,
 .entry-content {
   p {
     margin-bottom: 2rem;
+    font-size: 1.1875rem;
   }
 
   a:not(.btn):not(.wp-block-button__link) {
     text-decoration: underline;
+    color: $blue-light;
 
     &:hover {
-      color: $yellow;
+      color: $blue;
     }
   }
 

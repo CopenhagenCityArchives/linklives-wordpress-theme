@@ -1,6 +1,7 @@
 footer.module {
   margin-top: 4rem;
   margin-bottom: 0;
+  flex-shrink: 0;
 
   .brand img {
     height: $spacer*2.5;

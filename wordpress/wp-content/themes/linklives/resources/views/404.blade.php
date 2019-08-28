@@ -3,14 +3,11 @@
 @section('content')
   @include('partials.page-header')
 
-  <section class="module">
+  <section class="module theme-yellow">
     <div class="container-fluid">
-      @if (!have_posts())
-        <div class="alert alert-warning">
-          {{ pll__( 'Siden eksisterer ikke' ) }}
-        </div>
-        {!! get_search_form(false) !!}
-      @endif
+      <div class="entry-content">
+        @php echo get_field('404_text', 'options') @endphp
+      </div>
     </div>
   </section>
 @endsection

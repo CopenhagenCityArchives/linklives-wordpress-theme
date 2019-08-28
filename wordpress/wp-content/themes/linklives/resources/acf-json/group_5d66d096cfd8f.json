@@ -1,11 +1,11 @@
 {
-    "key": "group_5d61504e8d32b",
-    "title": "Cookie",
+    "key": "group_5d66d096cfd8f",
+    "title": 404,
     "fields": [
         {
-            "key": "field_5d6150719cd88",
-            "label": "Brødtekst",
-            "name": "cookie_copy",
+            "key": "field_5d66d09a3342e",
+            "label": "404 tekst",
+            "name": "404_text",
             "type": "wysiwyg",
             "instructions": "",
             "required": 1,
@@ -15,30 +15,11 @@
                 "class": "",
                 "id": ""
             },
+            "default_value": "",
             "tabs": "all",
             "toolbar": "full",
             "media_upload": 1,
-            "default_value": "",
             "delay": 0
-        },
-        {
-            "key": "field_5d61508f9cd89",
-            "label": "Knaptekst",
-            "name": "cookie_btn",
-            "type": "text",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -58,5 +39,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1567009814
+    "modified": 1567019199
 }

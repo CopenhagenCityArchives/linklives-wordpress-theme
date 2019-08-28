@@ -3,13 +3,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background-color: $light;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrap {
   padding-top: $spacer*4;
+  flex: 1 0 auto;
 
   @include media-breakpoint-up(lg) {
     padding-top: $spacer*5;

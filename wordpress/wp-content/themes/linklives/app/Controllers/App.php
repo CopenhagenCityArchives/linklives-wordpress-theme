@@ -29,8 +29,7 @@ class App extends Controller
             return function_exists('pll__') ? pll__('Søg') : __('Søg');
         }
         if (is_404()) {
-            return function_exists('pll__') ? pll__('Ikke fundet') : __('Ikke fundet');
-
+            return function_exists('pll__') ? pll__('Siden blev ikke fundet') : __('Siden blev ikke fundet');
         }
         return get_the_title();
     }
@@ -39,7 +38,7 @@ class App extends Controller
     {
         global $post;
 
-        if ( $post->post_parent ) {
+        if ( $post && $post->post_parent ) {
             $parent['title'] = get_the_title($post->post_parent);
             $parent['url'] = get_the_permalink($post->post_parent);
             return $parent;

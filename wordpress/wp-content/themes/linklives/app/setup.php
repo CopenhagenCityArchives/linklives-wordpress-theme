@@ -170,9 +170,9 @@ add_action('acf/init', function () {
 
   // register options page.
   $option_page = acf_add_options_page(array(
-    'page_title'    => __('Cookies'),
-    'menu_title'    => __('Cookie'),
-    'menu_slug'     => 'cookie',
+    'page_title'    => __('Theme indstillinger'),
+    'menu_title'    => __('Theme indstillinger'),
+    'menu_slug'     => 'Theme indstillinger',
     'capability'    => 'edit_posts',
     'redirect'      => false
   ));

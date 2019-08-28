@@ -10,7 +10,7 @@
 
   @php $posts = get_posts( array('post_type' => 'partner') ) @endphp
 
-  <section class="module archive-wrapper theme-green">
+  <section class="module archive-wrapper theme-{{ get_field('theme') ? get_field('theme') : 'green' }}">
     <div class="container-fluid">
       <div class="row row-eq-height">
         @php global $post @endphp

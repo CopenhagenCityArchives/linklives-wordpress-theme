@@ -13,11 +13,17 @@
         @if ( $parent )
           <div class="breadcrumbs">
             <a class="link" href="{{ $parent['url'] }}">{{ $parent['title'] }}</a>
+
             <h1 class="current display-4">{{ App::title() }}</h1>
 
             @if(is_tag())
               <a class="btn btn-icon btn-outline-secondary" href="{{ $parent['url'] }}">@include('components.icon', ['icon' => 'x'])</a>
             @endif
+          </div>
+        @elseif (is_singular('medlem'))
+          <div class="d-flex align-items-center">
+            @include('components.profile-image', ['id' => get_the_ID(), 'class' => 'd-inline mr-4'])
+            <h1 class="display-4">{{ App::title() }}</h1>
           </div>
         @else
           <h1 class="display-4">{{ App::title() }}</h1>

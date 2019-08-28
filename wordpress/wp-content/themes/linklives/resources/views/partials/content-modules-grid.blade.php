@@ -15,29 +15,9 @@
       <div class="row row-eq-height align-items-center">
     	  @foreach( $posts as $post )
           @php setup_postdata($post) @endphp
-
-          <a {{ post_class('col-6 col-md-3 post-type') }} href="{{the_permalink()}}">
+          <a {{ post_class('col-6 col-md-3 mb-4 mb-md-0 post-type') }} href="{{get_post_type_archive_link(get_post_type()) . '#' . get_post_field( 'post_name' )}}">
             <article>
-              @if ( has_post_thumbnail() )
-                @php
-                  $type = get_post_mime_type( get_post_thumbnail_id() );
-                  $mime_type = explode('/', $type);
-                  $type = $mime_type['1'];
-                @endphp
-
-                @if($type == 'svg+xml')
-                  <div class="thumbnail" style="">
-                    @php
-                      $svg_url = wp_get_attachment_image_src( get_post_thumbnail_id());
-                      $domain = get_site_url();
-                      $relative_url = str_replace( $domain . '/wp-content/uploads', '', $svg_url[0] );
-                      include(wp_upload_dir()['basedir'] . $relative_url);
-                    @endphp
-                  </div>
-                @else
-                  <img class="thumbnail" title="{{get_post(get_post_thumbnail_id())->post_excerpt}}" src="{{the_post_thumbnail_url('thumbnail-image-x1')}}" srcset="{{the_post_thumbnail_url('thumbnail-image-x2')}} 2x"/>
-                @endif
-              @endif
+              @include('components.thumbnail')
 
               <header>
                 <h6>{{ get_the_title() }}</h6>

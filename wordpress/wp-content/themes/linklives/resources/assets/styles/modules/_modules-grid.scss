@@ -20,11 +20,17 @@
         max-width: 140px;
         max-height: 4rem;
         height: 4rem;
+        margin-left: 50%;
+        transform: translateX(-50%);
 
         @include media-breakpoint-up(lg) {
           max-width: 60%;
         }
       }
+    }
+
+    header {
+      text-align: center;
     }
   }
 }

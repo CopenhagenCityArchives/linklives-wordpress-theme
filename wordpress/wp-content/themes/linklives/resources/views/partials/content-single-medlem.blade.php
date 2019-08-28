@@ -1,29 +1,46 @@
 <article @php post_class() @endphp>
-  <header>
-    <h1 class="entry-title display-4">{!! get_the_title() !!}</h1>
-    @include('partials/entry-meta')
-    @include('partials/entry-author')
-  </header>
 
-  @include('components.profile-image')
+  @include('partials.page-header')
 
-  @if( have_rows('members_links') )
+  <section class="module archive-wrapper theme-white">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-0 col-xl-6 order-lg-2">
+          <div class="entry-content mb-5">
+            @php the_content() @endphp
+          </div>
+        </div>
+        <div class="offset-sm-1 col-lg-2 offset-lg-0 col-xl-3 order-lg-1">
+          @if( have_rows('members_links') )
+            <div class="light">{{pll__('Links')}}</div>
 
-    @while ( have_rows('members_links') )
+            @while ( have_rows('members_links') )
+              @php the_row() @endphp
+              <a class="d-block" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+            @endwhile
+          @endif
+
+          @if (get_field('members_phone') || get_field('members_email'))
+            <div class="light mt-4">{{pll__('Kontaktoplysninger')}}</div>
+          @endif
+
+          @if (get_field('members_email'))
+            <a class="d-block" href="mailto:{{ get_field('members_email') }}" target="_blank">{{ get_field('members_email') }}</a>
+          @endif
+
+          @if (get_field('members_phone'))
+            <a class="d-block" href="tel:{{ get_field('members_phone') }}" target="_blank">{{ get_field('members_phone') }}</a>
+          @endif
+        </div>
+      </div>
+    </div>
+  <section>
+
+  @if( have_rows('modules') )
+    @while ( have_rows('modules') )
       @php the_row() @endphp
-      <a href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+      @include('partials.content-' . str_replace('_', '-', get_row_layout()))
     @endwhile
   @endif
-  @if( get_field('members_contact') )
-    {{get_field('members_phone') ? the_field('members_phone') : ''}}
-    {{get_field('members_email') ? the_field('members_email') : ''}}
-  @endif
 
-  <div class="entry-content">
-    @php the_content() @endphp
-  </div>
-
-  <footer>
-    {!! wp_link_pages(['echo' => 0, 'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>']) !!}
-  </footer>
 </article>

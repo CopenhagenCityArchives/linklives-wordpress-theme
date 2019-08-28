@@ -4,7 +4,7 @@
 
   @include('partials.page-header')
 
-  <section class="module archive-wrapper">
+  <section class="module archive-wrapper theme-{{get_field('theme') ? get_field('theme') : 'white'}}">
     <div class="container-fluid">
       @if (!have_posts())
         <div class="alert alert-warning">

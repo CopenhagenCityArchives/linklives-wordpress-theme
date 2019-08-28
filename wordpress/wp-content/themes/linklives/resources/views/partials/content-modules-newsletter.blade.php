@@ -1,4 +1,4 @@
-<section class="module module-grid theme-{{ get_sub_field('modules_newsletter_theme') }}">
+<section class="module module-newsletter theme-{{ get_sub_field('modules_newsletter_theme') }}">
   <div class="container-fluid">
 
     @include('partials.modules-header', ['before' => true])
