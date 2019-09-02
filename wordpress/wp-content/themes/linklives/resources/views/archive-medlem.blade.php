@@ -10,13 +10,7 @@
 
     @php
     $terms = get_terms([
-        'taxonomy' => 'rolle',
-        'orderby' => 'meta_value_num',
-        'order' => 'ASC',
-        'meta_query' => [[
-          'key' => 'role_order',
-          'type' => 'NUMERIC',
-        ]]
+      'taxonomy' => 'rolle',
     ]);
     @endphp
 
