@@ -1,4 +1,4 @@
-<footer class="module full-width">
+<footer class="module full-width" style="background-image: url(@asset('images/keyvisual-footer.svg'))">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-lg-4 order-lg-2">
@@ -6,9 +6,6 @@
         @if (has_nav_menu('footer_navigation'))
           {!! wp_nav_menu(['walker' => new Sub_Menu_Wrap(), 'items_wrap' => '<ul class="list-unstyled">%3$s</ul>', 'container'=> false, 'theme_location' => 'footer_navigation', 'menu_class' => 'menu-item menu-primary']) !!}
         @endif
-      </div>
-      <div class="col-md-6 col-lg-3 order-lg-3">
-
       </div>
 
       <div class="col-lg-4 order-lg-1 text-center text-lg-left">

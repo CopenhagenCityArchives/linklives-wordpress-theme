@@ -2,6 +2,12 @@ footer.module {
   margin-top: 4rem;
   margin-bottom: 0;
   flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: 60vw 3rem;
+
+  @include media-breakpoint-up(lg) {
+    background-position: 60vw center;
+  }
 
   .brand img {
     height: $spacer*2.5;
