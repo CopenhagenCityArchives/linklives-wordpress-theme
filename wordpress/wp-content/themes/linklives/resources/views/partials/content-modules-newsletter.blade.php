@@ -3,56 +3,55 @@
 
     @include('partials.modules-header', ['before' => true])
 
-    @if(get_sub_field('modules_newsletter_type') == 'true')
+    <div class="row">
+      <div class="col-md-6 col-xl-4">
+        @if(get_sub_field('modules_newsletter_type') == 'true')
 
-      <h3>Tilmeld</h3>
-¨
-      <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
+          <h4>{{ pll__('Tilmeld') }}</h4>
 
-        <input type="hidden" name="action" value="subscribe" />
-        <input type="hidden" name="lists" value="59269" />
+          <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
 
-        <p>
-          <label for="email_address_id">E-mail-adresse</label>
-          <input type="text" name="email_address" id="email_address_id" />
-        </p>
+            <input type="hidden" name="action" value="subscribe" />
+            <input type="hidden" name="lists" value="59269" />
 
-        <p>
-          <label for="data_Navn_id">Navn</label>
-          <input type="text" name="data_Navn" id="data_Navn_id" />
-        </p>
+            <div class="form-group">
+              <label for="email_address_id">{{ pll__('Email') }}</label>
+              <input type="email" class="form-control" name="email_address" id="email_address_id" placeholder="{{ pll__('Skriv din email') }}">
+            </div>
 
-        <p>
-          <input type="submit" value="Tilmeld" />
-        </p>
+            <div class="form-group">
+              <label for="data_Navn_id">{{ pll__('Navn') }}</label>
+              <input type="text" class="form-control" name="data_Navn" id="data_Navn_id" placeholder="{{ pll__('Skriv dit navn') }}">
+            </div>
 
-        <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-tilmeldt-nyhedsbrevet"/>
-        <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
+            <input class="btn btn-primary mt-2" type="submit" value="{{ pll__('Tilmeld') }}" />
 
-      </form>
+            <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-tilmeldt-nyhedsbrevet"/>
+            <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
 
-    @else
-      <h3>Frameld</h3>
+          </form>
 
-      <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
-        <input type="hidden" name="action" value="unsubscribe" />
-        <input type="hidden" name="lists" value="59269" />
+        @else
+          <h4>{{ pll__('Frameld') }}</h4>
 
-        <p>
-          <label for="email_address_id">E-mail-adresse</label>
-          <input type="text" name="email_address" id="email_address_id" />
-        </p>
+          <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
+            <input type="hidden" name="action" value="unsubscribe" />
+            <input type="hidden" name="lists" value="59269" />
 
-        <p>
-          <input type="submit" value="Frameld" />
-        </p>
+            <div class="form-group">
+              <label for="email_address_id">{{ pll__('Email') }}</label>
+              <input type="email" class="form-control" name="email_address" id="email_address_id" placeholder="{{ pll__('Skriv din email') }}">
+            </div>
 
-      <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-frameldt-nyhedsbrevet/"/>
-      <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
+            <input class="btn btn-primary mt-2" type="submit" value="{{ pll__('Frameld') }}" />
 
-      </form>
+            <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-frameldt-nyhedsbrevet/"/>
+            <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
 
-    @endif
+          </form>
 
+        @endif
+      </div>
+    </div>
   </div>
 </section>
