@@ -130,5 +130,20 @@ export default {
   },
   finalize() {
     // JavaScript to be fired on all pages, after page specific JS is fired
+
+    let searchParams = new URLSearchParams(window.location.search)
+
+    setTimeout(function () {
+      if(searchParams.has('scroll')) {
+        let id = searchParams.get('scroll');
+        let scroll = $('#' + id)[0].offsetTop - $('header').height();
+        $('html, body').animate(
+          {
+            scrollTop: scroll,
+          },
+          600
+        )
+      }
+    }, 200);
   },
 };

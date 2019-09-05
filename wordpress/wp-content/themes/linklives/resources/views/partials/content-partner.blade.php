@@ -1,4 +1,4 @@
-<div {{ post_class($classes . ' post-type') }}>
+<div {{ post_class($classes . ' post-type') }} id="{{ get_post_field( 'post_name' ) }}">
   <article>
     @include('components.thumbnail')
 
