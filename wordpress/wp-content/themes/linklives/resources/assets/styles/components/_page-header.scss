@@ -5,7 +5,6 @@
   }
 
   .lead {
-    font-weight: $font-weight-light;
     margin-top: 1rem;
 
     @include media-breakpoint-up(lg) {

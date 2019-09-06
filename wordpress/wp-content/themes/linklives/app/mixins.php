@@ -3,19 +3,29 @@
 class Sub_Menu_Wrap extends Walker_Nav_Menu {
   private $currentItem;
 
-  function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0)
-  {
-    $this->currentItem = $item->menu_item_parent;
+  function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    $parent = array_search( 'menu-item-has-children', $item->classes );
+    $icon = 'arrow-right';
+
+    $output .= sprintf( "\n<li class='%s' role='none'><a href='%s' role='menu-item' %s %s>%s</a>\n",
+        ($item->menu_item_parent ? "level-2" : "level-1") . implode(' ', $item->classes),
+        $item->url,
+        $item->menu_item_parent ? "tabindex='-1'" : "",
+        $parent ? "aria-haspopup='true' aria-expanded='false'" : "",
+        $item->title,
+    );
   }
 
-  function start_lvl(&$output, $depth = 0, $args = array())
-  {
+  function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    $this->currentItem = $item;
+  }
+
+  function start_lvl(&$output, $depth = 0, $args = array()) {
     $indent = str_repeat("\t", $depth);
-    $output .= "\n$indent<div class=\"sub-menu-wrapper\"><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-lg-7\"><ul class=\"sub-menu\">\n";
+    $output .= "\n$indent<div class=\"sub-menu-wrapper\"><div class=\"container-fluid\"><div class=\"row\"><div class=\"col-lg-7\"><ul class=\"sub-menu\" role=\"menu\">\n";
   }
 
-  function end_lvl(&$output, $depth = 0, $args = array())
-  {
+  function end_lvl(&$output, $depth = 0, $args = array()) {
     $translate = function_exists('pll__') ? 'pll__' : '__';
     $markup = '';
     $contact = query_posts(array(
@@ -25,7 +35,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
       'meta_query' => array(
         array(
           'key' => 'members_menu_submenu',
-          'value' => '"' . get_post_meta($this->currentItem, '_menu_item_object_id', true) . '"',
+          'value' => '"' . get_post_meta($this->currentItem->menu_item_parent, '_menu_item_object_id', true) . '"',
           'compare' => 'LIKE'
         )
       )
@@ -40,8 +50,8 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
         endif;
         $markup .= '<div><h5>' . get_the_title($c->ID) . '</h5>';
         if(function_exists('get_field')):
-          $markup .= '<a class="d-block" href="tel:' . get_field('members_phone', $c->ID) . '" target="_blank">' . get_field('members_phone', $c->ID) . '</a>';
-          $markup .= '<a class="d-block" href="mailto:' . get_field('members_email', $c->ID) . '" target="_blank">' . get_field('members_email', $c->ID) . '</a></div>';
+          $markup .= '<a tabindex="-1" class="d-block" href="tel:' . get_field('members_phone', $c->ID) . '" target="_blank">' . get_field('members_phone', $c->ID) . '</a>';
+          $markup .= '<a tabindex="-1" class="d-block" href="mailto:' . get_field('members_email', $c->ID) . '" target="_blank">' . get_field('members_email', $c->ID) . '</a></div>';
         endif;
       endforeach;
 

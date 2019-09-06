@@ -39,8 +39,8 @@
             <input type="hidden" name="lists" value="59269" />
 
             <div class="form-group">
-              <label for="email_address_id">{{ pll__('Email') }}</label>
-              <input type="email" class="form-control" name="email_address" id="email_address_id" placeholder="{{ pll__('Skriv din email') }}">
+              <label for="email_address_unsubscribe_id">{{ pll__('Email') }}</label>
+              <input type="email" class="form-control" name="email_address" id="email_address_unsubscribe_id" placeholder="{{ pll__('Skriv din email') }}">
             </div>
 
             <input class="btn btn-primary mt-2" type="submit" value="{{ pll__('Frameld') }}" />

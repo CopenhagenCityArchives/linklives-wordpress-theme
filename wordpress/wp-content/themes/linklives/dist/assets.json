@@ -16,11 +16,12 @@
   "fonts/Notera.woff": "fonts/Notera_953fd12f.woff",
   "fonts/Notera.woff2": "fonts/Notera_c68c0f7e.woff2",
   "images/feather-sprite.svg": "images/feather-sprite_cbef33d2.svg",
+  "images/keyvisual-footer.svg": "images/keyvisual-footer_2e322084.svg",
   "images/keyvisual-from-date.svg": "images/keyvisual-from-date_1e149bf6.svg",
   "images/keyvisual-to-date.svg": "images/keyvisual-to-date_075ded50.svg",
   "images/link-lives.svg": "images/link-lives_71600ca5.svg",
-  "scripts/customizer.js": "scripts/customizer_94febd95.js",
-  "scripts/editor.js": "scripts/editor_94febd95.js",
-  "styles/main.css": "styles/main_94febd95.css",
-  "scripts/main.js": "scripts/main_94febd95.js"
+  "scripts/customizer.js": "scripts/customizer_ad3c299f.js",
+  "scripts/editor.js": "scripts/editor_ad3c299f.js",
+  "styles/main.css": "styles/main_ad3c299f.css",
+  "scripts/main.js": "scripts/main_ad3c299f.js"
 }

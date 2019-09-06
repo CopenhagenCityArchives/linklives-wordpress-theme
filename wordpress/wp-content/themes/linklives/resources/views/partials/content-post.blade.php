@@ -9,7 +9,7 @@
       <header>
         <h5>{{ get_the_title() }}</h5>
       </header>
-      <p>{{ get_the_excerpt() }}</p>
+      <p>{{ implode(' ', array_slice(explode(' ', get_field('lead') . ' ' . get_the_excerpt()), 0, 20)) . '…' }}</p>
 
       @php $tags = get_the_tags() @endphp
 
