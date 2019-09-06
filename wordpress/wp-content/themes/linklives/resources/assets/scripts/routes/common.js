@@ -1,57 +1,132 @@
 export default {
   init() {
-    $('.nav-toggle').click(function(e) {
-      e.preventDefault()
-      $('header').toggleClass('active')
-    })
+    function initMenu() {
+      let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      let hamburgerMenu = viewportWidth < 922;
+      let hamburgerOpen;
+      let subMenuOpen;
 
-    $('.menu-item-has-children >a').click(function(e) {
-      e.preventDefault();
-      let $menuItem = $(this).parent()
-      let $wrapper = $menuItem.find('.sub-menu-wrapper')
+      $('header .level-1 > a, header .menu-secondary a').attr( 'tabindex', hamburgerMenu ? '-1' : '0' );
 
-      if($menuItem.hasClass('active')) {
-        $wrapper.css('height', 0)
-        $menuItem.removeClass('active')
-        $('body').removeClass('backdrop')
-      } else if($('.menu-item-has-children').hasClass('active')) {
+      function openSubMenu($menuItem, $wrapper, openBackdrop) {
+        subMenuOpen = true;
+        $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight())
+        $menuItem.addClass('active')
+          .find('>a').attr( 'aria-expanded', true )
+        $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight())
+          .find('a').attr( 'tabindex', '0' )
+
+        if(openBackdrop) {
+          $('body').addClass('backdrop')
+        }
+      }
+
+      function closeSubMenu(closeBackdrop) {
+        subMenuOpen = false;
         $('.sub-menu-wrapper').css('height', 0)
-        $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight())
+          .find('a').attr( 'tabindex', '-1' )
         $('.menu-item-has-children').removeClass('active')
-        $menuItem.addClass('active')
-      } else {
-        $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight())
-        $menuItem.addClass('active')
-        $('body').addClass('backdrop')
+          .find('>a').attr( 'aria-expanded', false )
+
+        if(!closeBackdrop) {
+          $('body').removeClass('backdrop')
+        }
       }
-    });
 
-    $( window ).resize(function() {
-      let $menuItem = $('.menu-item-has-children.active');
-      let $wrapper = $menuItem.find('.sub-menu-wrapper');
-
-      if($menuItem.length) {
-        $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight());
+      function openHamburgerMenu() {
+        hamburgerOpen = true;
+        $('.nav-toggle').attr( 'aria-expanded', 'true')
+        $('header').addClass('active')
+        $('header .level-1 > a, header .menu-secondary a').attr( 'tabindex', '0' );
       }
-    });
 
-    $(window).click(function(e){
-      if($(e.target).closest('.menu-top').length)
-        return;
-        closeSubmenu();
-    });
-
-    $(window).keyup(function(e) {
-      if (e.key === 'Escape') {
-        closeSubmenu();
+      function closeHamburgerMenu() {
+        hamburgerOpen = false;
+        $('.nav-toggle').attr( 'aria-expanded', 'false')
+        $('header').removeClass('active')
+        $('header .level-1 > a, header .menu-secondary a').attr( 'tabindex', '-1' );
       }
-    });
 
-    function closeSubmenu() {
-      $('.sub-menu-wrapper').css('height', 0)
-      $('.menu-item-has-children').removeClass('active')
-      $('body').removeClass('backdrop')
+      // Add click-event to hamburger menu btn
+      $('.nav-toggle').click(function(e) {
+        e.preventDefault()
+        if(!hamburgerOpen) {
+          openHamburgerMenu()
+        } else {
+          closeHamburgerMenu()
+        }
+      })
+
+      // Add click-event to menu-items with sub-menu
+      $('header .menu-item-has-children >a').click(function(e) {
+        e.preventDefault();
+        let $menuItem = $(this).parent()
+        let $wrapper = $menuItem.find('.sub-menu-wrapper')
+
+        if($menuItem.hasClass('active')) {
+          // Close clicked sub-menu
+          closeSubMenu()
+        } else if($('.menu-item-has-children').hasClass('active')) {
+          // Close open sub-menu and open clicked sub-menu
+          closeSubMenu(true)
+          openSubMenu($menuItem, $wrapper);
+        } else {
+          // Open clicked sub-menu
+          openSubMenu($menuItem, $wrapper, true);
+        }
+      });
+
+      // Close sub-menu when clicking on element outside menu
+      $(window).click(function(e){
+        if($(e.target).closest('.menu-top').length)
+          return;
+          closeSubMenu();
+      });
+
+      // Close sub-menu when hitting the esc keyboard btn
+      $(window).keyup(function(e) {
+        if (e.key === 'Escape' && subMenuOpen) {
+          closeSubMenu();
+        } else if(e.key === 'Escape' && hamburgerOpen) {
+          closeHamburgerMenu();
+        }
+      });
+
+      function setMenuLayout() {
+        // Return if we're not changing menu layout
+        if (hamburgerMenu == viewportWidth < 992) return;
+
+        if (hamburgerOpen) {
+          closeHamburgerMenu();
+        }
+
+        if (subMenuOpen) {
+          closeSubMenu();
+        }
+
+        hamburgerMenu = viewportWidth < 992;
+        // Make first level and language menu accessable with tab based on layout
+        $('header .level-1 > a, header .menu-secondary a').attr( 'tabindex', hamburgerMenu ? '-1' : '0' );
+      }
+
+      // function setSubMenuHeight() {
+      //   let $menuItem = $('.menu-item-has-children.active');
+      //   let $wrapper = $menuItem.find('.sub-menu-wrapper');
+      //
+      //   // Change height if sub-menu
+      //   if($menuItem.length) {
+      //     $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight());
+      //   }
+      // }
+
+      $( window ).resize(function() {
+        viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        setMenuLayout();
+        //setSubMenuHeight();
+      });
     }
+
+    initMenu();
 
     $('.tags-filter-open').click(function(e) {
       e.preventDefault()
