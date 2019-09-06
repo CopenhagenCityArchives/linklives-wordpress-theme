@@ -12,7 +12,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
         $item->url,
         $item->menu_item_parent ? "tabindex='-1'" : "",
         $parent ? "aria-haspopup='true' aria-expanded='false'" : "",
-        $item->title,
+        $item->title
     );
   }
 
