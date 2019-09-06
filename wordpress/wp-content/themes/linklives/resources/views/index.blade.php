@@ -56,13 +56,6 @@
       </div>
       @include('components.nav-index')
 
-{{--
-      @php global $wp_query; @endphp
-
-      @if (  $wp_query->max_num_pages > 1 )
-      	<button class="btn btn-primary load-more">More posts</button>
-      @endif --}}
-
     </div>
 
   </section>

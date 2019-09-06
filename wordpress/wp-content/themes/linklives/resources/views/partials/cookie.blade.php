@@ -1,5 +1,5 @@
 @if (get_field('cookie_copy', 'options') && get_field('cookie_btn', 'options'))
-  <section class="module full-width cookie">
+  <section class="module full-width cookie d-none">
     <div class="container-fluid">
       <div class="d-flex flex-column flex-lg-row align-items-center">
         <div class="icon-wrapper">
