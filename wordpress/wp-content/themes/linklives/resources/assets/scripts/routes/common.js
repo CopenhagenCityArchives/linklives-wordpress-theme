@@ -234,5 +234,7 @@ export default {
         )
       }
     }, 200);
+
+    $('[data-toggle="tooltip"]').tooltip()
   },
 };

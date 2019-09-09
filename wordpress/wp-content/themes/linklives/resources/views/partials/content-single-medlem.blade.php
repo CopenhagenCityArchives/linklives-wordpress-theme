@@ -11,17 +11,27 @@
           </div>
         </div>
         <div class="offset-sm-1 col-lg-2 offset-lg-0 col-xl-3 order-lg-1">
-          @if( have_rows('members_links') )
-            <div class="light">{{pll__('Links')}}</div>
+          @php $photographer = get_field('photographer', get_post_thumbnail_id(get_the_ID())) @endphp
 
-            @while ( have_rows('members_links') )
-              @php the_row() @endphp
-              <a class="d-block" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
-            @endwhile
+          @if( $photographer )
+            <div class="mb-4">
+              <div class="light">{{pll__('Profilbillede-fotograf')}}</div>
+              <p>{{ $photographer }}</p>
+            </div>
+          @endif
+
+          @if( have_rows('members_links') )
+            <div class="mb-4">
+              <div class="light">{{pll__('Links')}}</div>
+              @while ( have_rows('members_links') )
+                @php the_row() @endphp
+                <a class="d-block" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+              @endwhile
+            </div>
           @endif
 
           @if (get_field('members_phone') || get_field('members_email'))
-            <div class="light mt-4">{{pll__('Kontaktoplysninger')}}</div>
+            <div class="light">{{pll__('Kontaktoplysninger')}}</div>
           @endif
 
           @if (get_field('members_email'))
