@@ -8,7 +8,8 @@
     <div class="row">
       <div class="{{$lead ? 'col-lg-6 col-xl-3' : 'col-12'}}">
         @if($index)
-          <button class="btn btn-outline-secondary float-right tags-filter-open">{{ pll__('Vælg emne') }} @include('components.icon', ['icon' => 'chevron-down'])</button>
+          <button id="tags-filter-open" aria-haspopup="true" aria-expanded="false" aria-controls="tags" class="btn btn-outline-secondary float-right">{{ pll__('Vælg emne') }} @include('components.icon', ['icon' => 'chevron-down'])</button>
+          @include('partials.tags-filter')
         @endif
 
         @php $parent = App::parentPage() @endphp

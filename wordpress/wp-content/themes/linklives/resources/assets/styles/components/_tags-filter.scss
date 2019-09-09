@@ -8,7 +8,7 @@
   z-index: 1050;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  transition: height 400ms ease;
+  transition: height 600ms ease;
 
   &.active {
     height: 100vh;

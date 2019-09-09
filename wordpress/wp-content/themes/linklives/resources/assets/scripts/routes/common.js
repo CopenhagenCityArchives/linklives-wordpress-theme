@@ -76,6 +76,13 @@ export default {
         }
       });
 
+      // Close sub-menu if focus shifts away
+      $('.sub-menu-wrapper').each(function(){
+        $(this).find('a').last().blur(function() {
+          closeSubMenu();
+        });
+      })
+
       // Close sub-menu when clicking on element outside menu
       $(window).click(function(e){
         if($(e.target).closest('.menu-top').length)
@@ -127,16 +134,6 @@ export default {
     }
 
     initMenu();
-
-    $('.tags-filter-open').click(function(e) {
-      e.preventDefault()
-      $('.tags-filter').addClass('active');
-    });
-
-    $('.tags-filter-close').click(function(e) {
-      e.preventDefault()
-      $('.tags-filter').removeClass('active');
-    });
 
     // Cookie
     if(!localStorage.getItem('cookie')) {

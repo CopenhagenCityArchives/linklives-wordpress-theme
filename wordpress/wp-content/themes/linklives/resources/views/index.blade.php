@@ -60,6 +60,4 @@
 
   </section>
 
-  @includeWhen(( !is_front_page() && is_home() ) || is_tag(), 'partials.tags-filter')
-
 @endsection
