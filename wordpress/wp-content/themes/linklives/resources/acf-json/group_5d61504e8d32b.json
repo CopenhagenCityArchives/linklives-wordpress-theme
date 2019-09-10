@@ -4,41 +4,91 @@
     "fields": [
         {
             "key": "field_5d6150719cd88",
-            "label": "Brødtekst",
-            "name": "cookie_copy",
+            "label": "Brødtekst (dansk)",
+            "name": "cookie_copy_da",
             "type": "wysiwyg",
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
+            "acfe_permissions": "",
+            "default_value": "",
             "tabs": "all",
             "toolbar": "full",
             "media_upload": 1,
+            "delay": 0,
+            "acfe_validate": "",
+            "acfe_update": ""
+        },
+        {
+            "key": "field_5d77f7161e6de",
+            "label": "Brødtekst (english)",
+            "name": "cookie_copy_en",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "acfe_permissions": "",
             "default_value": "",
-            "delay": 0
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "acfe_validate": "",
+            "acfe_update": ""
         },
         {
             "key": "field_5d61508f9cd89",
-            "label": "Knaptekst",
-            "name": "cookie_btn",
+            "label": "Knaptekst (dansk)",
+            "name": "cookie_btn_da",
             "type": "text",
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
+            "acfe_permissions": "",
             "default_value": "",
             "placeholder": "",
             "prepend": "",
             "append": "",
-            "maxlength": ""
+            "maxlength": "",
+            "acfe_validate": "",
+            "acfe_update": ""
+        },
+        {
+            "key": "field_5d77f72e1e6df",
+            "label": "Knaptekst (english)",
+            "name": "cookie_btn_en",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "acfe_permissions": "",
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "acfe_validate": "",
+            "acfe_update": ""
         }
     ],
     "location": [
@@ -46,7 +96,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "Theme indstillinger"
+                "value": "andet"
             }
         ]
     ],
@@ -58,5 +108,12 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1567009814
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_permissions": "",
+    "acfe_note": "",
+    "acfe_meta": "",
+    "modified": 1568143590
 }

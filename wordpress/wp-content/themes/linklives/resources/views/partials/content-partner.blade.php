@@ -1,10 +1,15 @@
 <div {{ post_class($classes . ' post-type') }} id="{{ get_post_field( 'post_name' ) }}">
   <article>
-    @include('components.thumbnail')
 
-    <header>
-      <h4>{{ get_the_title() }}</h4>
-    </header>
+    <a href="{{ get_permalink()}}">
+
+      @include('components.thumbnail')
+
+      <header>
+        <h4>{{ get_the_title() }}</h4>
+      </header>
+
+    </a>
 
     @php the_content() @endphp
 

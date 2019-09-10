@@ -1,9 +1,6 @@
 .module-news,
 .blog,
-.archive,
-.archive-medlem,
-.archive-partner-data,
-.archive-associeret-partner {
+.archive {
   .post-type {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -84,9 +81,9 @@
   }
 }
 
-.archive-partner-data,
-.archive-associeret-partner,
-.archive-fond-oversigt {
+.post-type-archive-partner,
+.post-type-archive-associeret_partner,
+.post-type-archive-fond {
   @include media-breakpoint-only(md) {
     @include article(1);
   }

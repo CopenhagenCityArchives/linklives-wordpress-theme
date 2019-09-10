@@ -6,9 +6,9 @@
           @include('components.icon', ['icon' => 'check-circle', 'class' => ''])
         </div>
         <div>
-          @php the_field('cookie_copy', 'options') @endphp
+          @php the_field('cookie_copy_' . pll_current_language('slug'), 'options') @endphp
         </div>
-        <button id="accept" class="btn btn-primary flex-grow-1">{{ get_field('cookie_btn', 'options') }}</button>
+        <button id="accept" class="btn btn-primary flex-grow-1">{{ get_field('cookie_btn_' . pll_current_language('slug'), 'options') }}</button>
       </div>
     </div>
   </section>

@@ -1,6 +1,8 @@
 @php
   $index = !is_front_page() && is_home() || is_tag();
-  $lead = $index ? false : get_field('lead');
+
+  // if not index and has lead show it. Otherwise try archive lead.
+  $lead =  !$index && get_field('lead') ? get_field('lead') : get_field('lead_' . pll_current_language('slug'), get_post_type() . '_options');
 @endphp
 
 <div class="module page-header">
@@ -23,11 +25,6 @@
             @if(is_tag())
               <a class="btn btn-icon btn-outline-secondary" href="{{ $parent['url'] }}">@include('components.icon', ['icon' => 'x'])</a>
             @endif
-          </div>
-        @elseif (is_singular('medlem'))
-          <div class="d-flex align-items-center">
-            @include('components.profile-image', ['id' => get_the_ID(), 'class' => 'd-inline mr-4'])
-            <h1 class="display-4">{{ App::title() }}</h1>
           </div>
         @else
           <h1 class="display-4">{{ App::title() }}</h1>

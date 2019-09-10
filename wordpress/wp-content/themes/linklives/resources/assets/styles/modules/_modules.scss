@@ -23,6 +23,10 @@
     font-size: 2.5rem;
   }
 
+  p a {
+    text-decoration: underline;
+  }
+
   .container-fluid {
     padding-top: $spacer*4;
     padding-bottom: $spacer*4;
@@ -74,37 +78,6 @@
     }
   }
 
-  &.theme-muted {
-    background-color: transparent;
-    color: $muted !important;
-
-    header {
-      color: $muted !important;
-    }
-
-    p a {
-      color: $muted;
-      text-decoration: underline;
-    }
-
-    .container-fluid {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .thumbnail svg {
-      fill: $muted;
-
-      * {
-        fill: $muted;
-      }
-    }
-
-    .btn {
-      @extend .btn-primary;
-    }
-  }
-
   &.theme-white {
     background-color: $white;
 
@@ -133,9 +106,8 @@
       }
     }
 
-    p a {
+    a {
       color: $white;
-      text-decoration: underline;
     }
 
     .btn {
@@ -155,9 +127,8 @@
       }
     }
 
-    p a {
+    a {
       color: $white;
-      text-decoration: underline;
     }
 
     .btn {

@@ -31,7 +31,7 @@
           $query = new WP_Query( $args );
         @endphp
 
-        <section class="module archive-wrapper theme-{{ get_field('theme') ? get_field('theme') : 'green' }} count-{{ $query->found_posts }}">
+        <section class="module archive-wrapper theme-{{ get_field('theme', get_post_type() . '_options') ? get_field('theme', get_post_type() . '_options') : 'green' }}">
           <div class="container-fluid">
             <h3>{{ $term->name }}</h3>
 

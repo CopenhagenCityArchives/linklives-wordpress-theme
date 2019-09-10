@@ -162,18 +162,16 @@ add_filter('acf/settings/url', function ( $url ) {
   return acf_url;
 });
 
+// register options page.
 add_action('acf/init', function () {
-
-  // Check function exists.
-  if( !function_exists('acf_add_options_page') )
-    return;
-
-  // register options page.
-  $option_page = acf_add_options_page(array(
-    'page_title'    => __('Theme indstillinger'),
-    'menu_title'    => __('Theme indstillinger'),
-    'menu_slug'     => 'Theme indstillinger',
-    'capability'    => 'edit_posts',
-    'redirect'      => false
-  ));
+  if( function_exists('acf_add_options_page') ) {
+    $option_page = acf_add_options_page(array(
+      'page_title'    => __('Andet'),
+      'menu_title'    => __('Andet'),
+      'menu_slug'     => 'andet',
+      'position'      => '51.5',
+      'capability'    => 'edit_posts',
+      'redirect'      => false
+    ));
+  }
 });

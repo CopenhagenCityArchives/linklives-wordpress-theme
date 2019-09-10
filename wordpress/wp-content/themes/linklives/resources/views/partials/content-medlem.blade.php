@@ -1,6 +1,8 @@
 <article @php post_class('col-md-6 col-lg-4 col-xl-3 text-white post-type') @endphp>
 
-  @include('components.byline', ['headline' => 'h5'])
+  <a href="{{ get_permalink() }}">
+    @include('components.byline', ['headline' => 'h5'])
+  </a>
 
   <div class="entry-summary mt-4">
     @php the_excerpt() @endphp
