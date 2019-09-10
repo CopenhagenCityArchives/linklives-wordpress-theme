@@ -15,7 +15,7 @@
       <div class="row row-eq-height align-items-center">
     	  @foreach( $posts as $post )
           @php setup_postdata($post) @endphp
-          <a {{ post_class('col-6 col-md-3 mb-4 mb-md-0 post-type') }} href="{{get_post_type_archive_link(get_post_type()) . '?scroll=' . get_post_field( 'post_name' )}}">
+          <a {{ post_class('col-6 col-md-3 mb-4 mb-md-0 post-type') }} href="{{ get_permalink() }}">
             <article>
               @include('components.thumbnail')
 

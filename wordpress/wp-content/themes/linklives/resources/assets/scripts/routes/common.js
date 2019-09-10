@@ -116,20 +116,9 @@ export default {
         $('header .level-1 > a, header .menu-secondary a').attr( 'tabindex', hamburgerMenu ? '-1' : '0' );
       }
 
-      // function setSubMenuHeight() {
-      //   let $menuItem = $('.menu-item-has-children.active');
-      //   let $wrapper = $menuItem.find('.sub-menu-wrapper');
-      //
-      //   // Change height if sub-menu
-      //   if($menuItem.length) {
-      //     $wrapper.css('height', $menuItem.find('.container-fluid').innerHeight());
-      //   }
-      // }
-
       $( window ).resize(function() {
         viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         setMenuLayout();
-        //setSubMenuHeight();
       });
     }
 
@@ -148,6 +137,7 @@ export default {
 
       $('.cookie').removeClass('d-none');
 
+      // Wait 2.5s for cookie banner to show
       setTimeout(function () {
         $('.cookie').addClass('active');
       }, 2500);
@@ -219,21 +209,6 @@ export default {
   },
   finalize() {
     // JavaScript to be fired on all pages, after page specific JS is fired
-
-    let searchParams = new URLSearchParams(window.location.search)
-
-    setTimeout(function () {
-      if(searchParams.has('scroll')) {
-        let id = searchParams.get('scroll');
-        let scroll = $('#' + id)[0].offsetTop - $('header').height();
-        $('html, body').animate(
-          {
-            scrollTop: scroll,
-          },
-          600
-        )
-      }
-    }, 200);
 
     $('[data-toggle="tooltip"]').tooltip()
   },
