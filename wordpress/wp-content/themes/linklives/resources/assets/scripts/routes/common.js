@@ -83,6 +83,11 @@ export default {
         });
       })
 
+      // Close hamburger-menu if hamburgerMenu is true and focus shifts away
+      $('header a').last().blur(function() {
+        hamburgerMenu && closeHamburgerMenu();
+      });
+
       // Close sub-menu when clicking on element outside menu
       $(window).click(function(e){
         if($(e.target).closest('.menu-top').length)
