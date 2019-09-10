@@ -292,7 +292,12 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "post_type": "",
+                            "acfe_permissions": "",
+                            "post_type": [
+                                "partner",
+                                "associeret_partner",
+                                "fond"
+                            ],
                             "taxonomy": "",
                             "filters": [
                                 "search",
@@ -304,7 +309,12 @@
                             ],
                             "min": "",
                             "max": "",
-                            "return_format": "object"
+                            "return_format": "object",
+                            "acfe_bidirectional": {
+                                "acfe_bidirectional_enabled": "0"
+                            },
+                            "acfe_validate": "",
+                            "acfe_update": ""
                         },
                         {
                             "key": "field_5d3584530654d",
@@ -848,5 +858,12 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1567016891
+    "acfe_display_title": "",
+    "acfe_autosync": [
+        "json"
+    ],
+    "acfe_permissions": "",
+    "acfe_note": "",
+    "acfe_meta": "",
+    "modified": 1568147666
 }
