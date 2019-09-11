@@ -45,7 +45,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
 	    foreach( $contact as $c ):
         $markup .= '<div class="d-flex">';
         if ( has_post_thumbnail($c->ID)) :
-          $markup .= '<img width="64px" height="64px" alt="' . $translate( 'Kontaktperson' ) . '" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
+          $markup .= '<img width="64px" height="64px" alt="' . $translate( 'Kontaktperson' ) . '" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . ', ' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
         endif;
         $markup .= '<div><h5>' . get_the_title($c->ID) . '</h5>';
         if(function_exists('get_field')):

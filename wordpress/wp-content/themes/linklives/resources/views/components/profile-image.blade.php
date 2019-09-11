@@ -1,6 +1,12 @@
 @if ( has_post_thumbnail($id))
-  @php $photographer = get_field('photographer', get_post_thumbnail_id($id)) @endphp
-  <img class="rounded-circle {{$class}}" width="{{isset($width) ? $width : '48px'}}" height="{{isset($height) ? $height : '48px'}}" src="{{get_the_post_thumbnail_url($id, 'profile-image-x1')}}" srcset="{{get_the_post_thumbnail_url($id, 'profile-image-x2')}} 2x" data-toggle="tooltip" data-placement="top" title="{{ $photographer ? pll__('Fotograf') . ' ' . $photographer : '' }}" />
+  @php
+    $attachment_id = get_post_thumbnail_id($id);
+    $photographer = get_field('photographer', $attachment_id);
+    $tooltip = $photographer ? pll__('Fotograf') . ' ' . $photographer : '';
+  @endphp
+
+  @php echo wp_get_attachment_image($attachment_id, [isset($width) ? $width : '48', isset($height) ? $height : '48'], false, ['class' => 'rounded-circle ' . $class, 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => $tooltip]) @endphp
+
 @else
   @include('components.icon', ['icon' => 'user', 'class' => $class . ' profile-img'])
 @endif
