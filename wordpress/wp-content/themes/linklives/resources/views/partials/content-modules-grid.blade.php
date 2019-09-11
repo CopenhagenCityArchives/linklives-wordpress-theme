@@ -8,7 +8,7 @@
 
     @if( $posts )
 
-      <div class="row row-eq-height {{--align-items-center--}} justify-content-center">
+      <div class="row row-eq-height justify-content-center">
         <div class="col-12">
           <header class="d-flex justify-content-center mb-5">
             <h2 class="handwritten mr-3">{{ get_sub_field('modules_grid_handwriting') ?: get_sub_field('modules_grid_handwriting')}}</h2>
@@ -18,23 +18,19 @@
 
     	  @foreach( $posts as $post )
           @php setup_postdata($post) @endphp
-          <a {{ post_class('col-6 col-xl-3 mb-4 mb-xl-0 post-type') }} href="{{ get_permalink() }}">
+          <a {{ post_class('col-md-6 col-xl-3 mb-5 mb-xl-0 post-type') }} href="{{ get_permalink() }}">
             <article>
 
-              {{-- <div class="d-block light text-center mb-1">
-                {{ get_post_type_object(get_post_type())->labels->singular_name }}
-              </div> --}}
               @include('components.thumbnail')
 
               <header>
                 <h5>{{ get_the_title() }}</h5>
               </header>
 
-
             </article>
           </a>
-
     	  @endforeach
+
         @php wp_reset_postdata() @endphp
 
       </div>
