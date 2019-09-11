@@ -5,7 +5,6 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
 
   function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
     $parent = array_search( 'menu-item-has-children', $item->classes );
-    $icon = 'arrow-right';
 
     $output .= sprintf( "\n<li class='%s' role='none'><a href='%s' role='menu-item' %s %s>%s</a>\n",
         ($item->menu_item_parent ? "level-2" : "level-1") . implode(' ', $item->classes),
@@ -75,8 +74,18 @@ add_action('acf/init', function() {
 			'render_callback'	=> 'block_infobox',
 			'category'			=> 'formatting',
 			'icon'				=> 'info',
-			'keywords'			=> array( 'infobox', 'indhold' ),
+			'keywords'			=> array( 'infobox', 'info', 'infoboks', 'indhold' ),
 		));
+
+    acf_register_block(array(
+      'name'				=> 'button',
+      'title'				=> 'Knap',
+      'description'		=> 'En knap der kan placeres midt i indholdet.',
+      'render_callback'	=> 'block_button',
+      'category'			=> 'formatting',
+      'icon'				=> 'admin-links',
+      'keywords'			=> array( 'knap', 'button', 'indhold' ),
+    ));
 	}
 });
 
@@ -85,6 +94,36 @@ function block_infobox( $block ) {
     echo '<aside class="infobox">' . get_field('block_infobox') . '</aside>';
   endif;
 }
+
+function block_button( $block ) {
+  if(function_exists('get_field')) :
+    echo '<a class="btn btn-primary gutenberg-btn mb-5" href="' . get_field('block_button_href') . '">' .
+            get_field('block_button_text') .
+            '<svg class="icon right">' .
+              '<use xlink:href="' . App\asset_path('images/feather-sprite.svg)#arrow-right') . '"/>' .
+            '</svg>' .
+         '</a>';
+  endif;
+}
+
+add_filter( 'allowed_block_types', function( $allowed_blocks ) {
+	return array(
+		'core/image',
+		'core/paragraph',
+		'core/heading',
+		'core/list',
+    'core/quote',
+    'core/video',
+    'core/table',
+    'acf/infobox',
+    'acf/button',
+    'core/embed',
+    'core-embed/twitter',
+    'core-embed/youtube',
+    'core-embed/facebook',
+    'core-embed/instagram'
+	);
+});
 
 add_filter('next_posts_link_attributes', 'posts_link_attributes');
 add_filter('previous_posts_link_attributes', 'posts_link_attributes');
@@ -97,22 +136,3 @@ function posts_link_attributes() {
 add_filter( 'wpseo_metabox_prio', function () {
 	return 'low';
 });
-
-// function loadmore_ajax_handler(){
-//
-// 	$args = json_decode( stripslashes( $_POST['query'] ), true );
-// 	$args['paged'] = $_POST['page'] + 1; // we need next page to be loaded
-// 	$args['post_status'] = 'publish';
-//
-// 	query_posts( $args );
-//
-// 	if( have_posts() ) :
-// 		while( have_posts() ): the_post();
-// 		endwhile;
-//
-// 	endif;
-// 	die;
-// }
-//
-// add_action('wp_ajax_loadmore', 'loadmore_ajax_handler'); // wp_ajax_{action}
-// add_action('wp_ajax_nopriv_loadmore', 'loadmore_ajax_handler'); // wp_ajax_nopriv_{action}
