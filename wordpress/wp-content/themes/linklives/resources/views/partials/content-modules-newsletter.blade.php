@@ -1,15 +1,18 @@
 <section class="module module-newsletter theme-{{ get_sub_field('modules_newsletter_theme') }}">
   <div class="container-fluid">
 
-    @include('partials.modules-header', ['before' => true])
+    @include('partials.modules-header')
 
     <div class="row">
-      <div class="col-md-6 col-xl-4">
-        @if(get_sub_field('modules_newsletter_type') == 'true')
-
+      @if(get_sub_field('modules_newsletter_type') == 'true')
+        <div class="col-12">
           <h4>{{ pll__('Tilmeld') }}</h4>
-
-          <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
+        </div>
+        <div class="col-lg-6 col-xl-5">
+          @php echo get_sub_field('modules_newsletter_copy') @endphp
+        </div>
+        <div class="col-lg-6 col-xl-4 offset-xl-1">
+          <form action="https://link-lives.uxmail.io/handlers/post/" target="_blank" method="post">
 
             <input type="hidden" name="action" value="subscribe" />
             <input type="hidden" name="lists" value="59269" />
@@ -26,15 +29,18 @@
 
             <input class="btn btn-primary mt-2" type="submit" value="{{ pll__('Tilmeld') }}" />
 
-            <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-tilmeldt-nyhedsbrevet"/>
-            <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
-
           </form>
+        </div>
+      @else
+        <div class="col-12">
+          <h4>{{ pll__('Afmeld') }}</h4>
+        </div>
+        <div class="col-lg-6 col-xl-5">
+          @php echo get_sub_field('modules_newsletter_copy') @endphp
+        </div>
+        <div class="col-lg-6 col-xl-4 offset-xl-1">
 
-        @else
-          <h4>{{ pll__('Frameld') }}</h4>
-
-          <form action="https://link-lives.uxmail.io/handlers/post/" method="post">
+          <form action="https://link-lives.uxmail.io/handlers/post/" target="_blank" method="post">
             <input type="hidden" name="action" value="unsubscribe" />
             <input type="hidden" name="lists" value="59269" />
 
@@ -45,13 +51,10 @@
 
             <input class="btn btn-primary mt-2" type="submit" value="{{ pll__('Frameld') }}" />
 
-            <input type="hidden" name="succes_url" value="https://www.link-lives.dk/du-er-nu-frameldt-nyhedsbrevet/"/>
-            <input type="hidden" name="failure_url" value="https://www.link-lives.dk/noget-gik-galt"/>
-
           </form>
+        </div>
 
-        @endif
-      </div>
+      @endif
     </div>
   </div>
 </section>

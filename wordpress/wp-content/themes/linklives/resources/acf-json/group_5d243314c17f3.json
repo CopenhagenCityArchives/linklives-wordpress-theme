@@ -724,15 +724,18 @@
                                 "class": "",
                                 "id": ""
                             },
+                            "acfe_permissions": "",
                             "choices": {
                                 "true": "Tilmeld",
-                                "false": "Frameld"
+                                "false": "Afmeld"
                             },
                             "allow_null": 0,
                             "other_choice": 0,
                             "default_value": "true",
                             "layout": "vertical",
                             "return_format": "value",
+                            "acfe_validate": "",
+                            "acfe_update": "",
                             "save_other_choice": 0
                         },
                         {
@@ -744,15 +747,18 @@
                             "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
+                            "acfe_permissions": "",
                             "default_value": "",
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
-                            "maxlength": ""
+                            "maxlength": "",
+                            "acfe_validate": "",
+                            "acfe_update": ""
                         },
                         {
                             "key": "field_5d3a2d787c0ca",
@@ -772,6 +778,28 @@
                             "prepend": "",
                             "append": "",
                             "maxlength": ""
+                        },
+                        {
+                            "key": "field_5d795c34b2868",
+                            "label": "Brødtekst",
+                            "name": "modules_newsletter_copy",
+                            "type": "wysiwyg",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "acfe_permissions": "",
+                            "default_value": "",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0,
+                            "acfe_validate": "",
+                            "acfe_update": ""
                         },
                         {
                             "key": "field_5d3a2d307c0c8",
@@ -865,5 +893,5 @@
     "acfe_permissions": "",
     "acfe_note": "",
     "acfe_meta": "",
-    "modified": 1568147666
+    "modified": 1568236727
 }
