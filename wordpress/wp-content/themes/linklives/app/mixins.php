@@ -6,12 +6,13 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
   function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
     $parent = array_search( 'menu-item-has-children', $item->classes );
 
-    $output .= sprintf( "\n<li class='%s' role='none'><a href='%s' role='menu-item' %s %s>%s</a>\n",
+    $output .= sprintf( "\n<li class='%s' role='none'><a href='%s' role='menuitem' %s %s>%s%s</a>\n",
         ($item->menu_item_parent ? "level-2" : "level-1") . implode(' ', $item->classes),
         $item->url,
         $item->menu_item_parent ? "tabindex='-1'" : "",
         $parent ? "aria-haspopup='true' aria-expanded='false'" : "",
-        $item->title
+        $item->title,
+        $parent ? '<svg class="icon"><use xlink:href="' . App\asset_path('images/feather-sprite.svg)#chevron-down') . '"/></svg>' : ''
     );
   }
 
@@ -41,13 +42,13 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
     ));
 
     if( $contact ):
-      $markup .= '<div class="col-lg-5"><div class="contact"><h4 class="mb-3">' . $translate( 'Kontakt' ) . '</h4>';
+      $markup .= '<div class="col-lg-5"><div class="contact"><div class="h4 mb-3">' . $translate( 'Kontakt' ) . '</div>';
 	    foreach( $contact as $c ):
         $markup .= '<div class="d-flex">';
         if ( has_post_thumbnail($c->ID)) :
           $markup .= '<img width="64px" height="64px" alt="' . $translate( 'Kontaktperson' ) . '" class="rounded-circle mr-3" src="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . '" srcset="' . get_the_post_thumbnail_url($c->ID, 'profile-image-x1') . ', ' . get_the_post_thumbnail_url($c->ID, 'profile-image-x2') . ' 2x"/>';
         endif;
-        $markup .= '<div><h5>' . get_the_title($c->ID) . '</h5>';
+        $markup .= '<div><div class="h5">' . get_the_title($c->ID) . '</div>';
         if(function_exists('get_field')):
           $markup .= '<a tabindex="-1" class="d-block" href="tel:' . get_field('members_phone', $c->ID) . '" target="_blank">' . get_field('members_phone', $c->ID) . '</a>';
           $markup .= '<a tabindex="-1" class="d-block" href="mailto:' . get_field('members_email', $c->ID) . '" target="_blank">' . get_field('members_email', $c->ID) . '</a></div>';

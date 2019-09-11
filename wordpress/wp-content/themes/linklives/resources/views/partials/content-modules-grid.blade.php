@@ -19,7 +19,7 @@
     	  @foreach( $posts as $post )
           @php setup_postdata($post) @endphp
           <a {{ post_class('col-md-6 col-xl-3 mb-5 mb-xl-0 post-type') }} href="{{ get_permalink() }}">
-            <article>
+            <article aria-label="{{ get_post_type_object(get_post_type())->labels->singular_name . ' – ' . get_the_title() }}">
 
               @include('components.thumbnail')
 

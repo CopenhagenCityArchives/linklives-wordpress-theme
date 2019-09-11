@@ -1,5 +1,5 @@
 <div {{ post_class($classes . ' post-type') }} id="{{ get_post_field( 'post_name' ) }}">
-  <article>
+  <article aria-label="{{ get_post_type_object(get_post_type())->labels->singular_name . ' – ' . get_the_title() }}">
 
     <a href="{{ get_permalink()}}">
 

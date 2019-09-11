@@ -10,7 +10,7 @@
 
       <div class="col-lg-4 order-lg-1 text-center text-lg-left">
         <a class="brand" height="2.5rem" width="auto" href="{{ pll_home_url() }}"><img alt="{{ get_bloginfo('name', 'display') }}" src="@asset('images/link-lives.svg')"></a>
-        <p class="mt-3 text-muted"><small>{{ get_field('footer_text_' . pll_current_language('slug'), 'options') }}</small></p>
+        <p class="mt-3 text-muted small">{{ get_field('footer_text_' . pll_current_language('slug'), 'options') }}</p>
       </div>
     </div>
   </div>

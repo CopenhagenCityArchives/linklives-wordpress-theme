@@ -54,7 +54,7 @@
           @include('partials.content-'.get_post_type(), ['classes' => $classes])
         @endwhile
       </div>
-      @include('components.nav-index')
+      @includeWhen(is_paged(), 'components.nav-index')
 
     </div>
 

@@ -64,7 +64,7 @@
             <div class="light">{{pll__('Links')}}</div>
             @while ( have_rows('members_links') )
               @php the_row() @endphp
-              <a class="d-block" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+              <a class="d-block" aria-label="{{ get_sub_field('members_links_title') . ' – ' . get_the_title() }}" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
             @endwhile
           </div>
         @endif
@@ -74,11 +74,11 @@
         @endif
 
         @if (get_field('members_email'))
-          <a class="d-block" href="mailto:{{ get_field('members_email') }}" target="_blank">{{ get_field('members_email') }}</a>
+          <a class="d-block" aria-label="{{ pll__('Email') . ' – ' . get_the_title() }}" href="mailto:{{ get_field('members_email') }}" target="_blank">{{ get_field('members_email') }}</a>
         @endif
 
         @if (get_field('members_phone'))
-          <a class="d-block" href="tel:{{ get_field('members_phone') }}" target="_blank">{{ get_field('members_phone') }}</a>
+          <a class="d-block" aria-label="{{ pll__('Ring') . ' – ' . get_the_title() }}" href="tel:{{ get_field('members_phone') }}" target="_blank">{{ get_field('members_phone') }}</a>
         @endif
 
         @if (get_field('website'))

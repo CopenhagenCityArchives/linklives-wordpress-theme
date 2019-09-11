@@ -12,6 +12,25 @@ header.menu-top {
     overflow: visible;
   }
 
+  .skip-menu {
+    background-color: $grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 25px 0 28px 0;
+    transform: translateY(-100%);
+    transition: transform 400ms $ease;
+
+    &:focus {
+      transform: translateY(0);
+    }
+  }
+
   .nav-toggle {
     padding: 30px 64px;
     margin-right: -64px;
@@ -105,6 +124,19 @@ header.menu-top {
       @include media-breakpoint-up(lg) {
         padding: 25px 24px 28px 0;
         font-size: 18px;
+      }
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-left: 4px;
+      transition: transform 600ms $ease;
+    }
+
+    &.active {
+      .icon {
+        transform: rotate(180deg);
       }
     }
 

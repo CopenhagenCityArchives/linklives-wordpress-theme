@@ -8,8 +8,8 @@
     <div class="row">
       <div class="col-lg-5 offset-lg-1 offset-xl-2 order-lg-2">
         <figure class="keyvisual" style="background-image: url({{$image['sizes']['large']}})">
-          <img class="date from-date" alt="{{ pll__('Fra 1787') }}" src="@asset('images/keyvisual-from-date.svg')">
-          <img class="date to-date" alt="{{ pll__('Til 1968') }}" src="@asset('images/keyvisual-to-date.svg')">
+          <img class="date from-date" role="presentation" alt="{{-- left blank because the image doesn’t add information to the page --}}" src="@asset('images/keyvisual-from-date.svg')">
+          <img class="date to-date" role="presentation" alt="{{-- left blank because the image doesn’t add information to the page --}}" src="@asset('images/keyvisual-to-date.svg')">
         </figure>
       </div>
       <div class="col-lg-6 col-xl-5 align-self-center">

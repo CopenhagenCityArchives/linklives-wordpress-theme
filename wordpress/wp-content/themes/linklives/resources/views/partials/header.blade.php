@@ -1,4 +1,10 @@
 <header class="menu-top">
+  <a href="#{{ pll__('indhold') }}" class="skip-menu">
+    <div class="container-fluid d-flex align-items-center">
+      {{ pll__('Gå til hovedindhold') }}
+      @include('components.icon', ['icon' => 'arrow-down', 'class' => 'ml-2'])
+    </div>
+  </a>
   <div class="container-fluid">
     <a class="brand d-lg-none" height="2.5rem" width="auto" href="{{ pll_home_url() }}"><img alt="{{ get_bloginfo('name', 'display') }}" src="@asset('images/link-lives.svg')"></a>
     <button type="button" class="nav-toggle float-right d-lg-none" aria-label="{{ pll__('Hovedmenu') }}" aria-haspopup="true" aria-expanded="false">
