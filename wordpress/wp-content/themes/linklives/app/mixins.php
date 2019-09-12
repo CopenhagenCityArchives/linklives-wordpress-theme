@@ -12,7 +12,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
         $item->menu_item_parent ? "tabindex='-1'" : "",
         $parent ? "aria-haspopup='true' aria-expanded='false'" : "",
         $item->title,
-        $parent ? '<svg class="icon"><use xlink:href="' . App\asset_path('images/feather-sprite.svg#chevron-down') . '"/></svg>' : ''
+        $parent ? '<svg class="icon"><use xlink:href="' . App\asset_path('images/feather-sprite.svg') . '#chevron-down"/></svg>' : ''
     );
   }
 
