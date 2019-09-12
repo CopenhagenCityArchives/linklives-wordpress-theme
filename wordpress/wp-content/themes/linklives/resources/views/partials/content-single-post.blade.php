@@ -1,18 +1,18 @@
 <article @php post_class('module') @endphp>
   <div class="container-fluid">
     @if ( has_post_thumbnail())
-      <div class="row">
+      <figure class="row">
         <div class="col-lg-8 offset-lg-2">
           <div class="img-wrap">
-            <img class="thumbnail" width="100%" height="auto" title="{{get_post(get_post_thumbnail_id())->post_excerpt}}" src="{{the_post_thumbnail_url('post-image-x1')}}" srcset="{{the_post_thumbnail_url('post-image-x2')}} 2x"/>
+            @include('components.thumbnail')
           </div>
         </div>
         <div class="col-lg-2 d-flex align-items-end">
-          <div class="light thumbnail-title">
+          <figcaption>
             {{get_post(get_post_thumbnail_id())->post_excerpt}}
-          </div>
+          </figcaption>
         </div>
-      </div>
+      </figure>
     @endif
 
     <div class="row">

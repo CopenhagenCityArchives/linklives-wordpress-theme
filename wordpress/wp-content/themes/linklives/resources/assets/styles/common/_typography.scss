@@ -35,7 +35,9 @@ time {
 }
 
 time,
-.light {
+.light,
+figcaption,
+.wp-block-image figcaption {
   color: lighten($dark, 33);
   font-size: 14px;
   display: inline-block;

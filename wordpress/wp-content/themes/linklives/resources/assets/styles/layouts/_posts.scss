@@ -13,7 +13,7 @@
   }
 
   time {
-    color: $yellow;
+    color: darken($yellow, 16);
   }
 
   article.has-post-thumbnail {

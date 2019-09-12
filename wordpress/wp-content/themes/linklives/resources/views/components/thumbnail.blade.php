@@ -15,6 +15,7 @@
       @endphp
     </div>
   @else
-    <img class="thumbnail" width="100%" height="auto" title="{{get_post(get_post_thumbnail_id())->post_excerpt}}" src="{{the_post_thumbnail_url('thumbnail-image-x1')}}" srcset="{{the_post_thumbnail_url('thumbnail-image-x2')}} 2x"/>
+    @php echo wp_get_attachment_image(get_post_thumbnail_id(), isset($size) ? $size : 'post-image-x1', false, ['class' => 'thumbnail']) @endphp
+    {{--<img class="thumbnail" width="100%" height="auto" title="{{get_post(get_post_thumbnail_id())->post_excerpt}}" src="{{the_post_thumbnail_url('thumbnail-image-x1')}}" srcset="{{the_post_thumbnail_url('thumbnail-image-x2')}} 2x"/>--}}
   @endif
 @endif

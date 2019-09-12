@@ -1,7 +1,7 @@
 <a {{ post_class($classes . ' post-type') }} href="{{ get_the_permalink() }}">
   <article class="d-flex align-items-stretch" aria-label="{{ pll__('Nyhed') . ' – ' . get_the_title()}}">
     @if ( has_post_thumbnail() )
-      <img class="thumbnail" alt="{{get_the_title()}}" title="{{get_post(get_post_thumbnail_id())->post_excerpt}}" src="{{the_post_thumbnail_url('thumbnail-image-x1')}}" srcset="{{the_post_thumbnail_url('thumbnail-image-x2')}} 2x"/>
+      @include('components.thumbnail', ['size' => 'thumbnail-image-x1'])
     @endif
     <div class="content">
 
