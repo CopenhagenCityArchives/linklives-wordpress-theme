@@ -1,7 +1,3 @@
-{{--
-  Template Name: Medlem-oversigt
---}}
-
 @extends('layouts.app')
 
 @section('content')

@@ -3,7 +3,6 @@
 @section('content')
   @include('partials.page-header')
 
-
   <section class="module">
     <div class="container-fluid">
       @if (!have_posts())
