@@ -60,4 +60,11 @@
 
   </section>
 
+  @if( have_rows('modules', get_option('page_for_posts')) )
+    @while ( have_rows('modules', get_option('page_for_posts')) )
+      @php the_row() @endphp
+      @include('partials.content-' . str_replace('_', '-', get_row_layout()))
+    @endwhile
+  @endif
+
 @endsection

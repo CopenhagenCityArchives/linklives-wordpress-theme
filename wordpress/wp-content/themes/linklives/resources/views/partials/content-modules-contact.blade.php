@@ -18,7 +18,7 @@
               <h4>{{ get_sub_field('modules_contact_options_headline') }}</h4>
               <p>{{ get_sub_field('modules_contact_options_body') }}</p>
             </div>
-            <a class="btn" href="{{ get_sub_field('modules_contact_options_url') }}">{{ get_sub_field('modules_contact_options_btn') }} @include('components.icon', ['icon' => 'arrow-right', 'class' => 'right'])</a>
+            <a class="btn" href="{{ get_sub_field('modules_contact_options_link_type') == 'external' ? get_sub_field('modules_contact_options_url') : get_sub_field('modules_contact_options_internal_link') }}">{{ get_sub_field('modules_contact_options_btn') }} @include('components.icon', ['icon' => 'arrow-right', 'class' => 'right'])</a>
           </div>
         @endwhile
       </div>
