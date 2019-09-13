@@ -1,1 +1,1 @@
-@include('content-single')
+@include('partials.content-single')
