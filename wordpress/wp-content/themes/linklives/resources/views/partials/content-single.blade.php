@@ -16,7 +16,7 @@
     @endif
     <div class="row align-items-center mb-4">
       <div class="offset-sm-1 col-lg-2 offset-lg-0 col-xl-3">
-        @includeWhen(is_singular('medlem'), 'components.profile-image', ['id' => get_the_ID(), 'class' => 'd-inline mr-4', 'width' => '64', 'height' => '64'])
+        @includeWhen(is_singular('medlem'), 'components.profile-image', ['id' => get_the_ID(), 'class' => 'd-inline mr-4', 'width' => '96', 'height' => '96'])
       </div>
       <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-0 col-xl-6">
         <header>

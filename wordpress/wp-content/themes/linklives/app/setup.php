@@ -69,6 +69,7 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
     add_image_size('profile-image-x1', 64, 64, true );
     add_image_size('profile-image-x2', 128, 128, true );
+    add_image_size('profile-image-x3', 192, 192, true );
     add_image_size('thumbnail-image-x1', 600, 450, true );
     add_image_size('thumbnail-image-x2', 1200, 900, true );
     add_image_size('post-image-x1', 1020 );
