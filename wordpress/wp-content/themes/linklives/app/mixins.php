@@ -33,6 +33,12 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
       'numberposts' => 1,
       'lang' => pll_current_language(),
       'meta_query' => array(
+        'relation' => 'AND',
+        array(
+          'key' => 'members_menu',
+          'value' => true,
+          'compare' => 'LIKE'
+        ),
         array(
           'key' => 'members_menu_submenu',
           'value' => '"' . get_post_meta($this->currentItem->menu_item_parent, '_menu_item_object_id', true) . '"',
