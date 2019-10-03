@@ -11,7 +11,7 @@
   @if( have_rows('members_links') )
     @while ( have_rows('members_links') )
       @php the_row() @endphp
-      <a class="link text-white mr-3" aria-label="{{ get_sub_field('members_links_title') . ' – ' . get_the_title() }}" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+      <a target="_blank" class="link text-white mr-3" aria-label="{{ get_sub_field('members_links_title') . ' – ' . get_the_title() }}" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
     @endwhile
   @endif
 

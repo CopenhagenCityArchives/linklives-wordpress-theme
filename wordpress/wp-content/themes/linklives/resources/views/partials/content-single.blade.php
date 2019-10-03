@@ -64,7 +64,7 @@
             <div class="light">{{pll__('Links')}}</div>
             @while ( have_rows('members_links') )
               @php the_row() @endphp
-              <a class="d-block" aria-label="{{ get_sub_field('members_links_title') . ' – ' . get_the_title() }}" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
+              <a target="_blank" class="d-block" aria-label="{{ get_sub_field('members_links_title') . ' – ' . get_the_title() }}" href="{{the_sub_field('members_links_url')}}">{{the_sub_field('members_links_title')}}</a>
             @endwhile
           </div>
         @endif
