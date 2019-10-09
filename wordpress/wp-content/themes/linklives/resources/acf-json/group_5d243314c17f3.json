@@ -564,10 +564,11 @@
                                         "class": "",
                                         "id": ""
                                     },
+                                    "acfe_permissions": "",
                                     "collapsed": "",
-                                    "min": 0,
-                                    "max": 0,
-                                    "layout": "",
+                                    "min": 1,
+                                    "max": 1,
+                                    "layout": "table",
                                     "button_label": "Tilføj link",
                                     "sub_fields": [
                                         {
@@ -590,10 +591,10 @@
                                             "maxlength": ""
                                         },
                                         {
-                                            "key": "field_5d243880ae52f",
-                                            "label": "Indhold",
-                                            "name": "modules_groupedlinks_groups_links_linkurl",
-                                            "type": "page_link",
+                                            "key": "field_5d9ddec497431",
+                                            "label": "Link til URL",
+                                            "name": "modules_groupedlinks_groups_links_conditional",
+                                            "type": "true_false",
                                             "instructions": "",
                                             "required": 0,
                                             "conditional_logic": 0,
@@ -602,11 +603,71 @@
                                                 "class": "",
                                                 "id": ""
                                             },
+                                            "acfe_permissions": "",
+                                            "message": "",
+                                            "default_value": 0,
+                                            "ui": 0,
+                                            "acfe_validate": "",
+                                            "acfe_update": "",
+                                            "ui_on_text": "",
+                                            "ui_off_text": ""
+                                        },
+                                        {
+                                            "key": "field_5d243880ae52f",
+                                            "label": "Indhold",
+                                            "name": "modules_groupedlinks_groups_links_linkurl",
+                                            "type": "page_link",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5d9ddec497431",
+                                                        "operator": "!=",
+                                                        "value": "1"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "acfe_permissions": "",
                                             "post_type": "",
                                             "taxonomy": "",
                                             "allow_null": 0,
                                             "allow_archives": 1,
-                                            "multiple": 0
+                                            "multiple": 0,
+                                            "acfe_validate": "",
+                                            "acfe_update": ""
+                                        },
+                                        {
+                                            "key": "field_5d9de01297432",
+                                            "label": "URL",
+                                            "name": "modules_groupedlinks_groups_links_customurl",
+                                            "type": "url",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": [
+                                                [
+                                                    {
+                                                        "field": "field_5d9ddec497431",
+                                                        "operator": "==",
+                                                        "value": "1"
+                                                    }
+                                                ]
+                                            ],
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "acfe_permissions": "",
+                                            "default_value": "",
+                                            "placeholder": "",
+                                            "acfe_validate": "",
+                                            "acfe_update": ""
                                         }
                                     ]
                                 }
@@ -974,5 +1035,5 @@
     "acfe_permissions": "",
     "acfe_note": "",
     "acfe_meta": "",
-    "modified": 1568900838
+    "modified": 1570627856
 }

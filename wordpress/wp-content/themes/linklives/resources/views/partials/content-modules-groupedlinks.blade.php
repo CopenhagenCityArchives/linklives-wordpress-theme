@@ -33,8 +33,11 @@
               @if( have_rows('modules_groupedlinks_groups_links') )
                 <ul class="list-unstyled">
               	  @while ( have_rows('modules_groupedlinks_groups_links') )
-                    @php the_row() @endphp
-                      <li><a href="{{ the_sub_field('modules_groupedlinks_groups_links_linkurl') }}">{{ the_sub_field('modules_groupedlinks_groups_links_linktext') }}@include('components.icon', ['icon' => 'arrow-right'])</a></li>
+                    @php
+                      the_row();
+                      $url = get_sub_field('modules_groupedlinks_groups_links_conditional') ? get_sub_field('modules_groupedlinks_groups_links_customurl') : get_sub_field('modules_groupedlinks_groups_links_linkurl');
+                    @endphp
+                      <li><a href="{{ $url }}">{{ the_sub_field('modules_groupedlinks_groups_links_linktext') }}@include('components.icon', ['icon' => 'arrow-right'])</a></li>
               		@endwhile
               	</ul>
               @endif
