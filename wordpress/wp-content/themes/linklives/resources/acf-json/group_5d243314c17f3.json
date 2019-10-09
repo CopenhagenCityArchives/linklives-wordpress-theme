@@ -566,8 +566,8 @@
                                     },
                                     "acfe_permissions": "",
                                     "collapsed": "",
-                                    "min": 1,
-                                    "max": 1,
+                                    "min": 0,
+                                    "max": 0,
                                     "layout": "table",
                                     "button_label": "Tilføj link",
                                     "sub_fields": [
@@ -1035,5 +1035,5 @@
     "acfe_permissions": "",
     "acfe_note": "",
     "acfe_meta": "",
-    "modified": 1570627856
+    "modified": 1570649301
 }
