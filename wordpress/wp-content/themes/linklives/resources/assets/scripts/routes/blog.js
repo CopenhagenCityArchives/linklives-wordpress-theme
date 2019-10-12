@@ -18,12 +18,12 @@ export default {
       }
 
       $('#tags-filter-open').click(function(e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
         openTagsFilter();
       });
 
       $('#tags-filter-close').click(function(e) {
-        e.preventDefault()
+        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
         closeTagsFilter();
       });
 

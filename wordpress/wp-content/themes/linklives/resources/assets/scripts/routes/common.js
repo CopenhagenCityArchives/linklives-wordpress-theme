@@ -49,7 +49,8 @@ export default {
 
       // Add click-event to hamburger menu btn
       $('.nav-toggle').click(function(e) {
-        e.preventDefault()
+        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+
         if(!hamburgerOpen) {
           openHamburgerMenu()
         } else {
@@ -59,7 +60,7 @@ export default {
 
       // Add click-event to menu-items with sub-menu
       $('header .menu-item-has-children >a').click(function(e) {
-        e.preventDefault();
+        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
         let $menuItem = $(this).parent()
         let $wrapper = $menuItem.find('.sub-menu-wrapper')
 
