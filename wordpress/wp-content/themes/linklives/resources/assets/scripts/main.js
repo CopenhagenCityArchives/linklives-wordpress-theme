@@ -1,4 +1,5 @@
 // import external dependencies
+import 'custom-event-polyfill';
 import 'jquery';
 
 // Import everything from autoload

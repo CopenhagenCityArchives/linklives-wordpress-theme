@@ -17,13 +17,11 @@ export default {
           .find('#tags-filter-close, #tags a').attr( 'tabindex', '-1' );
       }
 
-      $('#tags-filter-open').click(function(e) {
-        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+      $('#tags-filter-open').click(function() {
         openTagsFilter();
       });
 
-      $('#tags-filter-close').click(function(e) {
-        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+      $('#tags-filter-close').click(function() {
         closeTagsFilter();
       });
 

@@ -48,9 +48,7 @@ export default {
       }
 
       // Add click-event to hamburger menu btn
-      $('.nav-toggle').click(function(e) {
-        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
-
+      $('.nav-toggle').click(function() {
         if(!hamburgerOpen) {
           openHamburgerMenu()
         } else {

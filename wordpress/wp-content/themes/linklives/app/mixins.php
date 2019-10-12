@@ -8,7 +8,7 @@ class Sub_Menu_Wrap extends Walker_Nav_Menu {
 
     $output .= sprintf( "\n<li class='%s' role='none'><a href='%s' role='menuitem' %s %s>%s%s</a>\n",
         ($item->menu_item_parent ? "level-2" : "level-1") . implode(' ', $item->classes),
-        $item->url,
+        $parent ? '#' : $item->url,
         $item->menu_item_parent ? "tabindex='-1'" : "",
         $parent ? "aria-haspopup='true' aria-expanded='false'" : "",
         $item->title,
