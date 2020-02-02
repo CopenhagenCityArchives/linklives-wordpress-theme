@@ -26,17 +26,26 @@
       }
     }
 
-    .thumbnail {
-      width: 50%;
-      min-height: 96px;
-      margin-right: 1.5rem;
+    .thumbnail-bg {
+      width: 100%;
+      min-height: 16rem;
+      background-size: cover;
+      background-position: center center;
     }
 
-    .content .icon {
-      display: block;
-      color: $yellow;
-      transition: transform 600ms $ease;
-      margin-top: 1rem;
+    .content {
+      .icon {
+        display: block;
+        color: $yellow;
+        transition: transform 600ms $ease;
+        margin-top: 1rem;
+      }
+    }
+
+    .thumbnail-bg,
+    .thumbnail-bg + .content {
+      flex-grow: 1;
+      flex-basis: 0;
     }
 
     &.text-white {
