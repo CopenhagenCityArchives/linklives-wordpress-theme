@@ -7,11 +7,13 @@
             @include('components.thumbnail')
           </div>
         </div>
-        <div class="col-lg-2 d-flex align-items-end">
-          <figcaption>
-            {{get_post(get_post_thumbnail_id())->post_excerpt}}
-          </figcaption>
-        </div>
+        @if (get_post(get_post_thumbnail_id())->post_excerpt)
+          <div class="col-lg-2 d-flex align-items-end">
+            <figcaption class="mt-2 mt-lg-0">
+              {{get_post(get_post_thumbnail_id())->post_excerpt}}
+            </figcaption>
+          </div>
+        @endif
       </figure>
     @endif
 
