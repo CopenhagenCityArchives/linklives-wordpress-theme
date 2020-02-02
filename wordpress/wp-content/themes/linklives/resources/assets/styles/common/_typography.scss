@@ -9,6 +9,32 @@ h2,
   font-weight: 400;
 }
 
+time {
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+time,
+.light,
+figcaption {
+  color: lighten($dark, 33);
+  font-size: 14px;
+  display: inline-block;
+  font-weight: $font-weight-normal;
+
+  .text-white & {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.wp-block-image figcaption {
+  font-size: 1rem;
+}
+
+.link {
+  font-weight: $font-weight-normal;
+}
+
 .entry-content {
   p {
     margin-bottom: 2rem;
@@ -27,27 +53,4 @@ h2,
   h2 {
     font-family: $font-family-sans-serif;
   }
-}
-
-time {
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.5px;
-}
-
-time,
-.light,
-figcaption,
-.wp-block-image figcaption {
-  color: lighten($dark, 33);
-  font-size: 14px;
-  display: inline-block;
-  font-weight: $font-weight-normal;
-
-  .text-white & {
-    color: rgba(255, 255, 255, 0.5);
-  }
-}
-
-.link {
-  font-weight: $font-weight-normal;
 }
