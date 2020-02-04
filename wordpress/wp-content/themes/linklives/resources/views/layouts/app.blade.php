@@ -16,7 +16,6 @@
     </div>
     @php do_action('get_footer') @endphp
     @include('partials.footer')
-    @include('partials.cookie')
     @php wp_footer() @endphp
   </body>
 </html>

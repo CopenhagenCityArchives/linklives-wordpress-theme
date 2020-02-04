@@ -128,25 +128,6 @@ export default {
 
     initMenu();
 
-    // Cookie
-    if(!localStorage.getItem('cookie')) {
-      $('.cookie #accept').click(function() {
-        localStorage.setItem('cookie', true);
-        $('.cookie').removeClass('active');
-
-        setTimeout(function () {
-          $('.cookie').addClass('d-none');
-        }, 600);
-      })
-
-      $('.cookie').removeClass('d-none');
-
-      // Wait 2.5s for cookie banner to show
-      setTimeout(function () {
-        $('.cookie').addClass('active');
-      }, 2500);
-    }
-
     // Modules
     function initGroupedLinks() {
       $('.module-groupedlinks').each(function() {
