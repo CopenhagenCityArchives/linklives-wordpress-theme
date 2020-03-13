@@ -1,5 +1,5 @@
 <head>
-  <script data-culture="{{pll_current_language()}}" id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="401abcfd-34f0-41ec-88b9-ed1d801490a1" data-blockingmode="auto" type="text/javascript"></script>
+  {{-- <script data-culture="{{pll_current_language()}}" id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="401abcfd-34f0-41ec-88b9-ed1d801490a1" data-blockingmode="auto" type="text/javascript"></script> --}}
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149577576-1"></script>
