@@ -18,6 +18,7 @@
             'post_type' => 'medlem',
             'orderby' => 'title',
             'order' => 'ASC',
+            'posts_per_page' => -1,
             'tax_query' => [[
               'taxonomy' => 'rolle',
               'field' => 'term_id',
