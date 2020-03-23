@@ -110,11 +110,6 @@ class PLL_Plugins_Compat {
 			$this->divi_builder = new PLL_Divi_Builder();
 		}
 
-		// Admin Columns & Admin Columns Pro
-		if ( ( defined( 'AC_FILE' ) || defined( 'ACP_FILE' ) ) && class_exists( 'PLL_CPAC' ) ) {
-			add_action( 'admin_init', array( $this->cpac = new PLL_CPAC(), 'init' ) );
-		}
-
 		// WP Offload Media Lite
 		if ( function_exists( 'as3cf_init' ) && class_exists( 'PLL_AS3CF' ) ) {
 			add_action( 'pll_init', array( $this->as3cf = new PLL_AS3CF(), 'init' ) );
@@ -133,9 +128,13 @@ class PLL_Plugins_Compat {
 	 */
 	public function after_setup_theme() {
 		// Advanced Custom Fields Pro
-		// The function acf_get_value() is not defined in ACF 4
-		if ( class_exists( 'acf' ) && function_exists( 'acf_get_value' ) && class_exists( 'PLL_ACF' ) ) {
+		if ( defined( 'ACF_VERSION' ) && version_compare( ACF_VERSION, '5.7.11', '>=' ) && class_exists( 'PLL_ACF' ) ) {
 			add_action( 'init', array( $this->acf = new PLL_ACF(), 'init' ) );
+		}
+
+		// Admin Columns & Admin Columns Pro
+		if ( did_action( 'pll_init' ) && ( defined( 'AC_FILE' ) || defined( 'ACP_FILE' ) ) && class_exists( 'PLL_CPAC' ) ) {
+			add_action( 'admin_init', array( $this->cpac = new PLL_CPAC(), 'init' ) );
 		}
 	}
 

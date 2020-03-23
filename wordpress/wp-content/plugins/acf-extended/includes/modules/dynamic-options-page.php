@@ -4,7 +4,7 @@ if(!defined('ABSPATH'))
     exit;
 
 // Check setting
-if(!acf_get_setting('acfe/modules/dynamic_options_pages', true))
+if(!acf_get_setting('acfe/modules/dynamic_options_pages'))
     return;
 
 /**
@@ -23,7 +23,7 @@ function acfe_dop_register(){
             'edit_item'     => 'Edit Options Page',
             'add_new_item'  => 'New Options Page',
         ),
-        'supports'              => array('custom-fields'),
+        'supports'              => false,
         'hierarchical'          => true,
         'public'                => false,
         'show_ui'               => true,
@@ -106,8 +106,9 @@ function acfe_dop_menu_sub_highlight($submenu_file){
  */
 add_action('init', 'acfe_dop_registers');
 function acfe_dop_registers(){
+	
+	$dynamic_options_pages = acfe_settings('modules.dynamic_option.data');
     
-    $dynamic_options_pages = get_option('acfe_dynamic_options_pages', array());
     if(empty($dynamic_options_pages))
         return;
     
@@ -161,6 +162,22 @@ function acfe_dop_exclude($post_types, $args){
     }
     
     return $post_types;
+    
+}
+
+add_action('post_submitbox_misc_actions', 'acfe_dop_misc_actions');
+function acfe_dop_misc_actions($post){
+    
+    if($post->post_type !== 'acfe-dop')
+        return;
+    
+    $name = get_field('acfe_dop_name', $post->ID);
+    
+    ?>
+    <div class="misc-pub-section misc-pub-acfe-field-group-export" style="padding-top:2px;">
+        <span style="font-size:17px;color: #82878c;line-height: 1.3;width: 20px;margin-right: 2px;" class="dashicons dashicons-editor-code"></span> Export: <a href="<?php echo admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=acfe_tool_dop_export&action=php&keys=' . $name); ?>">PHP</a> <a href="<?php echo admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=acfe_tool_dop_export&action=json&keys=' . $name); ?>">Json</a>
+    </div>
+    <?php
     
 }
 
@@ -222,6 +239,20 @@ function acfe_dop_filter_save($post_id){
     $update_button = get_field('update_button', $post_id);
     $updated_message = get_field('updated_message', $post_id);
     
+    if(empty($menu_title)){
+        
+        $menu_title = $page_title;
+        update_field('menu_title', $menu_title, $post_id);
+        
+    }
+    
+    if(empty($menu_slug)){
+        
+        $menu_slug = sanitize_title($menu_title);
+        update_field('menu_slug', $menu_slug, $post_id);
+        
+    }
+    
     // Register: Args
     $register_args = array(
         'page_title'        => $page_title,
@@ -261,7 +292,7 @@ function acfe_dop_filter_save($post_id){
         $register_args['autoload'] = false;
         
     // Get ACFE option
-    $option = get_option('acfe_dynamic_options_pages', array());
+	$option = acfe_settings('modules.dynamic_option.data');
     
     // Create ACFE option
     $option[$name] = $register_args;
@@ -270,7 +301,7 @@ function acfe_dop_filter_save($post_id){
     ksort($option);
     
     // Update ACFE option
-    update_option('acfe_dynamic_options_pages', $option);
+	acfe_settings('modules.dynamic_option.data', $option, true);
     
 }
 
@@ -288,14 +319,14 @@ function acfe_dop_filter_status_trash($post){
     $name = get_field('acfe_dop_name', $post_id);
     
     // Get ACFE option
-    $option = get_option('acfe_dynamic_options_pages', array());
+	$option = acfe_settings('modules.dynamic_option.data');
     
     // Check ACFE option
     if(isset($option[$name]))
         unset($option[$name]);
     
     // Update ACFE option
-    update_option('acfe_dynamic_options_pages', $option);
+	acfe_settings('modules.dynamic_option.data', $option, true);
     
 }
 
@@ -379,7 +410,7 @@ function acfe_dop_admin_columns_html($column, $post_id){
         
         $name = get_field('acfe_dop_name', $post_id);
         
-        echo '<code style="-webkit-user-select: all;-moz-user-select: all;-ms-user-select: all;user-select: all;font-size: 12px;">' . $name . '</code>';
+        echo '<code style="font-size: 12px;">' . $name . '</code>';
         
     }
     
@@ -390,7 +421,7 @@ function acfe_dop_admin_columns_html($column, $post_id){
         if(empty($p_id))
             $p_id = 'options';
         
-        echo '<code style="-webkit-user-select: all;-moz-user-select: all;-ms-user-select: all;user-select: all;font-size: 12px;">' . $p_id. '</code>';
+        echo '<code style="font-size: 12px;">' . $p_id. '</code>';
         
     }
     
@@ -414,12 +445,13 @@ function acfe_dop_admin_columns_html($column, $post_id){
 add_filter('page_row_actions','acfe_dop_admin_row', 10, 2);
 function acfe_dop_admin_row($actions, $post){
 
-    if($post->post_type != 'acfe-dop' || $post->post_status != 'publish')
+    if($post->post_type !== 'acfe-dop' || $post->post_status !== 'publish')
         return $actions;
     
     $name = get_field('acfe_dop_name', $post->ID);
     
-    $actions['acfe_dpt_export_json'] = '<a href="' . admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=acfe_tool_dop_export&keys=' . $name) . '">' . __('Json') . '</a>';
+    $actions['acfe_dop_export_php'] = '<a href="' . admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=acfe_tool_dop_export&action=php&keys=' . $name) . '">' . __('PHP') . '</a>';
+    $actions['acfe_dop_export_json'] = '<a href="' . admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=acfe_tool_dop_export&action=json&keys=' . $name) . '">' . __('Json') . '</a>';
     
     return $actions;
     
@@ -476,335 +508,330 @@ function acfe_dop_admin_name_value(){
 }
 
 /**
- * Dynamic Options Page: Local Field Group
+ * Add Local Field Group
  */
-add_action('init', 'acfe_dop_local_field_group');
-function acfe_dop_local_field_group(){
+acf_add_local_field_group(array(
+    'key' => 'group_acfe_dynamic_options_page',
+    'title' => __('Dynamic Options Page', 'acfe'),
     
-    acf_add_local_field_group(array(
-        'key' => 'group_acfe_dynamic_options_page',
-        'title' => __('Dynamic Options Page', 'acfe'),
-        
-        'location' => array(
+    'location' => array(
+        array(
             array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'acfe-dop',
-                ),
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'acfe-dop',
             ),
         ),
-        
-        'menu_order' => 0,
-        'position' => 'normal',
-        'style' => 'default',
-        'label_placement' => 'left',
-        'instruction_placement' => 'label',
-        'hide_on_screen' => '',
-        'active' => 1,
-        'description' => '',
-        
-        'fields' => array(
-            array(
-                'key' => 'field_acfe_dop_page_title',
-                'label' => 'Page title',
-                'name' => 'page_title',
-                'type' => 'text',
-                'instructions' => '(string) The title displayed on the options page. Required.',
-                'required' => 1,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_name',
-                'label' => 'Name',
-                'name' => 'acfe_dop_name',
-                'type' => 'acfe_slug',
-                'instructions' => '(string) Options page slug. Must be unique',
-                'required' => 1,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_menu_title',
-                'label' => 'Menu title',
-                'name' => 'menu_title',
-                'type' => 'text',
-                'instructions' => '(string) The title displayed in the wp-admin sidebar. Defaults to page_title',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_menu_slug',
-                'label' => 'Menu slug',
-                'name' => 'menu_slug',
-                'type' => 'acfe_slug',
-                'instructions' => '(string) The URL slug used to uniquely identify this options page. Defaults to a url friendly version of menu_title',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => array(
-                    '5cd2a4d60fbf2' => array(
-                        'acfe_update_function' => 'sanitize_title',
-                    ),
-                ),
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_capability',
-                'label' => 'Capability',
-                'name' => 'capability',
-                'type' => 'text',
-                'instructions' => '(string) The capability required for this menu to be displayed to the user. Defaults to edit_posts.<br /><br />
-
-    Read more about capability here: <a href="https://codex.wordpress.org/Roles_and_Capabilities">https://codex.wordpress.org/Roles_and_Capabilities</a>',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => 'edit_posts',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_position',
-                'label' => 'Position',
-                'name' => 'position',
-                'type' => 'text',
-                'instructions' => '(int|string) The position in the menu order this menu should appear. Defaults to bottom of utility menu items.<br /><br />
-
-    WARNING: if two menu items use the same position attribute, one of the items may be overwritten so that only one item displays!<br />
-    Risk of conflict can be reduced by using decimal instead of integer values, e.g. \'63.3\' instead of 63 (must use quotes).',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_parent_slug',
-                'label' => 'Parent slug',
-                'name' => 'parent_slug',
-                'type' => 'text',
-                'instructions' => '(string) The slug of another WP admin page. if set, this will become a child page.',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_icon_url',
-                'label' => 'Icon url',
-                'name' => 'icon_url',
-                'type' => 'text',
-                'instructions' => '(string) The icon class for this menu. Defaults to default WordPress gear.<br /><br />
-    Read more about dashicons here: <a href="https://developer.wordpress.org/resource/dashicons/">https://developer.wordpress.org/resource/dashicons/</a>',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => '',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_redirect',
-                'label' => 'Redirect',
-                'name' => 'redirect',
-                'type' => 'true_false',
-                'instructions' => '(boolean) If set to true, this options page will redirect to the first child page (if a child page exists). 
-    If set to false, this parent page will appear alongside any child pages. Defaults to true',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'message' => '',
-                'default_value' => 1,
-                'ui' => 1,
-                'ui_on_text' => 'True',
-                'ui_off_text' => 'False',
-            ),
-            array(
-                'key' => 'field_acfe_dop_post_id',
-                'label' => 'Post ID',
-                'name' => 'post_id',
-                'type' => 'text',
-                'instructions' => '(int|string) The \'$post_id\' to save/load data to/from. Can be set to a numeric post ID (123), or a string (\'user_2\'). 
-    Defaults to \'options\'.',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => 'options',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_autoload',
-                'label' => 'Autoload',
-                'name' => 'autoload',
-                'type' => 'true_false',
-                'instructions' => '(boolean)	Whether to load the option (values saved from this options page) when WordPress starts up.
-    Defaults to false.',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'message' => '',
-                'default_value' => 0,
-                'ui' => 1,
-                'ui_on_text' => 'True',
-                'ui_off_text' => 'False',
-            ),
-            array(
-                'key' => 'field_acfe_dop_update_button',
-                'label' => 'Update button',
-                'name' => 'update_button',
-                'type' => 'text',
-                'instructions' => '(string) The update button text.',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => 'Update',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-            array(
-                'key' => 'field_acfe_dop_updated_message',
-                'label' => 'Updated Message',
-                'name' => 'updated_message',
-                'type' => 'text',
-                'instructions' => '(string) The message shown above the form on submit.',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ),
-                'acfe_validate' => '',
-                'acfe_update' => '',
-                'acfe_permissions' => '',
-                'default_value' => 'Options Updated',
-                'placeholder' => '',
-                'prepend' => '',
-                'append' => '',
-                'maxlength' => '',
-            ),
-        ),
-    ));
+    ),
     
-}
+    'menu_order' => 0,
+    'position' => 'normal',
+    'style' => 'default',
+    'label_placement' => 'left',
+    'instruction_placement' => 'label',
+    'hide_on_screen' => '',
+    'active' => 1,
+    'description' => '',
+    
+    'fields' => array(
+        array(
+            'key' => 'field_acfe_dop_page_title',
+            'label' => 'Page title',
+            'name' => 'page_title',
+            'type' => 'text',
+            'instructions' => '(string) The title displayed on the options page. Required.',
+            'required' => 1,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_name',
+            'label' => 'Name',
+            'name' => 'acfe_dop_name',
+            'type' => 'acfe_slug',
+            'instructions' => '(string) Options page slug. Must be unique',
+            'required' => 1,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_menu_title',
+            'label' => 'Menu title',
+            'name' => 'menu_title',
+            'type' => 'text',
+            'instructions' => '(string) The title displayed in the wp-admin sidebar. Defaults to page_title',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_menu_slug',
+            'label' => 'Menu slug',
+            'name' => 'menu_slug',
+            'type' => 'acfe_slug',
+            'instructions' => '(string) The URL slug used to uniquely identify this options page. Defaults to a url friendly version of menu_title',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => array(
+                '5cd2a4d60fbf2' => array(
+                    'acfe_update_function' => 'sanitize_title',
+                ),
+            ),
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_capability',
+            'label' => 'Capability',
+            'name' => 'capability',
+            'type' => 'text',
+            'instructions' => '(string) The capability required for this menu to be displayed to the user. Defaults to edit_posts.<br /><br />
+
+Read more about capability here: <a href="https://codex.wordpress.org/Roles_and_Capabilities">https://codex.wordpress.org/Roles_and_Capabilities</a>',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => 'edit_posts',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_position',
+            'label' => 'Position',
+            'name' => 'position',
+            'type' => 'text',
+            'instructions' => '(int|string) The position in the menu order this menu should appear. Defaults to bottom of utility menu items.<br /><br />
+
+WARNING: if two menu items use the same position attribute, one of the items may be overwritten so that only one item displays!<br />
+Risk of conflict can be reduced by using decimal instead of integer values, e.g. \'63.3\' instead of 63 (must use quotes).',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_parent_slug',
+            'label' => 'Parent slug',
+            'name' => 'parent_slug',
+            'type' => 'text',
+            'instructions' => '(string) The slug of another WP admin page. if set, this will become a child page.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_icon_url',
+            'label' => 'Icon url',
+            'name' => 'icon_url',
+            'type' => 'text',
+            'instructions' => '(string) The icon class for this menu. Defaults to default WordPress gear.<br /><br />
+Read more about dashicons here: <a href="https://developer.wordpress.org/resource/dashicons/">https://developer.wordpress.org/resource/dashicons/</a>',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => '',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_redirect',
+            'label' => 'Redirect',
+            'name' => 'redirect',
+            'type' => 'true_false',
+            'instructions' => '(boolean) If set to true, this options page will redirect to the first child page (if a child page exists). 
+If set to false, this parent page will appear alongside any child pages. Defaults to true',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'message' => '',
+            'default_value' => 1,
+            'ui' => 1,
+            'ui_on_text' => 'True',
+            'ui_off_text' => 'False',
+        ),
+        array(
+            'key' => 'field_acfe_dop_post_id',
+            'label' => 'Post ID',
+            'name' => 'post_id',
+            'type' => 'text',
+            'instructions' => '(int|string) The \'$post_id\' to save/load data to/from. Can be set to a numeric post ID (123), or a string (\'user_2\'). 
+Defaults to \'options\'.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => 'options',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_autoload',
+            'label' => 'Autoload',
+            'name' => 'autoload',
+            'type' => 'true_false',
+            'instructions' => '(boolean)	Whether to load the option (values saved from this options page) when WordPress starts up.
+Defaults to false.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'message' => '',
+            'default_value' => 0,
+            'ui' => 1,
+            'ui_on_text' => 'True',
+            'ui_off_text' => 'False',
+        ),
+        array(
+            'key' => 'field_acfe_dop_update_button',
+            'label' => 'Update button',
+            'name' => 'update_button',
+            'type' => 'text',
+            'instructions' => '(string) The update button text.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => 'Update',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+        array(
+            'key' => 'field_acfe_dop_updated_message',
+            'label' => 'Updated Message',
+            'name' => 'updated_message',
+            'type' => 'text',
+            'instructions' => '(string) The message shown above the form on submit.',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'acfe_validate' => '',
+            'acfe_update' => '',
+            'acfe_permissions' => '',
+            'default_value' => 'Options Updated',
+            'placeholder' => '',
+            'prepend' => '',
+            'append' => '',
+            'maxlength' => '',
+        ),
+    ),
+));

@@ -6,25 +6,48 @@ if(!defined('ABSPATH'))
 /**
  * Auto Sync: Includes
  */
-$acfe_php = acf_get_setting('acfe_php');
-$acfe_php_load = acf_get_setting('acfe_php_load');
+$acfe_php = acf_get_setting('acfe/php');
+$acfe_php_load = acf_get_setting('acfe/php_load');
 
 if(!empty($acfe_php) && !empty($acfe_php_load)){
+    
     foreach($acfe_php_load as $path){
+        
         if(!is_readable($path))
             continue;
         
-        acf_update_setting('acfe_php_found', true);
+        acf_update_setting('acfe/php_found', true);
         
         $files = glob($path . '/*.php');
         if(empty($files))
             continue;
         
         foreach($files as $file){
+            
             require_once($file);
+            
         }
         
     }
+    
+}
+
+$acfe_json = acf_get_setting('json');
+$acfe_json_load = acf_get_setting('load_json');
+
+if(!empty($acfe_json) && !empty($acfe_json_load)){
+    
+    foreach($acfe_json_load as $path){
+        
+        if(!is_dir($path))
+            continue;
+        
+        acf_update_setting('acfe/json_found', true);
+        
+        break;
+        
+    }
+    
 }
 
 /**
@@ -68,10 +91,11 @@ function acfe_autosync_temp_disable_json(){
  * Auto Sync: PHP
  */
 add_action('acf/update_field_group', 'acfe_autosync_php_update_field_group');
+add_action('acf/untrash_field_group', 'acfe_autosync_php_update_field_group');
 function acfe_autosync_php_update_field_group($field_group){
     
     // Validate
-    if(!acf_get_setting('acfe_php'))
+    if(!acf_get_setting('acfe/php'))
         return;
     
     if(!acfe_has_field_group_autosync($field_group, 'php'))
@@ -82,12 +106,31 @@ function acfe_autosync_php_update_field_group($field_group){
     
 }
 
+add_action('acf/trash_field_group',	 'acfe_autosync_php_delete_field_group');
+add_action('acf/delete_field_group', 'acfe_autosync_php_delete_field_group');
+function acfe_autosync_php_delete_field_group($field_group){
+    
+    // validate
+    if(!acf_get_setting('acfe/php'))
+        return;
+    
+    if(!acfe_has_field_group_autosync($field_group, 'php'))
+        return;
+    
+    // WP appends '__trashed' to end of 'key' (post_name) 
+    $field_group['key'] = str_replace('__trashed', '', $field_group['key']);
+    
+    // delete
+    acfe_autosync_delete_php($field_group['key']);
+    
+}
+
 /**
  * Auto Sync: Write PHP
  */
 function acfe_autosync_write_php($field_group){
     
-    $path = acf_get_setting('acfe_php_save');
+    $path = acf_get_setting('acfe/php_save');
     if(empty($path))
         return false;
 	
@@ -158,6 +201,27 @@ function acfe_autosync_write_php($field_group){
 	
 }
 
+function acfe_autosync_delete_php($key){
+	
+	// vars
+	$path = acf_get_setting('acfe/php_save');
+	$file = $key . '.php';
+	
+	// remove trailing slash
+	$path = untrailingslashit($path);
+	
+	// bail early if file does not exist
+	if(!is_readable("{$path}/{$file}"))
+		return false;
+    
+	// remove file
+	unlink("{$path}/{$file}");
+	
+	// return
+	return true;
+	
+}
+
 /**
  * Auto Sync: Helper - is field group json desync
  */
@@ -214,6 +278,7 @@ function acfe_has_field_group_autosync_file($field_group, $type = 'json'){
         
         // acf_is_local_field_group = true if json file found
         $found = false;
+        
         if(acf_is_local_field_group($field_group['key'])){
             
             $local_field_group = acf_get_local_field_group($field_group['key']);
@@ -234,8 +299,10 @@ function acfe_has_field_group_autosync_file($field_group, $type = 'json'){
                         $file = $field_group['key'] . '.json';
                         
                         if(is_readable("{$path}/{$file}")){
+                            
                             $found = true;
                             break;
+                            
                         }
                         
                     }
@@ -256,8 +323,10 @@ function acfe_has_field_group_autosync_file($field_group, $type = 'json'){
                     $file = $field_group['key'] . '.json';
                     
                     if(is_readable("{$path}/{$file}")){
+                        
                         $found = true;
                         break;
+                        
                     }
                     
                 }
@@ -273,10 +342,12 @@ function acfe_has_field_group_autosync_file($field_group, $type = 'json'){
         
         // acf_is_local_field_group = true if php registered
         $found = false;
+        
         if(acf_is_local_field_group($field_group['key'])){
             
             $local_field_group = acf_get_local_field_group($field_group['key']);
             $get_local = acf_maybe_get($local_field_group, 'local', false);
+            
             if($get_local === 'php')
                 $found = true;
             

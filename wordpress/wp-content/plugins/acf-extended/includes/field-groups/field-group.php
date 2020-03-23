@@ -3,21 +3,105 @@
 if(!defined('ABSPATH'))
     exit;
 
-/**
- * Field Group Options: Note
- */
-add_action('acf/render_field_group_settings', 'acfe_render_field_group_options');
-function acfe_render_field_group_options($field_group){
+add_action('acf/update_field_group', 'acfe_field_group_update', 0);
+function acfe_field_group_update($field_group){
     
-    acf_render_field_wrap(array(
-        'label'         => __('Note'),
-        'name'          => 'acfe_note',
-        'prefix'        => 'acf_field_group',
-        'type'          => 'textarea',
-        'instructions'	=> __('Personal note. Only visible to administrators'),
-        'value'         => (isset($field_group['acfe_note'])) ? $field_group['acfe_note'] : '',
-        'required'      => false,
-    ));
+    // Get Fields
+    $fields = acf_get_fields($field_group);
+    if(empty($fields))
+        return;
+    
+    // Add acfe_form
+    if(acf_maybe_get($field_group, 'acfe_form')){
+
+        // Update Fields
+        acfe_field_group_fields_add_fields_form($fields);
+    
+    }
+    
+    // Remove acfe_form
+    else{
+        
+        // Update Fields
+        acfe_field_group_fields_add_fields_form($fields, false);
+        
+    }
+    
+}
+
+function acfe_field_group_fields_add_fields_form($fields, $add = true){
+    
+    if(empty($fields))
+        return;
+    
+    foreach($fields as $field){
+        
+        // bypass clone
+        if($field['type'] === 'clone')
+            continue;
+        
+        // Group / Clone
+        if(isset($field['sub_fields']) && !empty($field['sub_fields'])){
+            
+            acfe_field_group_fields_add_fields_form($field['sub_fields'], $add);
+            
+        }
+        
+        // Flexible Content
+        elseif(isset($field['layouts']) && !empty($field['layouts'])){
+            
+            foreach($field['layouts'] as $layout){
+                
+                if(isset($layout['sub_fields']) && !empty($layout['sub_fields'])){
+                    
+                    acfe_field_group_fields_add_fields_form($layout['sub_fields'], $add);
+                    
+                } 
+            }
+            
+        }
+        
+        // Add
+        if($add){
+            
+            if(acf_maybe_get($field, 'acfe_form'))
+                continue;
+            
+            $field['acfe_form'] = true;
+            
+        }
+        
+        // Remove
+        else{
+            
+            if(!acf_maybe_get($field, 'acfe_form'))
+                continue;
+            
+            unset($field['acfe_form']);
+            
+            if(isset($field['acfe_settings']))
+                unset($field['acfe_settings']);
+            
+            if(isset($field['acfe_validate']))
+                unset($field['acfe_validate']);
+            
+        }
+        
+        acf_update_field($field);
+        
+    }
+    
+}
+
+add_filter('acf/prepare_field/name=acfe_meta', 'acfe_field_group_meta_fix_repeater');
+add_filter('acf/prepare_field/name=acfe_meta_key', 'acfe_field_group_meta_fix_repeater');
+add_filter('acf/prepare_field/name=acfe_meta_value', 'acfe_field_group_meta_fix_repeater');
+function acfe_field_group_meta_fix_repeater($field){
+    
+    $field['prefix'] = str_replace('row-', '', $field['prefix']);
+    $field['name'] = str_replace('row-', '', $field['name']);
+    
+    return $field;
     
 }
 
@@ -27,18 +111,31 @@ function acfe_render_field_group_options($field_group){
 add_action('acf/field_group/admin_head', 'acfe_render_field_group_settings');
 function acfe_render_field_group_settings(){
     
-    add_meta_box('acf-field-group-acfe', __('Data', 'acfe'), function(){
+    add_meta_box('acf-field-group-acfe', __('Field group', 'acf'), function(){
         
         global $field_group;
         
+        // Form settings
+        acf_render_field_wrap(array(
+            'label'         => __('Advanced settings'),
+            'name'          => 'acfe_form',
+            'prefix'        => 'acf_field_group',
+            'type'			=> 'true_false',
+			'ui'			=> 1,
+            'instructions'	=> __('Enable advanced fields settings & validation'),
+            'value'         => (isset($field_group['acfe_form'])) ? $field_group['acfe_form'] : '',
+            'required'      => false,
+        ));
+        
+        // Meta
         acf_render_field_wrap(array(
             'label'         => __('Custom meta data'),
             'name'          => 'acfe_meta',
             'key'           => 'acfe_meta',
-            'instructions'  => '',
+            'instructions'  => __('Add custom meta data to the field group. Can be retrived using <code>acf_get_field_group()</code>'),
             'prefix'        => 'acf_field_group',
             'type'          => 'repeater',
-            'button_label'  => __('+ Add row'),
+            'button_label'  => __('+ Meta'),
             'required'      => false,
             'layout'        => 'table',
             'value'         => (isset($field_group['acfe_meta'])) ? $field_group['acfe_meta'] : array(),
@@ -78,13 +175,25 @@ function acfe_render_field_group_settings(){
             )
         ));
         
+        // Data
         acf_render_field_wrap(array(
             'label'         => __('Field group data'),
-            'instructions'  => __('View raw data'),
+            'instructions'  => __('View raw field group data, for development use'),
             'type'          => 'acfe_dynamic_message',
             'name'          => 'acfe_data',
             'prefix'        => 'acf_field_group',
             'value'         => $field_group['key'],
+        ));
+        
+        // Note
+        acf_render_field_wrap(array(
+            'label'         => __('Note'),
+            'name'          => 'acfe_note',
+            'prefix'        => 'acf_field_group',
+            'type'          => 'textarea',
+            'instructions'	=> __('Add personal note. Only visible to administrators'),
+            'value'         => (isset($field_group['acfe_note'])) ? $field_group['acfe_note'] : '',
+            'required'      => false,
         ));
 
         ?>
@@ -117,20 +226,24 @@ function acfe_render_field_group_settings(){
 /**
  * Field Group Options: Sidebar - Submit Div
  */
-add_action('post_submitbox_misc_actions', 'acfe_render_field_group_submitbox');
-function acfe_render_field_group_submitbox(){
+add_action('post_submitbox_misc_actions', 'acfe_render_field_group_submitbox', 11);
+function acfe_render_field_group_submitbox($post){
     
-    if(get_post_type(get_the_ID()) !== 'acf-field-group')
+    if($post->post_type !== 'acf-field-group')
         return;
     
-    $field_group = acf_get_field_group(get_the_ID());
+    global $field_group;
     ?>
-    <div class="misc-pub-section misc-pub-acfe-field-group-key">
-        <span style="font-size:16px;color: #82878c;" class="dashicons dashicons-tag"></span> <code style="font-size: 12px;"><?php echo $field_group['key']; ?></code>
+    <div class="misc-pub-section misc-pub-acfe-field-group-key" style="padding-top:2px;">
+        <span style="font-size:16px;color: #82878c;width: 20px;margin-right: 2px;" class="dashicons dashicons-tag"></span> <code style="font-size: 12px;"><?php echo $field_group['key']; ?></code>
+    </div>
+    <div class="misc-pub-section misc-pub-acfe-field-group-export" style="padding-top:2px;">
+        <span style="font-size:17px;color: #82878c;line-height: 1.3;width: 20px;margin-right: 2px;" class="dashicons dashicons-editor-code"></span> Export: <a href="<?php echo admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=export&action=php&keys=' . $field_group['key']); ?>">PHP</a> <a href="<?php echo admin_url('edit.php?post_type=acf-field-group&page=acf-tools&tool=export&action=json&keys=' . $field_group['key']); ?>">Json</a>
     </div>
     <script type="text/javascript">
     (function($) {
-        $('.misc-pub-acfe-field-group-key').insertBefore('.misc-pub-post-status');
+        $('.misc-pub-acfe-field-group-key').insertAfter('.misc-pub-post-status');
+        $('.misc-pub-acfe-field-group-export').insertAfter('.misc-pub-post-status');
     })(jQuery);	
     </script>
     <?php
@@ -164,6 +277,7 @@ function acfe_render_field_group_settings_side(){
         ));
         
         if(acfe_is_field_group_json_desync($field_group)){
+            
             acf_render_field_wrap(array(
                 'label'         => __('Json Desync'),
                 'instructions'  => __('Local json file is different from this version. If you manually synchronize it, you will lose your current field group settings'),
@@ -172,6 +286,7 @@ function acfe_render_field_group_settings_side(){
                 'prefix'        => 'acf_field_group',
                 'value'         => $field_group['key'],
             ));
+            
         }
         
         
@@ -319,17 +434,17 @@ function acfe_render_field_sync_available($field){
 add_action('acf/render_field', 'acfe_render_field_acfe_sync_warnings', 5);
 function acfe_render_field_acfe_sync_warnings($field){
     
-    if($field['_name'] != 'acfe_autosync')
+    if($field['_name'] !== 'acfe_autosync')
         return;
     
     global $field_group;
     
     // PHP
     
-    // Fix to load local fiel groups
+    // Fix to load local field groups
     acf_enable_filters();
     
-        if(acfe_has_field_group_autosync($field_group, 'php') && !acf_get_setting('acfe_php_found')){
+        if(acfe_has_field_group_autosync($field_group, 'php') && !acf_get_setting('acfe/php_found')){
             echo '<p class="description"><span style="color:#ccc;font-size:16px;vertical-align:text-top;" class="dashicons dashicons-warning"></span> Folder <code style="font-size:11px;">/acfe-php</code> was not found in your theme. You must create it to activate PHP Sync</p>';
         }
         
@@ -347,7 +462,7 @@ function acfe_render_field_acfe_sync_warnings($field){
     // Json
     if(acfe_has_field_group_autosync($field_group, 'json') && !acfe_has_field_group_autosync_file($field_group, 'json')){
         
-        if(!acfe_folder_exists('acf-json')){
+        if(!acf_get_setting('acfe/json_found')){
             
             echo '<p class="description"><span style="color:#ccc;font-size:16px;vertical-align:text-top;" class="dashicons dashicons-warning"></span> Folder <code style="font-size:11px;">/acf-json</code> was not found in your theme. You must create it to activate Json Sync.</p>';
             
@@ -369,39 +484,39 @@ add_action('acf/render_field/name=acfe_data', 'acfe_render_field_group_data');
 function acfe_render_field_group_data($field){
     
     $field_group = acf_get_field_group($field['value']);
+    $field_group_raw = get_post($field_group['ID']);
+    
     if(!$field_group){
+        
         echo '<a href="#" class="button disabled" disabled>' . __('Data') . '</a>';
         return;
+        
     }
     
-    echo '<a href="#" class="button acfe_modal_open" data-modal-key="' . $field_group['key'] . '">' . __('Data') . '</a>';
-    echo '<div class="acfe-modal" data-modal-key="' . $field_group['key'] . '"><div style="padding:15px;"><pre>' . print_r($field_group, true) . '</pre></div>';
+    echo '<a href="#" class="acf-button button acfe_modal_open" data-modal-key="' . $field_group['key'] . '">' . __('Data') . '</a>';
+    echo '<div class="acfe-modal" data-modal-key="' . $field_group['key'] . '"><div style="padding:15px;"><pre style="margin-bottom:15px;">' . print_r($field_group, true) . '</pre><pre>' . print_r($field_group_raw, true) . '</pre></div></div>';
     
 }
 
 /**
  * Hooks: Display title (post edit)
  */
-add_filter('acf/get_field_groups', 'acfe_render_field_groups', 999);
+add_filter('acf/load_field_groups', 'acfe_render_field_groups', 999);
 function acfe_render_field_groups($field_groups){
     
     if(!is_admin())
         return $field_groups;
     
-    $check_current_screen = acf_is_screen(array(
-        'edit-acf-field-group',
-        'acf-field-group',
-        'acf_page_acf-tools'
-    ));
-    
-    if($check_current_screen)
+    if(acfe_is_admin_screen())
         return $field_groups;
     
     foreach($field_groups as &$field_group){
-        if(!isset($field_group['acfe_display_title']) || empty($field_group['acfe_display_title']))
+        
+        if(!acf_maybe_get($field_group, 'acfe_display_title'))
             continue;
         
         $field_group['title'] = $field_group['acfe_display_title'];
+        
     }
     
     return $field_groups;
@@ -411,59 +526,243 @@ function acfe_render_field_groups($field_groups){
 /**
  * Hooks: Permissions (post edit)
  */
-add_filter('acf/get_field_groups', 'acfe_permissions_field_groups', 999);
+add_filter('acf/load_field_groups', 'acfe_permissions_field_groups', 999);
 function acfe_permissions_field_groups($field_groups){
     
     if(!is_admin())
         return $field_groups;
     
-    $check_current_screen = acf_is_screen(array(
-        'edit-acf-field-group',
-        'acf-field-group',
-        'acf_page_acf-tools'
-    ));
-    
-    if($check_current_screen)
+    if(acfe_is_admin_screen())
         return $field_groups;
     
     $current_user_roles = acfe_get_current_user_roles();
     
     foreach($field_groups as $key => $field_group){
-        if(!isset($field_group['acfe_permissions']) || empty($field_group['acfe_permissions']))
+        
+        if(!acf_maybe_get($field_group, 'acfe_permissions'))
             continue;
         
         $render_field_group = false;
         
         foreach($current_user_roles as $current_user_role){
+            
             foreach($field_group['acfe_permissions'] as $field_group_role){
+                
                 if($current_user_role !== $field_group_role)
                     continue;
                 
                 $render_field_group = true;
                 break;
+                
             }
             
             if($render_field_group)
                 break;
+            
         }
         
         if(!$render_field_group)
             unset($field_groups[$key]);
+        
     }
     
     return $field_groups;
     
 }
 
+add_filter('acf/prepare_field/name=instruction_placement', 'acfe_field_group_instruction_placement');
+function acfe_field_group_instruction_placement($field){
+    
+    $field['choices'] = array_merge($field['choices'], array('acfe_instructions_tooltip' => 'Tooltip'));
+    
+    return $field;
+    
+}
+
 /**
- * Hooks: Default label placement - Left
+ * Validate field group
  */
 add_filter('acf/validate_field_group', 'acfc_field_group_default_options');
 function acfc_field_group_default_options($field_group){
     
-    if(!isset($field_group['location']) || empty($field_group['location']))
+    // Only new field groups
+    if(!acf_maybe_get($field_group, 'location')){
+	
+	    // Default label placement: Left
         $field_group['label_placement'] = 'left';
+        
+        // AutoSync
+	    $acfe_autosync = array();
+	
+	    if(acf_get_setting('acfe/json_found', false)){
+		
+		    $acfe_autosync[] = 'json';
+		
+	    }
+	
+	    if(acf_get_setting('acfe/php_found', false)){
+		
+		    $acfe_autosync[] = 'php';
+		
+	    }
+	
+	    if(!empty($acfe_autosync)){
+		
+		    $field_group['acfe_autosync'] = $acfe_autosync;
+		
+	    }
+        
+    }
+	
+    
     
     return $field_group;
+    
+}
+
+/**
+ * Field Group: Hide on screen
+ */
+add_filter('acf/prepare_field/name=hide_on_screen', 'acfc_field_group_hide_on_screen');
+function acfc_field_group_hide_on_screen($field){
+    
+    $choices = array();
+    
+    foreach($field['choices'] as $key => $value){
+        
+        if($key == 'the_content'){
+            
+            $choices['block_editor'] = __('Block Editor');
+            
+        }
+        
+        
+        $choices[$key] = $value;
+        
+    }
+    
+    $field['choices'] = $choices;
+    
+    return $field;
+    
+}
+
+add_filter('acf/prepare_field_group_for_export', 'acfc_field_group_export_categories');
+function acfc_field_group_export_categories($field_group){
+    
+    $_field_group = acf_get_field_group($field_group['key']);
+    
+    if(empty($_field_group))
+        return $field_group;
+    
+    if(!acf_maybe_get($_field_group, 'ID'))
+        return $field_group;
+    
+    $categories = get_the_terms($_field_group['ID'], 'acf-field-group-category');
+    
+    if(empty($categories) || is_wp_error($categories))
+        return $field_group;
+    
+    $field_group['acfe_categories'] = array();
+    
+    foreach($categories as $term){
+        
+        $field_group['acfe_categories'][$term->slug] = $term->name;
+        
+    }
+    
+    return $field_group;
+    
+}
+
+add_action('acf/import_field_group', 'acfc_field_group_import_categories');
+function acfc_field_group_import_categories($field_group){
+    
+    if(!$categories = acf_maybe_get($field_group, 'acfe_categories'))
+        return;
+    
+    foreach($categories as $term_slug => $term_name){
+        
+        $new_term_id = false;
+        $get_term = get_term_by('slug', $term_slug, 'acf-field-group-category');
+        
+        // Term doesn't exists
+        if(empty($get_term)){
+            
+            $new_term = wp_insert_term($term_name, 'acf-field-group-category', array(
+                'slug' => $term_slug
+            ));
+            
+            if(!is_wp_error($new_term)){
+                
+                $new_term_id = $new_term['term_id'];
+                
+            }
+            
+        }
+        
+        // Term already exists
+        else{
+            
+            $new_term_id = $get_term->term_id;
+            
+        }
+        
+        if($new_term_id){
+            
+            wp_set_post_terms($field_group['ID'], array($new_term_id), 'acf-field-group-category', true);
+            
+        }
+        
+    }
+    
+}
+
+add_action('load-post.php',		'acfe_field_group_disable_editor');
+add_action('load-post-new.php',	'acfe_field_group_disable_editor');
+function acfe_field_group_disable_editor(){
+    
+    // globals
+    global $typenow;
+    
+    // restrict specific post types
+    $restricted = array('acf-field-group', 'attachment');
+    if( in_array($typenow, $restricted) ) {
+        return;
+    }
+    
+    $post_type = $typenow;
+    $post_id = 0;
+    
+    if ( isset( $_GET['post'] ) ) {
+        $post_id = (int) $_GET['post'];
+    } elseif ( isset( $_POST['post_ID'] ) ) {
+        $post_id = (int) $_POST['post_ID'];
+    }
+    
+    $field_groups = acf_get_field_groups(array(
+        'post_id'	=> $post_id, 
+        'post_type'	=> $post_type
+    ));
+    
+    $hide_block_editor = false;
+    
+    foreach($field_groups as $field_group){
+        
+        $hide_on_screen = acf_get_array($field_group['hide_on_screen']);
+        
+        if(!in_array('block_editor', $hide_on_screen))
+            continue;
+        
+        $hide_block_editor = true;
+        break;
+        
+    }
+    
+    if($hide_block_editor){
+        
+        add_filter('use_block_editor_for_post_type', '__return_false');
+        
+    }
     
 }

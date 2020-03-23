@@ -4,7 +4,7 @@ if(!defined('ABSPATH'))
     exit;
 
 // Check setting
-if(!acf_get_setting('acfe/modules/dynamic_post_types', true))
+if(!acf_get_setting('acfe/modules/dynamic_post_types'))
     return;
 
 if(!class_exists('ACFE_Admin_Tool_Import_DPT')):
@@ -72,8 +72,8 @@ class ACFE_Admin_Tool_Import_DPT extends ACF_Admin_Tool{
     		return acf_add_admin_notice(__("Import file empty", 'acf'), 'warning');
     	
     	$ids = array();
-        
-        $dynamic_post_types = get_option('acfe_dynamic_post_types', array());
+	
+	    $dynamic_post_types = acfe_settings('modules.dynamic_post_type.data');
     	
     	// Loop over json
     	foreach($json as $post_type_name => $args){
@@ -202,7 +202,7 @@ class ACFE_Admin_Tool_Import_DPT extends ACF_Admin_Tool{
             ksort($dynamic_post_types);
             
             // Update ACFE option
-            update_option('acfe_dynamic_post_types', $dynamic_post_types);
+		    acfe_settings('modules.dynamic_post_type.data', $dynamic_post_types, true);
 	    	
 	    	// append message
 	    	$ids[] = $post_id;

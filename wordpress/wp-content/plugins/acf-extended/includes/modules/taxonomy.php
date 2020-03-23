@@ -4,7 +4,7 @@ if(!defined('ABSPATH'))
     exit;
 
 // Check setting
-if(!acf_get_setting('acfe/modules/taxonomies', true))
+if(!acf_get_setting('acfe/modules/taxonomies'))
     return;
 
 /**
@@ -147,6 +147,8 @@ function acfe_better_taxonomy_edit_admin_footer(){
                         </div>
                         
                     </div>
+                    
+                    <?php do_meta_boxes(get_current_screen(), 'side', array()); ?>
                 
             </div>
         </div>
