@@ -12,7 +12,6 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
   <link rel="apple-touch-icon-precomposed" sizes="57x57" href="@asset('images/favicon/apple-touch-icon-57x57.png')" />
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@asset('images/favicon/apple-touch-icon-114x114.png')" />
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@asset('images/favicon/apple-touch-icon-72x72.png')" />
