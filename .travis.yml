@@ -44,4 +44,8 @@ deploy:
     bucket: elasticbeanstalk-eu-west-1-282251075226
     edge: true
     on:
-      all_branches: true
+      repo: CopenhagenCityArchives/linklives-wordpress-theme
+      branches:
+        only:
+          - master
+          - development
