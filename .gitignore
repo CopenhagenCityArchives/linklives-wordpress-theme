@@ -3,18 +3,19 @@
 # * wordpress/wp-content/themes/linklives
 # * wordpress/wp-content/languages
 
-!wordpress/wp-content/languages
-/wordpress/wp-content/languages/themes
+/wordpress/wp-content/themes/linklives/dist
 
 /wordpress/wp-content/plugins
-/wordpress/wp-content/_plugins
 
 /wordpress/wp-content/themes/twentynineteen
 /wordpress/wp-content/themes/twentyseventeen
 /wordpress/wp-content/themes/twentysixteen
 /wordpress/wp-content/themes/twentytwenty
-/wordpress/wp-content/themes/test
 
 /wordpress/wp-content/themes/yarn-error.log
 
 .DS_Store
+.env
+mysql
+
+.elasticbeanstalk
