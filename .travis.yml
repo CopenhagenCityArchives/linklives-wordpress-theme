@@ -36,11 +36,13 @@ script:
   - docker push 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-wordpress:${IMAGE_TAG}
 
 deploy:
-  provider: elasticbeanstalk
-  access_key_id: ${AWS_ACCESS_KEY_ID}
-  secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-  region: eu-west-1
-  app: ${EB_APPLICATION}
-  env: ${EB_ENVIRONMENT}
-  bucket: elasticbeanstalk-eu-west-1-282251075226
-  edge: true
+  - provider: elasticbeanstalk
+    access_key_id: ${AWS_ACCESS_KEY_ID}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    region: eu-west-1
+    app: ${EB_APPLICATION}
+    env: ${EB_ENVIRONMENT}
+    bucket: elasticbeanstalk-eu-west-1-282251075226
+    edge: true
+    on:
+      all_branches: true
