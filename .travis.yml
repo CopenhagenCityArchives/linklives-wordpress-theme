@@ -8,7 +8,14 @@ php:
 
 services:
   - docker
-
+  
+# Run script and deploy only for master and development branches
+stages:
+  - name: script
+    if: branch in (master, development)
+  - name: deploy
+    if: branch in (master, development)
+    
 install:
   # Prepare for deployment of Docker image
   - pip install --user awscli # install aws cli w/o sudo
