@@ -12,12 +12,9 @@
     window.lls = {
       featherIconPath: "{{ App\asset_path('images/feather-sprite.svg') }}",
       language: "{{ pll_current_language() }}",
-      title: "{{ get_field('search_title_da') }}",
-      titleEn: "{{ get_field('search_title_en') }}",
-      introText: "{{ get_field('search_lead_da') }}",
-      introTextEn: "{{ get_field('search_lead_en') }}",
-      helpBoxText: "{{ get_field('search_help_da') }}",
-      helpBoxTextEn: "{{ get_field('search_help_en') }}"
+      title: "{{ get_field('search_title') }}",
+      introText: "{{ get_field('search_lead') }}",
+      helpBoxText: "{{ get_field('search_help') }}",
     };
   </script>
   <style>
