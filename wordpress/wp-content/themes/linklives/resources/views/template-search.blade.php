@@ -12,8 +12,8 @@
     window.lls = {
       featherIconPath: "{{ App\asset_path('images/feather-sprite.svg') }}",
       language: "{{ pll_current_language() }}",
-      title: "{{ get_field('search_title') }}",
-      introText: "{{ get_field('search_lead') }}",
+      title: "{{ get_the_title() }}",
+      introText: "{{ get_field('lead') }}",
       helpBoxText: "{{ get_field('search_help') }}",
     };
   </script>
