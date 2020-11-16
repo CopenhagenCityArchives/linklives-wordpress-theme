@@ -14,7 +14,7 @@
       language: "{{ pll_current_language() }}",
       title: "{{ get_the_title() }}",
       introText: "{{ get_field('lead') }}",
-      helpBoxText: "{{ get_field('search_help') }}",
+      helpBoxText: "{{ html_entity_decode(get_field('search_help')) }}",
     };
   </script>
   <style>
