@@ -13,7 +13,7 @@
       featherIconPath: "{{ App\asset_path('images/feather-sprite.svg') }}",
       language: "{{ pll_current_language() }}",
       title: "{{ get_the_title() }}",
-      introText: "{{ get_field('lead') }}",
+      introText: "{!! str_replace(array("\r", "\n"), '', html_entity_decode(get_field('search_lead'))) !!}",
       helpBoxText: "{!! str_replace(array("\r", "\n"), '', html_entity_decode(get_field('search_help'))) !!}",
     };
   </script>
