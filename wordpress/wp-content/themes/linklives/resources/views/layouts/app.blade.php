@@ -9,6 +9,8 @@
         @if(!post_password_required())
           @yield('content')
         @else
+          @include('partials.page-header')
+
           <section class="module">
             <div class="container-fluid">
               <div class="row">
