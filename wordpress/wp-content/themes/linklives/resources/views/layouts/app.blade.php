@@ -9,7 +9,11 @@
         @if(!post_password_required())
           @yield('content')
         @else
-          @include('partials.page-header')
+          <div class="module page-header">
+            <div class="container-fluid">
+              <h1 class="display-4">{{ get_the_title() }}</h1>
+            </div>
+          </div>
 
           <section class="module">
             <div class="container-fluid">
