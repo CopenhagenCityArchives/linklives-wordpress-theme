@@ -6,7 +6,23 @@
     @include('partials.header')
     <div class="wrap" role="document" id="{{ pll__('indhold') }}">
       <main class="main">
-        @yield('content')
+        @if(!post_password_required())
+          @yield('content')
+        @else
+          @section('content')
+            <section class="module">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+                    <div class="entry-content mb-5">
+                      {!! get_the_password_form() !!}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          @endsection
+        @endif
       </main>
       @if (App\display_sidebar())
         <aside class="sidebar">
