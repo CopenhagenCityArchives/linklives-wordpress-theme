@@ -16,6 +16,7 @@
         title: '{{ get_the_title() }}',
         introText: '{!! str_replace(array("\r", "\n"), '', html_entity_decode(get_field('search_lead'))) !!}',
         helpBoxText: '{!! str_replace(array("\r", "\n"), '', html_entity_decode(get_field('search_help'))) !!}',
+        aboutLifeCourseText: '{!! str_replace(array("\r", "\n"), '', html_entity_decode(get_field('search_about'))) !!}',
       };
     </script>
     <style>
