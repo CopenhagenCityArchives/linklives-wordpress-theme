@@ -1,5 +1,5 @@
 {{--
-  Template Name: Søgning
+  Template Name: Søgning - Beta
 --}}
 
 @extends('layouts.app')
