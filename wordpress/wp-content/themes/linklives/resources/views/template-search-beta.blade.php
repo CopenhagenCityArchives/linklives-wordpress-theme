@@ -20,15 +20,15 @@
       };
     </script>
     <style>
-      @import url("https://dx7i5z2o95p3n.cloudfront.net/frontend/styles.css");
+      @import url("https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/styles.css");
     </style>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/runtime-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/runtime-es5.js" nomodule="" defer=""></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/polyfills-es5.js" nomodule="" defer=""></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/polyfills-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/scripts.js" defer=""></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/main-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/main-es5.js" nomodule="" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/runtime-es2015.js" type="module"></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/runtime-es5.js" nomodule="" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/polyfills-es5.js" nomodule="" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/polyfills-es2015.js" type="module"></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/scripts.js" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/main-es2015.js" type="module"></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/main-es5.js" nomodule="" defer=""></script>
 
   @endwhile
 
