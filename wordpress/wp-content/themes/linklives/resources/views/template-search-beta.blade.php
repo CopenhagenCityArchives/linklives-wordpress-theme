@@ -26,7 +26,6 @@
     <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/runtime-es5.js" nomodule="" defer=""></script>
     <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/polyfills-es5.js" nomodule="" defer=""></script>
     <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/polyfills-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/scripts.js" defer=""></script>
     <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/main-es2015.js" type="module"></script>
     <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend-beta/main-es5.js" nomodule="" defer=""></script>
 
