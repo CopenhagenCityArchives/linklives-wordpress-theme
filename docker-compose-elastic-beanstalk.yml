@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+    linklives-wordpress:
+        image: 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-wordpress:{image-tag}
+        ports:
+            - "80:80"
+        volumes:
+            - "/wp-content/{wp-content-subfolder}/plugins:/var/www/html/wp-content/plugins"
+            - "/wp-content/{wp-content-subfolder}/uploads:/var/www/html/wp-content/uploads"
+            - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"

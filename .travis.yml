@@ -33,9 +33,12 @@ script:
   - cd ../../../../
 
   # set wp-content dir based on branch
-  - sed -i "s/{wp-content-subfolder}/${WP_CONTENT_DIR}/g" Dockerrun.aws.json
-  - sed -i "s/{image-tag}/${IMAGE_TAG}/g" Dockerrun.aws.json
+  - sed -i "s/{wp-content-subfolder}/${WP_CONTENT_DIR}/g" docker-compose-elastic-beanstalk.yml
+  - sed -i "s/{image-tag}/${IMAGE_TAG}/g" docker-compose-elastic-beanstalk.yml
   - sed -i "s/{site-url}/${SITE_URL}/g" ./docker/wordpress-deploy.Dockerfile
+
+  # rename docker-compose file
+  - mv docker-compose-elastic-beanstalk.yml docker-compose.yml
 
   # build and push linklives-cms image
   - docker build -f ./docker/wordpress-deploy.Dockerfile -t linklives-wordpress .
