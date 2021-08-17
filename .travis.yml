@@ -50,9 +50,21 @@ deploy:
     access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key: ${AWS_SECRET_ACCESS_KEY}
     region: eu-west-1
-    app: ${EB_APPLICATION}
-    env: ${EB_ENVIRONMENT}
+    app: link-lives-cms
+    env: link-lives-cms-prod-02
     bucket: elasticbeanstalk-eu-west-1-282251075226
     edge: true
     on:
       all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(master)$  
+  - provider: elasticbeanstalk
+    access_key_id: ${AWS_ACCESS_KEY_ID}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    region: eu-west-1
+    app: link-lives-cms
+    env: link-lives-cms-dev-01
+    bucket: elasticbeanstalk-eu-west-1-282251075226
+    edge: true
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(development)$  
