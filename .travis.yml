@@ -33,9 +33,12 @@ script:
   - cd ../../../../
 
   # set wp-content dir based on branch
-  - sed -i "s/{wp-content-subfolder}/${WP_CONTENT_DIR}/g" Dockerrun.aws.json
-  - sed -i "s/{image-tag}/${IMAGE_TAG}/g" Dockerrun.aws.json
+  - sed -i "s/{wp-content-subfolder}/${WP_CONTENT_DIR}/g" docker-compose-elastic-beanstalk.yml
+  - sed -i "s/{image-tag}/${IMAGE_TAG}/g" docker-compose-elastic-beanstalk.yml
   - sed -i "s/{site-url}/${SITE_URL}/g" ./docker/wordpress-deploy.Dockerfile
+
+  # rename docker-compose file
+  - mv docker-compose-elastic-beanstalk.yml docker-compose.yml
 
   # build and push linklives-cms image
   - docker build -f ./docker/wordpress-deploy.Dockerfile -t linklives-wordpress .
@@ -47,9 +50,21 @@ deploy:
     access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key: ${AWS_SECRET_ACCESS_KEY}
     region: eu-west-1
-    app: ${EB_APPLICATION}
-    env: ${EB_ENVIRONMENT}
+    app: link-lives-cms
+    env: link-lives-cms-prod-02
     bucket: elasticbeanstalk-eu-west-1-282251075226
     edge: true
     on:
       all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(master)$  
+  - provider: elasticbeanstalk
+    access_key_id: ${AWS_ACCESS_KEY_ID}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+    region: eu-west-1
+    app: link-lives-cms
+    env: link-lives-cms-dev-01
+    bucket: elasticbeanstalk-eu-west-1-282251075226
+    edge: true
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(development)$  
