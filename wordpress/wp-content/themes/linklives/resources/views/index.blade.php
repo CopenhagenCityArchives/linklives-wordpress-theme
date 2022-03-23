@@ -54,10 +54,10 @@
           @include('partials.content-'.get_post_type(), ['classes' => $classes])
         @endwhile
       </div>
-      @includeWhen(is_paged(), 'components.nav-index')
+
+      @include('components.nav-index')
 
     </div>
-
   </section>
 
   @if( have_rows('modules', get_option('page_for_posts')) )
@@ -68,3 +68,5 @@
   @endif
 
 @endsection
+
+@include('partials.tags-filter')
