@@ -11,7 +11,6 @@
       <div class="{{$lead ? 'col-lg-6 col-xl-4' : 'col-12'}}">
         @if($index)
           <button id="tags-filter-open" aria-haspopup="true" aria-expanded="false" aria-controls="tags" class="btn btn-outline-secondary float-right">{{ pll__('Åbn emne') }} @include('components.icon', ['icon' => 'chevron-down'])</button>
-          @include('partials.tags-filter')
         @endif
 
         @php $parent = App::parentPage() @endphp

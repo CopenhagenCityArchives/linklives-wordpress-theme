@@ -17,7 +17,7 @@
           <ul id="tags" class="current list-unstyled" role="menu" aria-labelledby="tags-filter-open">
             @foreach($tags as $tag)
               <li role="none">
-                <a class="d-flex align-items-center" role="menuitem" tabindex="-1" href="{{get_tag_link($tag->term_id)}}">
+                <a role="menuitem" tabindex="-1" href="{{get_tag_link($tag->term_id)}}">
                   <div class="h1 display-4">{{$tag->name}}</div>
                   <p>{{$tag->count == 1 ? $tag->count . ' ' . pll__('nyhed') : $tag->count . ' ' . pll__('nyheder') }}</p>
                 </a>
