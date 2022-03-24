@@ -1,0 +1,36 @@
+.lls-search-intro {
+  @include media-breakpoint-up(md) {
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .lls-search-intro__header {
+    margin: 0 1.5rem 0 0 !important;
+  }
+
+  .lls-search-intro__beta-container {
+    order: 2 !important;
+
+    @include media-breakpoint-down(md) {
+      position: fixed;
+      z-index: 100;
+      top: -0.5rem;
+      left: 0;
+    }
+  }
+
+  .lls-search-intro__beta-text {
+    background-color: $muted;
+    font-size: 2.5rem !important;
+    padding: 1rem;
+    text-align: center;
+    height: 4.5rem;
+
+    @include media-breakpoint-up(lg) {
+      padding: 1.25rem 0;
+      width: 5.5rem;
+      height: 5.5rem;
+      border-radius: 2.75rem;
+    }
+  }
+}
