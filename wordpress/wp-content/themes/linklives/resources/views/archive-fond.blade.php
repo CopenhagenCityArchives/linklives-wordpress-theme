@@ -1,1 +1,1 @@
-@include('archive')
+@include('archive-partner')
