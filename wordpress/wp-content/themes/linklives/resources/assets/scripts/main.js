@@ -10,6 +10,7 @@ import Router from './util/Router';
 import common from './routes/common';
 import singlePost from './routes/single-post';
 import blog from './routes/blog';
+import archive from './routes/blog';
 
 /** Populate Router instance with DOM routes */
 const routes = new Router({
@@ -19,6 +20,7 @@ const routes = new Router({
   singlePost,
   // Blog index
   blog,
+  archive,
 });
 
 // Load Events
