@@ -5,6 +5,7 @@ export default {
 
       function openTagsFilter() {
         tagsFilterOpen = true;
+        $('body').addClass('tags-filter-active');
         $('#tags-filter-open').attr( 'aria-expanded', true );
         $('.tags-filter').addClass('active')
           .find('#tags-filter-close, #tags a').attr( 'tabindex', '0' );
@@ -12,6 +13,7 @@ export default {
 
       function closeTagsFilter() {
         tagsFilterOpen = false;
+        $('body').removeClass('tags-filter-active');
         $('#tags-filter-open').attr( 'aria-expanded', false );
         $('.tags-filter').removeClass('active')
           .find('#tags-filter-close, #tags a').attr( 'tabindex', '-1' );
