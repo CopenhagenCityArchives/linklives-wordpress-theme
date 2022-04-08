@@ -31,10 +31,10 @@ RUN crontab /var/www/cron.conf
 RUN mkdir /var/www/html/wp-admin || true && chown -R www-data:www-data /var/www/html/wp-admin && chmod -R 0755 /var/www/html/wp-admin
 
 # Copy theme from node_builder stage setting www-data as owner
-COPY --from=node_builder --chown=www-data:www-data /var/www/html/wp-content/themes/kbharkiv /var/www/html/wp-content/themes/kbharkiv
+COPY --from=node_builder --chown=www-data:www-data /var/www/html/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
 
 # Delete node_modules from server
-RUN rm -rf /var/www/html/wp-content/themes/kbharkiv/node_modules
+RUN rm -rf /var/www/html/wp-content/themes/linklives/node_modules
 
 # Ownership and permissions on theme directory
 RUN chown -R www-data:www-data /var/www/html/wp-content && chmod -R 0755 /var/www/html/wp-content
