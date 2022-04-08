@@ -1,13 +1,32 @@
 version: "3.8"
 services:
-  linklives-wordpress:
+  wordpress:
     image: 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-wordpress:{image-tag}
-    ports:
-      - "80:80"
     volumes:
       - "/wp-content/{wp-content-subfolder}/plugins:/var/www/html/wp-content/plugins"
       - "/wp-content/{wp-content-subfolder}/uploads:/var/www/html/wp-content/uploads"
       - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
+      - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
+      - website-files:/var/www/html
     env_file: 
       - ./.env
-        
+    environment:
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+  nginx:
+    image: 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-nginx:{image-tag} 
+    volumes:
+      - "/wp-content/{wp-content-subfolder}/plugins:/var/www/html/wp-content/plugins"
+      - "/wp-content/{wp-content-subfolder}/uploads:/var/www/html/wp-content/uploads"
+      - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
+      - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
+      - website-files:/var/www/html
+    depends_on:
+      - wordpress
+    ports:
+      - 80:80
+volumes:
+    website-files:

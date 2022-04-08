@@ -1,31 +1,28 @@
 FROM composer as vendor
+COPY wordpress/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
 
-WORKDIR /build
-
-COPY wordpress/wp-content/themes/linklives/composer.json /build
-COPY wordpress/wp-content/themes/linklives/composer.lock /build
+WORKDIR /var/www/html/wp-content/themes/linklives
 
 RUN composer install --ignore-platform-reqs
 
-FROM wordpress:5.5.0-php7.3-apache
+FROM node as node_builder
+
+COPY wordpress/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
+COPY --from=vendor /var/www/html/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
+#ENV SAGE_DIST_PATH=/var/www/html/wp-content/themes/linklives/dist/
+WORKDIR /var/www/html/wp-content/themes/linklives
+RUN yarn install && yarn run build:production
+
+FROM wordpress:5.9.3-php7.4-fpm as wordpress
+
+# Create wp-admin dir and set permissions
+RUN mkdir /var/www/html/wp-admin || true && chown -R www-data:www-data /var/www/html/wp-admin && chmod -R 0755 /var/www/html/wp-admin
+
+# Copy theme from node_builder stage setting www-data as owner
+COPY --from=node_builder --chown=www-data:www-data /var/www/html/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
+
+# Additional PHP configuration
 RUN echo "short_open_tag = Off" > $PHP_INI_DIR/conf.d/short_open_tag.ini
 RUN echo "upload_max_filesize = 128M\npost_max_size = 128M\nmax_execution_time = 120\nmemory_limit=128M" > $PHP_INI_DIR/conf.d/max_upload_size.ini
-RUN mkdir /var/www/html/wp-admin || true && chown -R www-data:www-data /var/www/html/wp-admin && chmod -R 0755 /var/www/html/wp-admin
-RUN mkdir -p /var/www/html/wp-content/themes/linklives
-COPY wordpress/wp-content/plugins /var/www/html/wp-content/plugins
-COPY wordpress/wp-content/languages /var/www/html/wp-content/languages
-RUN chown -R www-data:www-data /var/www/html/wp-content && chmod -R 0755 /var/www/html/wp-content
 
-ENV WORDPRESS_CONFIG_EXTRA="define('FS_METHOD', 'direct');"
-
-ENV WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-ENV WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-ENV WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
-ENV WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
-ENV WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
-ENV WORDPRESS_DEBUG=0
-ENV WP_DEBUG_DISPLAY=0
-
-COPY --from=vendor /build/vendor /var/www/html/wp-content/themes/linklives/vendor
-
-EXPOSE 80
+EXPOSE 9000
