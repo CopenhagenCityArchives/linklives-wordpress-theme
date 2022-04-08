@@ -29,7 +29,6 @@ script:
   - sed -i "s/{site-url}/${SITE_URL}/g" ./docker/wordpress-deploy.Dockerfile
 
   # rename docker-compose file
-  - rm docker-compose.yml
   - mv docker-compose-elastic-beanstalk.yml docker-compose.yml
 
   # build and push wordpress image
