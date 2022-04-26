@@ -47,6 +47,6 @@ RUN echo "short_open_tag = Off" > $PHP_INI_DIR/conf.d/short_open_tag.ini
 RUN echo "upload_max_filesize = 128M\npost_max_size = 128M\nmax_execution_time = 120\nmemory_limit=256M" > $PHP_INI_DIR/conf.d/max_upload_size.ini
 
 # Wordpress configuration
-ENV WORDPRESS_CONFIG_EXTRA="define('WP_MEMORY_LIMIT','64M'); define('WP_MAX_MEMORY_LIMIT','256M'); define('FS_METHOD', 'direct'); define('DISABLE_WP_CRON', true); define( 'WP_HOME', '{site-url}' ); define( 'WP_SITEURL', '{site-url}' );"
+ENV WORDPRESS_CONFIG_EXTRA="define('WP_MEMORY_LIMIT','64M'); define('WP_MAX_MEMORY_LIMIT','256M'); define('FS_METHOD', 'direct'); define('DISABLE_WP_CRON', true); define( 'WP_HOME', '{site-url}' ); define( 'WP_SITEURL', '{site-url}' ); define( 'WP_DEBUG', false ); define( 'WP_DEBUG_DISPLAY','0' );"
 
 EXPOSE 9000
