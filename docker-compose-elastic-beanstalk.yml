@@ -8,7 +8,6 @@ services:
       - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
       - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
       - website-files:/var/www/html
-      - /var/www/html/wp-content/themes
     env_file: 
       - ./.env
     environment:
@@ -25,7 +24,6 @@ services:
       - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
       - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
       - website-files:/var/www/html
-      - /var/www/html/wp-content/themes
     depends_on:
       - wordpress
     ports:
