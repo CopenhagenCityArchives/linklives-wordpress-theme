@@ -19,6 +19,6 @@
         {!! wp_nav_menu(['container'=> false, 'theme_location' => 'secondary_navigation', 'menu_class' => 'menu-item menu-secondary']) !!}
       @endif
     </nav>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/lls-login-button.js" nomodule="" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/lls-login-button.js" defer=""></script>
   </div>
 </header>
