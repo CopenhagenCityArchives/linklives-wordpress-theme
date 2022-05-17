@@ -6,7 +6,7 @@
 
 @section('content')
   @while (have_posts()) @php the_post() @endphp
-    <base href="/soeg-i-livsforloeb-og-kilder">
+    <base href="/soeg">
     <app-root></app-root>
 
     <script>
