@@ -1,5 +1,5 @@
 .lls-search-intro {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     flex-direction: row !important;
     align-items: center !important;
   }
@@ -9,6 +9,7 @@
   }
 
   .lls-search-intro__beta-container {
+    position: relative;
     order: 2 !important;
 
     @include media-breakpoint-down(md) {
