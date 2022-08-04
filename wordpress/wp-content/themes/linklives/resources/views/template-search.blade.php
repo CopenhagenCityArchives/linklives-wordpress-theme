@@ -22,12 +22,9 @@
     <style>
       @import url("https://dx7i5z2o95p3n.cloudfront.net/frontend/styles.css");
     </style>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/runtime-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/runtime-es5.js" nomodule="" defer=""></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/polyfills-es5.js" nomodule="" defer=""></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/polyfills-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/main-es2015.js" type="module"></script>
-    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/main-es5.js" nomodule="" defer=""></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/runtime.js"></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/polyfills.js"></script>
+    <script src="https://dx7i5z2o95p3n.cloudfront.net/frontend/main.js"></script>
 
   @endwhile
 
