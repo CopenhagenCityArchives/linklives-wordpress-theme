@@ -7,8 +7,14 @@ services:
       - "/wp-content/{wp-content-subfolder}/uploads:/var/www/html/wp-content/uploads"
       - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
       - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
+      # Shared Wordpress files in a common volume
       - website-files:/var/www/html
-    env_file: 
+      # Use a named volume for theme files, that changes name for every commit
+      # This is necessary as anonomous and named volumes are reused on docker-compose up commands,
+      # because Elastic Beanstalk doesn't stop containers with docker-compose down -v, and the
+      # volumes thus are reused when the containers are started again
+      - "{travis-commit}:/var/www/html/wp-content/themes/linklives"
+    env_file:
       - ./.env
     environment:
       - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
@@ -23,10 +29,17 @@ services:
       - "/wp-content/{wp-content-subfolder}/uploads:/var/www/html/wp-content/uploads"
       - "/wp-content/{wp-content-subfolder}/upgrade:/var/www/html/wp-content/upgrade"
       - "/wp-content/{wp-content-subfolder}/languages:/var/www/html/wp-content/languages"
+      # Shared Wordpress files in a common volume
       - website-files:/var/www/html
+      # Use a named volume for theme files, that changes for name every commit
+      # This is necessary as anonomous and named volumes are reused on docker-compose up commands,
+      # because Elastic Beanstalk doesn't stop containers with docker-compose down -v, and the
+      # volumes thus are reused when the containers are started again
+      - "{travis-commit}:/var/www/html/wp-content/themes/linklives"
     depends_on:
       - wordpress
     ports:
       - 80:80
 volumes:
     website-files:
+    {travis-commit}:
