@@ -3,7 +3,7 @@ COPY wordpress/wp-content/themes/linklives /var/www/html/wp-content/themes/linkl
 
 WORKDIR /var/www/html/wp-content/themes/linklives
 
-RUN composer install --ignore-platform-reqs
+RUN composer install --no-dev --ignore-platform-reqs
 
 FROM node as node_builder
 
