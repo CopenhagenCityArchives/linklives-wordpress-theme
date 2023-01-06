@@ -31,13 +31,18 @@ script:
   # rename docker-compose file
   - mv docker-compose-elastic-beanstalk.yml docker-compose.yml
 
-  # build and push wordpress image
+  # build wordpress image
   - docker build -f ./docker/wordpress-deploy.Dockerfile --no-cache . -t linklives-wordpress
+
+  # build nginx image
+  - docker build -f ./nginx/Dockerfile . -t linklives-nginx
+
+before_deploy: 
+  # tag and push wordpress image
   - docker tag linklives-wordpress 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-wordpress:${IMAGE_TAG}
   - docker push 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-wordpress:${IMAGE_TAG}
-
-  # build and push nginx image
-  - docker build -f ./nginx/Dockerfile . -t linklives-nginx
+  
+  # tag and push nginx image
   - docker tag linklives-nginx 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-nginx:${IMAGE_TAG}
   - docker push 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-nginx:${IMAGE_TAG}  
 
@@ -52,8 +57,7 @@ deploy:
     bucket: elasticbeanstalk-eu-west-1-282251075226
     edge: true
     on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master)$  
+      branch: master 
   - provider: elasticbeanstalk
     access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key: ${AWS_SECRET_ACCESS_KEY}
@@ -63,5 +67,4 @@ deploy:
     bucket: elasticbeanstalk-eu-west-1-282251075226
     edge: true
     on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(development)$  
+      branch: development 
