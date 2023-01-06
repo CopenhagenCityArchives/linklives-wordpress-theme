@@ -4,18 +4,11 @@ dist: xenial
 language: php
 
 php:
-  - 7.3
+  - 7.4
 
 services:
   - docker
-  
-# Run script and deploy only for master and development branches
-stages:
-  - name: script
-    if: branch in (master, development)
-  - name: deploy
-    if: branch in (master, development)
-    
+
 install:
   # Prepare for deployment of Docker image
   - pip install --user awscli # install aws cli w/o sudo
@@ -45,7 +38,6 @@ before_deploy:
   # tag and push nginx image
   - docker tag linklives-nginx 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-nginx:${IMAGE_TAG}
   - docker push 282251075226.dkr.ecr.eu-west-1.amazonaws.com/linklives-nginx:${IMAGE_TAG}  
-
 
 deploy:
   - provider: elasticbeanstalk
