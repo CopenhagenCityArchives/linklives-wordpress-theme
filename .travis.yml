@@ -18,6 +18,7 @@ install:
 script:
   # set wp-content dir based on branch
   - sed -i "s/{wp-content-subfolder}/${WP_CONTENT_DIR}/g" docker-compose-elastic-beanstalk.yml
+  - sed -i "s/{travis-commit}/${TRAVIS_COMMIT}/g" docker-compose-elastic-beanstalk.yml  
   - sed -i "s/{image-tag}/${IMAGE_TAG}/g" docker-compose-elastic-beanstalk.yml
   - sed -i "s/{site-url}/${SITE_URL}/g" ./docker/wordpress-deploy.Dockerfile
 
