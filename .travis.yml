@@ -8,7 +8,7 @@ rvm:
 
 services:
   - docker
-
+ 
 install:
   # Prepare for deployment of Docker image
   - pip install --user awscli # install aws cli w/o sudo
