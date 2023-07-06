@@ -1,10 +1,10 @@
 os: linux
-dist: xenial
+dist: focal
 
-language: php
+language: ruby
 
-php:
-  - 7.4
+rvm:
+  - "2.7.5"
 
 services:
   - docker

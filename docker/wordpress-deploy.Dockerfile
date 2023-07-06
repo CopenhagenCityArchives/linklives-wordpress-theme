@@ -1,11 +1,11 @@
-FROM composer as vendor
+FROM composer:2.5.8 as vendor
 COPY wordpress/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
 
 WORKDIR /var/www/html/wp-content/themes/linklives
 
 RUN composer install --no-dev --ignore-platform-reqs
 
-FROM node as node_builder
+FROM node:18.16.1-bullseye as node_builder
 
 COPY wordpress/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
 COPY --from=vendor /var/www/html/wp-content/themes/linklives /var/www/html/wp-content/themes/linklives
@@ -16,7 +16,7 @@ RUN yarn install && yarn run build:production
 # Delete node_modules from server
 RUN rm -rf /var/www/html/wp-content/themes/linklives/node_modules
 
-FROM wordpress:5.9.3-php7.4-fpm
+FROM wordpress:6.2.2-php8.2-fpm
 
 # Install cron
 RUN apt-get update && apt-get -y install cron
