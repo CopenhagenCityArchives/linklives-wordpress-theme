@@ -76,7 +76,7 @@
     "yargs": "~11.0.0"
   },
   "dependencies": {
-    "bootstrap": "v4.3.1",
+    "bootstrap": "v5.3.1",
     "custom-event-polyfill": "^1.0.7",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7"
