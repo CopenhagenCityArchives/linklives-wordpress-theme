@@ -16,7 +16,7 @@ RUN yarn install && yarn run build:production
 # Delete node_modules from server
 RUN rm -rf /var/www/html/wp-content/themes/linklives/node_modules
 
-FROM wordpress:6.2.2-php8.2-fpm
+FROM wordpress:6.3.1-php8.2-fpm
 
 # Install cron
 RUN apt-get update && apt-get -y install cron
