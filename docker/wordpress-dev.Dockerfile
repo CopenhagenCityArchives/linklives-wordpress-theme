@@ -13,7 +13,7 @@ COPY --from=vendor /var/www/html/wp-content/themes/linklives /var/www/html/wp-co
 WORKDIR /var/www/html/wp-content/themes/linklives
 RUN yarn install && yarn run build:production
 
-FROM wordpress:6.2.2-php8.2-fpm as wordpress
+FROM wordpress:6.3.1-php8.2-fpm as wordpress
 
 # Create wp-admin dir and set permissions
 RUN mkdir /var/www/html/wp-admin || true && chown -R www-data:www-data /var/www/html/wp-admin && chmod -R 0755 /var/www/html/wp-admin
