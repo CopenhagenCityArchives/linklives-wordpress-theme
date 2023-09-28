@@ -1,6 +1,6 @@
 <head>
   <!-- Google Analytics -->
-  <script async src="https://tagmanager.deranged.dk/gtag/js?id=405979264"></script>
+  <script async src="https://tagmanager.deranged.dk/gtag/js?id=405979264" data-cookieconsent="statistics"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
