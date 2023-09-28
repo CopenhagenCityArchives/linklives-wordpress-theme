@@ -1,14 +1,11 @@
 <head>
   <!-- Google Analytics -->
-  <script type="text/plain" data-cookieconsent="statistics">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://ga-proxy.deranged.dk/analytics.js','ga');
-
-    ga('create', 'UA-149577576-1', 'auto');
-    ga('set', 'transportUrl', 'https://ga-proxy.deranged.dk/j/collect');
-    ga('send', 'pageview');
+  <script async src="https://tagmanager.deranged.dk/gtag/js?id=G-H5YR0SHPTZ" data-cookieconsent="statistics"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H5YR0SHPTZ', { transport_url: 'ga-proxy.deranged.dk' });
   </script>
   <!-- End Google Analytics -->
 
