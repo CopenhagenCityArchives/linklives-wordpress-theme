@@ -1,11 +1,11 @@
 <head>
   <!-- Google Analytics -->
-  <script async src="https://tagmanager.deranged.dk/gtag/js?id=405979264" data-cookieconsent="statistics"></script>
+  <script async src="https://tagmanager.deranged.dk/gtag/js?id=G-H5YR0SHPTZ" data-cookieconsent="statistics"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '405979264', { transport_url: 'ga-proxy.deranged.dk' });
+    gtag('config', 'G-H5YR0SHPTZ', { transport_url: 'ga-proxy.deranged.dk' });
   </script>
   <!-- End Google Analytics -->
 
